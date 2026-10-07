@@ -120,7 +120,7 @@ h3{font-weight:400;font-size:23px;line-height:1.15;margin:30px 0 8px}
 .lbl{fill:var(--ink-2);font:11.5px var(--serif)}
 .lbl.obs{fill:var(--obs-t)}
 .lbl.his{fill:var(--his)}
-.hit{fill:transparent;cursor:pointer}
+.hit{fill:transparent;cursor:pointer;pointer-events:all}
 .hit:focus{outline:none}
 .hit:focus-visible{stroke:var(--his);stroke-width:2}
 .is-sel{stroke:var(--ink)!important;stroke-width:2.5!important}
@@ -139,7 +139,9 @@ h3{font-weight:400;font-size:23px;line-height:1.15;margin:30px 0 8px}
 
 /* track-error strip */
 .grp{font-size:19px;margin:20px 0 2px;color:var(--ink-2);font-variant-caps:small-caps;letter-spacing:.06em}
-.srow{padding:10px 0 8px;border-top:1px solid var(--rule-2)}
+.srow{padding:10px 0 8px;border-top:1px solid var(--rule-2);cursor:pointer}
+.srow:focus-visible{outline:2px solid var(--his);outline-offset:-2px}
+.srow .go{display:inline-block;margin-left:6px;color:var(--his);white-space:nowrap}
 .srow .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .srow .nm{font-size:16px}
 .srow .mx{font-size:15px;white-space:nowrap}
@@ -246,7 +248,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
     <p>One question runs through every page: <b>two years on, were his numbers right?</b> Each chart puts what he projected in 2024 next to what has actually been measured since.</p>
     <ul>
       <li><b>Blue</b> is his forecast: solid where it was already history, dashed where it was a guess, shaded where he gave a range.</li>
-      <li><b>Gold</b> is what actually happened. Tap any gold point for the figure and its source; the S-numbers link to the source list.</li>
+      <li><b>Gold</b> is what actually happened. On the charts, tap any gold point for the figure and its source; the S-numbers link to the source list. On the comparison rows below, tap a row to open the chart it comes from.</li>
       <li>Most charts use a <button class="term" type="button" data-g="log" aria-expanded="false">log scale</button>: each gridline up is 10 times the one below, so a straight line means steady multiplying, not steady adding.</li>
       <li>Words with a dotted underline open a plain-English definition when tapped. Try this one: <button class="term" type="button" data-g="oom" aria-expanded="false">OOM</button>.</li>
       <li>Sliders are set to the observed rates. You can leave them alone; they exist so you can test how sensitive his timeline is.</li>
@@ -255,7 +257,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   </div>
 
   <h3>How far reality is from his projections</h3>
-  <p class="note">Each row takes one measured number and divides it by what he projected for the same date. The blue tick in the middle is his projection. A gold dot to the right means reality came in higher; to the left, lower. The gold bar shows the range when sources disagree. Each step on the scale is about 3 times, so a dot at the far edge would be 10 times his number, or a tenth of it.</p>
+  <p class="note">Each row takes one measured number and divides it by what he projected for the same date. The blue tick in the middle is his projection. A gold dot to the right means reality came in higher; to the left, lower. The gold bar shows the range when sources disagree. Each step on the scale is about 3 times, so a dot at the far edge would be 10 times his number, or a tenth of it. Tap a row to open the chart it comes from, with that point selected.</p>
   <div class="scale" aria-hidden="true"><span>&divide;10</span><span>&divide;3</span><span>his number</span><span>&times;3</span><span>&times;10</span></div>
   <div id="strip"></div>
 
@@ -1030,16 +1032,16 @@ document.querySelectorAll('.tog[data-hz]').forEach(b => b.addEventListener('clic
 
 /* ---------- brief: track-error strip, clocks, scorecard ---------- */
 const S_ = M.strip;
-const srow = (n, r, f, plan) => ({n, plan, o:r.o, lo:r.lo, hi:r.hi, f, when:r.when, s:r.s});
+const srow = (n, r, f, plan, go) => ({n, plan, o:r.o, lo:r.lo, hi:r.hi, f, when:r.when, s:r.s, go});
 const STRIP_ROWS = [
-  {n:'Largest training run, compute', plan:() => G4.v * Math.pow(10, 0.5 * (ASTRA.t - G4.t)), o:ASTRA.v, lo:ASTRA.lo, hi:ASTRA.hi, f:v => sci(v) + ' FLOP', when:fmtDate(ASTRA.t) + ', ' + ASTRA.n, s:ASTRA.s.concat(['S1'])},
-  srow('AI spending, 2026', S_.invest, usd, () => S_.invest.plan),
-  srow('Nvidia data-center sales', S_.nvda, usd, () => 90 * 500 / 150),
-  srow('AI revenue, the $100B milestone', S_.revenue, usd, () => S_.revenue.plan),
-  srow('Largest AI sites, power', S_.sites, gw, () => S_.sites.plan),
-  srow('US electricity used, now', S_.powerNow, pct, () => S_.powerNow.plan),
-  srow('Biggest single training run, power', S_.runPower, gw, () => logInterp(PLAN.sites, OBS.run.t)),
-  srow('US electricity used, 2030 outlook', S_.power2030, pct, () => S_.power2030.plan)
+  {n:'Largest training run, compute', plan:() => G4.v * Math.pow(10, 0.5 * (ASTRA.t - G4.t)), o:ASTRA.v, lo:ASTRA.lo, hi:ASTRA.hi, f:v => sci(v) + ' FLOP', when:fmtDate(ASTRA.t) + ', ' + ASTRA.n, s:ASTRA.s.concat(['S1']), go:['intel', 'ch-compute', ASTRA.n]},
+  srow('AI spending, 2026', S_.invest, usd, () => S_.invest.plan, ['money', 'ch-invest', 'Big-four capex, 2026 guidance']),
+  srow('Nvidia data-center sales', S_.nvda, usd, () => 90 * 500 / 150, ['money', 'ch-invest', 'Nvidia data-center sales, annualized']),
+  srow('AI revenue, the $100B milestone', S_.revenue, usd, () => S_.revenue.plan, ['money', 'ch-rev', 'Anthropic run rate']),
+  srow('Largest AI sites, power', S_.sites, gw, () => S_.sites.plan, ['build', 'ch-build', 'xAI Colossus 2, Memphis']),
+  srow('US electricity used, now', S_.powerNow, pct, () => S_.powerNow.plan, ['build', 'ch-power', 'All US data centers, early 2026 (EPRI)']),
+  srow('Biggest single training run, power', S_.runPower, gw, () => logInterp(PLAN.sites, OBS.run.t), ['build', 'ch-build', OBS.run.n]),
+  srow('US electricity used, 2030 outlook', S_.power2030, pct, () => S_.power2030.plan, ['build', 'ch-power', 'LBNL outlook for 2030, all US data centers'])
 ];
 const pos = dv => Math.min(Math.max((dv + 1) / 2, 0), 1) * 100;
 function status(dv){ return dv > 0.15 ? 'ahead' : dv < -0.15 ? 'behind' : 'on'; }
@@ -1057,12 +1059,13 @@ function renderStrip(){
       const lo = r.lo ? Math.log10(r.lo / p) : dv, hi = r.hi ? Math.log10(r.hi / p) : dv;
       const cls = st === 'behind' ? ' behind' : '';
       const aria = `${r.n}: observed ${r.f(r.o)} against his ${r.f(p)}, ${ratioText(r.o / p)}.`;
-      h += `<div class="srow" role="group" aria-label="${esc(aria)}"><div class="hd"><span class="nm">${r.n}</span><span class="mx s-${st}">${ratioText(r.o / p)}<span class="st">${STATUS_WORDS[st]}</span></span></div>` +
+      const go = r.go ? ` data-view="${r.go[0]}" data-chart="${r.go[1]}" data-match="${esc(r.go[2])}" tabindex="0" role="button"` : ' role="group"';
+      h += `<div class="srow"${go} aria-label="${esc(aria)} Tap to open the chart."><div class="hd"><span class="nm">${r.n}</span><span class="mx s-${st}">${ratioText(r.o / p)}<span class="st">${STATUS_WORDS[st]}</span></span></div>` +
         `<div class="track" aria-hidden="true"><div class="ax"></div>` +
         [0, 25, 75, 100].map(x => `<div class="tk" style="left:${x}%"></div>`).join('') +
         `<div class="zero"></div><div class="rg${cls}" data-l="${pos(lo)}" data-w="${pos(hi) - pos(lo)}" style="left:50%;width:0"></div>` +
         `<div class="dt${cls}" data-l="${pos(dv)}" style="left:50%"></div></div>` +
-        `<p class="dl">Observed ${esc(r.f(r.o))} vs his ${esc(r.f(p))} (${esc(r.when)}). ${refs(r.s)}</p></div>`;
+        `<p class="dl">Observed ${esc(r.f(r.o))} vs his ${esc(r.f(p))} (${esc(r.when)}). ${refs(r.s)}${r.go ? ' <span class="go">See the chart</span>' : ''}</p></div>`;
     });
   });
   box.innerHTML = h;
@@ -1159,7 +1162,7 @@ document.querySelectorAll('[data-reset]').forEach(b => b.addEventListener('click
 
 /* ---------- routing ---------- */
 const VIEWS = ['brief','intel','build','money','agents','sources','owner'];
-let current = 'brief', pendingSrc = null;
+let current = 'brief', pendingSrc = null, pendingChart = null;
 function render(v){
   if (v === 'brief'){ renderStrip(); renderClocks(); }
   else if (v === 'intel') renderIntel();
@@ -1182,8 +1185,28 @@ function show(v, keepScroll){
   document.querySelectorAll('nav.tabs a').forEach(a => { if (a.dataset.v === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
   if (v === 'sources') $('srcbtn').setAttribute('aria-current', 'page'); else $('srcbtn').removeAttribute('aria-current');
   render(v);
+  if (pendingChart && jumpChart()) return;
   if (!(v === 'sources' && jumpSrc()) && !keepScroll) window.scrollTo(0, 0);
 }
+function jumpChart(){
+  const q = pendingChart; pendingChart = null;
+  const fig = $(q.chart), pts = CHARTS[q.chart]; if (!fig || !pts) return false;
+  let idx = -1; pts.forEach((p, i) => { if (p.n === q.match) idx = i; });
+  if (idx >= 0) select(q.chart, idx);
+  const y = fig.getBoundingClientRect().top + window.scrollY - 8;
+  window.scrollTo(0, Math.max(0, y));
+  return true;
+}
+document.addEventListener('click', e => {
+  if (e.target.closest('a, button')) return;
+  const row = e.target.closest('.srow[data-chart]'); if (!row) return;
+  pendingChart = {chart: row.dataset.chart, match: row.dataset.match};
+  location.hash = '#' + row.dataset.view;
+});
+document.addEventListener('keydown', e => {
+  const row = e.target.closest && e.target.closest('.srow[data-chart]');
+  if (row && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); row.click(); }
+});
 document.addEventListener('click', e => {
   const a = e.target.closest('a[data-src]'); if (!a) return;
   pendingSrc = a.dataset.src;
