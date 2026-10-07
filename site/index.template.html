@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Recounting the OOMs</title>
-<meta name="description" content="Aschenbrenner's June 2024 Situational Awareness projections, checked against observed data through 6 Oct 2026. Works offline.">
+<title>Recounting the OOMs | Aschenbrenner’s Situational Awareness, checked against the record</title>
+<meta name="description" content="Leopold Aschenbrenner's June 2024 essay Situational Awareness projected AI compute, spending, power, and capability through 2030. This site checks those projections against observed data. Works offline.">
 <meta name="theme-color" content="#F3F0E7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -44,6 +44,8 @@ h3{font-weight:400;font-size:23px;line-height:1.15;margin:30px 0 8px}
 .lead{font-size:17.5px;line-height:1.5;margin:0 0 14px}
 .lead b{font-weight:700}
 .note{font-size:14.5px;color:var(--ink-2);margin:6px 0;line-height:1.5}
+.note.about{border-left:3px solid var(--his);padding-left:12px;margin:0 0 16px}
+.top a{color:var(--his);text-decoration:none;border-bottom:1px solid var(--cone)}
 .ref{font-size:.85em;text-decoration:none;border-bottom:1px dotted currentColor;letter-spacing:.02em}
 
 /* figures, in the essay's plate style */
@@ -214,7 +216,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
 <header class="top"><div class="in">
   <div>
     <h1>Recounting the OOMs</h1>
-    <p id="asof">His 2024 forecast against the record</p>
+    <p id="asof">Leopold Aschenbrenner&rsquo;s <a href="https://situational-awareness.ai/" target="_blank" rel="noopener">Situational Awareness</a> (June 2024), checked against the record</p>
   </div>
   <a class="srcbtn" href="#sources" id="srcbtn">Sources</a>
 </div></header>
@@ -223,10 +225,11 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
 
 <!-- ============ BRIEF ============ -->
 <section class="view" id="v-brief" aria-labelledby="h-brief">
-  <h2 id="h-brief">Where his forecast stands</h2>
-  <p class="lead"><b>Bottom line:</b> Compute and money are on his line or ahead of it, and the shift from chatbots to agents he expected by 2027 was well underway by 2025. On paper tests, the frontier passed PhD experts in 2024. Two things lag: single training runs, still far below his 1-gigawatt mark for 2026, and US power, growing far slower than his path needs. &ldquo;AGI by 2027&rdquo; is still open; at observed rates his milestones land between mid-2027 and 2028.</p>
+  <h2 id="h-brief">Where Aschenbrenner&rsquo;s forecast stands</h2>
+  <p class="note about">In June 2024, Leopold Aschenbrenner, a former OpenAI researcher, published <a href="https://situational-awareness.ai/" target="_blank" rel="noopener"><em>Situational Awareness: The Decade Ahead</em></a>, a 165-page argument that straight-line trends in computing power, algorithms, and spending would produce AI able to do an AI researcher&rsquo;s job by 2027, and superintelligence by the end of the decade. Every &ldquo;his&rdquo; on this site refers to him. The projections are his; the observations are sourced. The essay is cited as <a class="ref" href="#sources" data-src="S1">S1</a>.</p>
+  <p class="lead"><b>Bottom line:</b> Compute and money are on Aschenbrenner&rsquo;s line or ahead of it, and the shift from chatbots to agents he expected by 2027 was well underway by 2025. On paper tests, the frontier passed PhD experts in 2024. Two things lag: single training runs, still far below his 1-gigawatt mark for 2026, and US power, growing far slower than his path needs. &ldquo;AGI by 2027&rdquo; is still open; at observed rates his milestones land between mid-2027 and 2028.</p>
 
-  <h3>How far off his line</h3>
+  <h3>How far off Aschenbrenner&rsquo;s line</h3>
   <p class="note">Each row divides what has been observed by his projection for the same date. The blue mark is his line. Right of it means reality is ahead; left means behind. Each step on the scale is about 3&times;.</p>
   <div class="scale" aria-hidden="true"><span>&divide;10</span><span>&divide;3</span><span>his line</span><span>&times;3</span><span>&times;10</span></div>
   <div id="strip"></div>
@@ -248,7 +251,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
     </div>
   </div>
 
-  <h3>His key calls, scored</h3>
+  <h3>Aschenbrenner&rsquo;s key calls, scored</h3>
   <p class="note">Tap a call for the evidence and sources.</p>
   <div id="claims"></div>
 </section>
@@ -256,7 +259,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
 <!-- ============ INTELLIGENCE ============ -->
 <section class="view" id="v-intel" aria-labelledby="h-intel">
   <h2 id="h-intel">Counting the OOMs again</h2>
-  <p class="lead"><b>Bottom line:</b> On his own yardstick, effective compute, the frontier is about <span id="bl-oom">3.4</span> OOMs past GPT-4, roughly two-thirds of the way to his &ldquo;automated AI researcher&rdquo; mark. (An OOM, or order of magnitude, is a 10&times; step.) On measured tests, models passed PhD experts in 2024 and the pace of improvement nearly doubled after reasoning models arrived. What has not been shown is the last rung: an AI that does a researcher&rsquo;s job on its own.</p>
+  <p class="lead"><b>Bottom line:</b> On Aschenbrenner&rsquo;s own yardstick, effective compute, the frontier is about <span id="bl-oom">3.4</span> OOMs past GPT-4, roughly two-thirds of the way to his &ldquo;automated AI researcher&rdquo; mark. (An OOM, or order of magnitude, is a 10&times; step.) On measured tests, models passed PhD experts in 2024 and the pace of improvement nearly doubled after reasoning models arrived. What has not been shown is the last rung: an AI that does a researcher&rsquo;s job on its own.</p>
 
   <figure class="plot" id="ch-eff">
     <figcaption class="cap">Base Scaleup of Effective Compute</figcaption>
@@ -352,7 +355,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
 <!-- ============ BUILD ============ -->
 <section class="view" id="v-build" aria-labelledby="h-build">
   <h2 id="h-build">Clusters, chips, and power</h2>
-  <p class="lead"><b>Bottom line:</b> Gigawatt-scale sites arrived on his schedule, and chip production is on pace. But labs split those sites across many jobs, so the biggest known training run drew about a quarter of a gigawatt. And the grid outlook for 2030 is a fraction of what his path needs.</p>
+  <p class="lead"><b>Bottom line:</b> Gigawatt-scale sites arrived on Aschenbrenner&rsquo;s schedule, and chip production is on pace. But labs split those sites across many jobs, so the biggest known training run drew about a quarter of a gigawatt. And the grid outlook for 2030 is a fraction of what his path needs.</p>
 
   <figure class="plot" id="ch-build">
     <figcaption class="cap">Largest AI Sites and Training Runs, by Power</figcaption>
@@ -381,7 +384,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   </div>
   <p class="note">A gigawatt (GW) is roughly the output of one large nuclear reactor, his own comparison for a 2026 cluster.</p>
 
-  <h3>His cluster table, with what showed up</h3>
+  <h3>Aschenbrenner&rsquo;s cluster table, with what showed up</h3>
   <div class="tw"><table class="t">
     <thead><tr><th>Year</th><th>His largest cluster</th><th>Observed</th></tr></thead>
     <tbody>
@@ -425,7 +428,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
 <!-- ============ MONEY ============ -->
 <section class="view" id="v-money" aria-labelledby="h-money">
   <h2 id="h-money">Spending and revenue</h2>
-  <p class="lead"><b>Bottom line:</b> Spending is ahead of his 2026 mark and on course for his $1-trillion-a-year call for 2027. Revenue hit his $100B milestone in mid-2026, but across two AI labs combined rather than at one tech giant.</p>
+  <p class="lead"><b>Bottom line:</b> Spending is ahead of Aschenbrenner&rsquo;s 2026 mark and on course for his $1-trillion-a-year call for 2027. Revenue hit his $100B milestone in mid-2026, but across two AI labs combined rather than at one tech giant.</p>
 
   <figure class="plot" id="ch-invest">
     <figcaption class="cap">Annual AI Spending</figcaption>
@@ -473,7 +476,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
 <!-- ============ AGENTS ============ -->
 <section class="view" id="v-agents" aria-labelledby="h-agents">
   <h2 id="h-agents">From chatbot to agent</h2>
-  <p class="lead"><b>Bottom line:</b> This is where reality ran fastest. He expected a little reinforcement learning (training by trial and error against a score) to let models work on problems far longer. It did, starting with OpenAI&rsquo;s o1 in Sep 2024 <a class="ref" href="#sources" data-src="S28">S28</a>. Within <span id="bl-ag-months">19</span> months, the best measured model finished <span id="bl-ag-hours">17</span>-hour tasks about half the time.</p>
+  <p class="lead"><b>Bottom line:</b> This is where reality ran fastest. Aschenbrenner expected a little reinforcement learning (training by trial and error against a score) to let models work on problems far longer. It did, starting with OpenAI&rsquo;s o1 in Sep 2024 <a class="ref" href="#sources" data-src="S28">S28</a>. Within <span id="bl-ag-months">19</span> months, the best measured model finished <span id="bl-ag-hours">17</span>-hour tasks about half the time.</p>
 
   <figure class="plot" id="ch-agents">
     <figcaption class="cap">METR Time Horizon, with His Thinking-Time Ladder</figcaption>
@@ -511,6 +514,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
 <!-- ============ SOURCES ============ -->
 <section class="view" id="v-sources" aria-labelledby="h-sources">
   <h2 id="h-sources">Sources and method</h2>
+  <p class="note about">The projections throughout are Leopold Aschenbrenner&rsquo;s, from <a href="https://situational-awareness.ai/" target="_blank" rel="noopener"><em>Situational Awareness: The Decade Ahead</em></a> (June 2024), free to read at situational-awareness.ai. The charts here are redrawn after the essay&rsquo;s figures; its text is not reproduced.</p>
   <p class="note">Install on iPhone: open this page in Safari, tap Share, then Add to Home Screen. The app runs fully offline; the links below need a connection.</p>
 
   <h3>Plain-language terms</h3>
@@ -1118,7 +1122,7 @@ window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() =
 
 /* ---------- boot ---------- */
 renderClaims(); renderSources(); syncControls();
-$('asof').textContent = 'His 2024 forecast against the record, ' + fmtDay(META.built);
+$('asof').insertAdjacentText('beforeend', ' as of ' + fmtDay(META.built));
 $('m-fetched').textContent = fmtDay(A.fetched);
 show(location.hash.slice(1) || 'brief', true);
 
@@ -1177,7 +1181,7 @@ $('own-run').addEventListener('click', async () => {
     const icon192 = document.querySelector('link[rel="icon"]').href;
     const mf = {
       name:'Recounting the OOMs', short_name:'OOM Recount',
-      description:'Aschenbrenner\u2019s 2024 forecast against observed data, as of 6 Oct 2026.',
+      description:'Leopold Aschenbrenner\u2019s Situational Awareness (2024), checked against observed data.',
       start_url:base, scope:base.replace(/[^/]*$/, ''), display:'standalone',
       background_color:'#F3F0E7', theme_color:'#F3F0E7',
       icons:[{src:icon192, sizes:'192x192', type:'image/png', purpose:'any maskable'},
