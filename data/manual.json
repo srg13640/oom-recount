@@ -1,0 +1,141 @@
+{
+  "_readme": "Hand-entered figures for Recounting the OOMs. Dates are 'YYYY-MM' (mid-month), 'YYYY-MM-DD', or a decimal year like 2024.5 (mid-year). Values: $B for money, GW for power, % for shares, hours for horizons. 's' lists source IDs from 'sources'. Edit on GitHub, commit, and the site rebuilds itself. Machine-fetched data (Epoch ECI, Epoch training compute, METR) lives in auto.json and is refreshed by the Update workflow.",
+
+  "runRanges": {
+    "GPT-6 Astra": {"lo": 5e26, "hi": 2e27, "note": "Epoch gives a range of 5e26 to 2e27 FLOP; OpenAI says it trained on 100,000+ GPUs at Stargate, Texas", "s": ["S5", "S6"]},
+    "Grok 4": {"note": "Epoch marks this estimate as speculative"}
+  },
+
+  "sites": [
+    {"t": "2026-01", "v": 1.0, "n": "Anthropic and AWS, New Carlisle, Indiana", "s": ["S10"], "note": "About 1 GW online Jan 2026 (single source)"},
+    {"t": "2026-02", "v": 1.5, "lo": 1, "hi": 2, "n": "xAI Colossus 2, Memphis", "lab": "Colossus 2", "la": "l", "s": ["S9", "S10"], "note": "Ramping through 2026; expansion to 2 GW announced"},
+    {"t": "2026-07", "v": 1.2, "n": "OpenAI and Oracle Stargate, Abilene, Texas", "s": ["S10", "S39"], "note": "1.2 GW phase scheduled for mid-2026"}
+  ],
+  "run": {"t": "2026-09", "v": 0.233, "lo": 0.15, "hi": 0.35, "n": "GPT-6 Astra training run", "lab": "Biggest known run", "la": "l", "shape": "dia", "s": ["S5"], "note": "Epoch estimate of power drawn by the chips used, single source"},
+  "announced": {"t": 2030.0, "v": 3.2, "lo": 2, "hi": 5, "n": "Meta Hyperion, Louisiana (announced)", "hollow": true, "s": ["S10"], "note": "2 GW by 2030, scaling to 5 GW"},
+
+  "capex": [
+    {"t": 2024.5, "v": 256, "n": "Big-tech capex, 2024 (five companies, derived)", "hollow": true, "s": ["S15"], "note": "Backed out from 2025's $443B being up 73%; includes non-AI spending"},
+    {"t": 2025.5, "v": 410, "n": "Big-four capex, 2025", "s": ["S14"]},
+    {"t": 2026.5, "v": 725, "lo": 650, "hi": 900, "n": "Big-four capex, 2026 guidance", "s": ["S14"], "note": "Some analysts now estimate $800-900B"},
+    {"t": 2027.5, "v": 1000, "n": "Big-four capex, 2027 (analyst projection)", "hollow": true, "s": ["S14"], "note": "Evercore and Bank of America project more than $1T"}
+  ],
+  "nvda": [
+    {"t": "2024-06", "v": 90, "n": "Nvidia data-center sales, annualized, mid-2024", "shape": "sq", "s": ["S1"], "note": "Figure cited in his essay"},
+    {"t": "2026-07", "v": 356, "n": "Nvidia data-center sales, annualized", "shape": "sq", "s": ["S16"], "note": "$89.0B in the quarter ended 26 Jul 2026, times 4 (derived)"}
+  ],
+  "openai": [
+    {"t": "2023-08", "v": 1, "n": "OpenAI run rate", "s": ["S1"], "note": "As reported in his essay"},
+    {"t": "2024-02", "v": 2, "n": "OpenAI run rate", "s": ["S1"], "note": "As reported in his essay"},
+    {"t": "2025-12", "v": 20, "n": "OpenAI annualized revenue, end of 2025", "s": ["S20"]},
+    {"t": "2026-02", "v": 25, "n": "OpenAI run rate", "s": ["S20"]},
+    {"t": "2026-08", "v": 40, "n": "OpenAI run rate", "lab": "OpenAI", "la": "b", "s": ["S17", "S18"]}
+  ],
+  "anthropic": [
+    {"t": "2025-01", "v": 1, "n": "Anthropic run rate", "shape": "dia", "s": ["S18"]},
+    {"t": "2025-07", "v": 4, "n": "Anthropic run rate", "shape": "dia", "s": ["S20"]},
+    {"t": "2025-12", "v": 9, "n": "Anthropic run rate", "shape": "dia", "s": ["S19"]},
+    {"t": "2026-03", "v": 19, "n": "Anthropic run rate", "shape": "dia", "s": ["S20"]},
+    {"t": "2026-04", "v": 30, "n": "Anthropic run rate", "shape": "dia", "s": ["S18"]},
+    {"t": "2026-05", "v": 47, "n": "Anthropic run rate", "shape": "dia", "s": ["S19"]},
+    {"t": "2026-07", "v": 65, "n": "Anthropic run rate", "shape": "dia", "lab": "Anthropic", "la": "l", "s": ["S17"]}
+  ],
+  "power": [
+    {"t": 2023.5, "v": 4.4, "n": "All US data centers, 2023", "s": ["S32"]},
+    {"t": "2026-02", "v": 4.5, "n": "All US data centers, early 2026 (EPRI)", "s": ["S33"]},
+    {"t": 2030.25, "v": 11.8, "lo": 9.5, "hi": 15.3, "n": "LBNL outlook for 2030, all US data centers", "hollow": true, "s": ["S31"]},
+    {"t": 2030.75, "v": 12.4, "lo": 9, "hi": 17, "n": "EPRI outlook for 2030, all US data centers", "hollow": true, "s": ["S33"]}
+  ],
+  "gpqa": [
+    {"t": "2023-11", "v": 39, "n": "GPT-4 (GPQA paper, Nov 2023)", "s": ["S45"], "lab": "GPT-4", "la": "r"},
+    {"t": "2024-03", "v": 50.4, "n": "Claude 3 Opus", "s": ["S44"]},
+    {"t": "2024-05", "v": 53.6, "n": "GPT-4o", "s": ["S44"]},
+    {"t": "2024-09", "v": 78, "n": "o1-preview", "s": ["S46"], "lab": "o1-preview", "la": "tl", "note": "OpenAI said o1 beat the PhD experts it recruited"},
+    {"t": "2024-12", "v": 79.2, "n": "o1", "s": ["S46"]},
+    {"t": "2025-03", "v": 84, "n": "Gemini 2.5 Pro", "s": ["S46"]},
+    {"t": "2025-04", "v": 83.3, "n": "o3", "s": ["S44"]},
+    {"t": "2025-11", "v": 87, "n": "Claude Opus 4.5", "s": ["S44"]},
+    {"t": "2026-02", "v": 91.3, "n": "Claude Opus 4.6", "s": ["S44"]},
+    {"t": "2026-04", "v": 94.2, "n": "Claude Opus 4.7", "s": ["S44"], "lab": "Opus 4.7", "la": "l"}
+  ],
+  "gpqaHuman": {"lo": 65, "hi": 81},
+  "gpqaRef": {"t": "2024-04", "v": 60, "n": "His 2024 reference: Claude 3 Opus near 60%, in-domain PhDs near 80%", "s": ["S1"]},
+
+  "strip": {
+    "invest":    {"o": 725, "lo": 650, "hi": 900, "plan": 500, "when": "big-tech capex vs his total AI investment", "s": ["S14", "S1"]},
+    "nvda":      {"o": 356, "when": "annualized, mid-2026; his line grows his 2024 figure at his own investment pace", "s": ["S16", "S1"]},
+    "revenue":   {"o": 105, "lo": 100, "hi": 110, "plan": 100, "when": "mid-2026; OpenAI and Anthropic combined, not one tech giant", "s": ["S17", "S1"]},
+    "sites":     {"o": 1.5, "lo": 1, "hi": 2, "plan": 1, "when": "mid-2026", "s": ["S9", "S10", "S1"]},
+    "powerNow":  {"o": 4.5, "plan": 5, "when": "2026; all US data centers vs his AI-only figure", "s": ["S33", "S1"]},
+    "runPower":  {"o": 0.233, "lo": 0.15, "hi": 0.35, "when": "Sep 2026, Epoch estimate", "s": ["S5", "S1"]},
+    "power2030": {"o": 12.4, "lo": 9, "hi": 17, "plan": 100, "when": "official outlooks for all data centers vs his AI-only path", "s": ["S31", "S33", "S1"]}
+  },
+
+  "claims": [
+    {"w": "Training compute keeps growing about 0.5 OOM a year (about 3x)", "c": "I", "st": "on", "ev": "The largest estimated run went from GPT-4 (about 2x10^25 FLOP, 2023) to GPT-6 Astra (about 10^27, Sep 2026): almost exactly 0.5 OOM a year.", "s": ["S48", "S5"]},
+    {"w": "GPQA, the hardest test of 2024, falls within a generation or two", "c": "I", "st": "ahead", "ev": "It fell within three months. o1-preview scored 78% on the PhD-level questions in Sep 2024, above the PhD experts OpenAI recruited; the frontier passed 90% in early 2026.", "s": ["S46", "S47", "S44"]},
+    {"w": "By 2027, models outperform PhDs and the best experts in a field", "c": "I", "st": "mixed", "ev": "On written expert tests, yes, since 2024-25 (GPQA, and company-reported scores near 98% on research-level math). On doing an expert's job unsupervised, not shown; see Agents.", "s": ["S44", "S37"]},
+    {"w": "Labs hit the data wall, then find a way around it", "c": "I", "st": "on", "ev": "Ilya Sutskever said in Dec 2024 that the industry had reached peak data. The way around was reinforcement learning on reasoning, which OpenAI first shipped in o1 in Sep 2024.", "s": ["S29", "S28"]},
+    {"w": "Chatbots become agents by 2027", "c": "I", "st": "ahead", "ev": "Underway early. METR's 50% time horizon went from 20 minutes (o1-preview, Sep 2024) to 3.4 hours (GPT-5, Aug 2025) to about 17 hours (Claude Mythos Preview, Apr 2026). The pace since 2024 is about 10x a year, versus about 3x before. The full drop-in remote worker is not here yet.", "s": ["S49", "S26"]},
+    {"w": "A training cluster of about 1 GW around 2026", "c": "IIIa", "st": "mixed", "ev": "Sites: several reached about 1 GW in 2026, and xAI's Colossus 2 is expanding to 2 GW. Single runs: the biggest known one, GPT-6 Astra, drew an estimated 0.23 GW.", "s": ["S9", "S10", "S5"]},
+    {"w": "AI investment near $500B a year by 2026 and $1T by 2027", "c": "IIIa", "st": "ahead", "ev": "Amazon, Microsoft, Alphabet, and Meta alone guided about $725B of 2026 capex; analysts project more than $1T for 2027.", "s": ["S14"]},
+    {"w": "A tech giant reaches a $100B AI revenue run rate by mid-2026", "c": "IIIa", "st": "mixed", "ev": "Met in total, not as specified: OpenAI (about $40B) and Anthropic (about $65B) together passed $100B by August 2026. No tech giant reports AI revenue on this basis.", "s": ["S17"]},
+    {"w": "Power for AI reaches about 5% of US electricity around 2026 and 20% by 2028", "c": "IIIa", "st": "mixed", "ev": "Now: all US data centers use about 4.5%. Official outlooks put them at about 9-17% in 2030, far below his path. Power is the binding constraint he predicted.", "s": ["S33", "S31"]},
+    {"w": "AGI, an AI that can do an AI researcher's job, by 2027", "c": "I", "st": "open", "ev": "Cannot be scored yet. At observed rates, his two leading indicators reach his marks between mid-2027 and 2028; see the two clocks above.", "s": ["S1"]},
+    {"w": "A government AGI project by 2027 or 2028", "c": "IV", "st": "open", "ev": "Early moves only. The Genesis Mission order (Nov 2025) uses Manhattan Project framing but commits no new funding. In June 2026, US export controls led Anthropic to suspend access to its newest models from 12 June; the controls were lifted 30 June and access was restored 1 July.", "s": ["S34", "S35", "S36"]},
+    {"w": "China stays in the race", "c": "IIId", "st": "on", "ev": "DeepSeek published its own reinforcement-learning reasoning method in Jan 2025, four months after o1. Nvidia's current outlook assumes no data-center compute sales to China.", "s": ["S30", "S38"]},
+    {"w": "Benchmarks keep getting used up", "c": "I", "st": "on", "ev": "METR's long-task suite was near its ceiling by early 2026, GPQA is above 94%, and OpenAI reports 97.6% for GPT-6 Astra on FrontierMath Tier 4 (company-reported).", "s": ["S27", "S44", "S37"]}
+  ],
+
+  "sources": {
+    "S1": ["Situational Awareness: The Decade Ahead", "Leopold Aschenbrenner", "Jun 2024", "https://situational-awareness.ai/wp-content/uploads/2024/06/situationalawareness.pdf"],
+    "S2": ["Trends in AI: training compute grows 5x a year since 2020; ECI frontier up 14 points a year since reasoning models", "Epoch AI", "accessed Oct 2026", "https://epoch.ai/trends"],
+    "S3": ["Training compute of frontier AI models grows by 4-5x per year (GPT-4 about 2x10^25, Gemini Ultra about 5x10^25)", "Epoch AI", "2024", "https://epoch.ai/publications/training-compute-of-frontier-ai-models-grows-by-4-5x-per-year"],
+    "S4": ["Training compute growth: Grok 4 about 5x10^26 FLOP, largest known run in 2025 (Epoch AI estimate)", "DeepStory Research", "2026", "https://deepstoryresearch.com/data/frontier-ai-race/training-compute/"],
+    "S5": ["Largest AI models: GPT-6 Astra about 10^27 FLOP, range 5x10^26 to 2x10^27, about 233 MW (Epoch AI database)", "FactsFigs", "Oct 2026", "https://factsfigs.com/projects/ai-tools/largest-ai-models-by-parameters"],
+    "S6": ["OpenAI launches GPT-6 Astra; trained on 100,000+ GPUs at its Stargate site in Texas", "Constellation Research", "3 Sep 2026", "https://www.constellationr.com/insights/news/openai-launches-gpt-6-astra"],
+    "S7": ["Largest training run, Aug 2025 to Aug 2026: public databases lacked estimates for closed models after Jul 2025", "FutureSearch", "Aug 2026", "https://futuresearch.ai/app/p/a/rsi-largest-training-compute"],
+    "S8": ["AI scaling: largest AI data center doubling every 7 months", "Epoch AI", "Sep 2026", "https://epoch.ai/topics/scaling"],
+    "S9": ["xAI Colossus expands to 2 GW and 555,000 GPUs", "Introl", "Jan 2026", "https://introl.com/blog/xai-colossus-2-gigawatt-expansion-555k-gpus-january-2026"],
+    "S10": ["AI gigawatt comparator: Colossus 2, Stargate Abilene, New Carlisle, Hyperion", "Jasper Bernaers", "Apr 2026", "https://jasperbernaers.com/ai-gigawatts/"],
+    "S11": ["Frontier labs don't use most AI compute (yet): about 20M H100e sold by end of 2025; stock tripled in 2025", "Epoch AI", "May 2026", "https://epoch.ai/gradient-updates/frontier-labs-dont-use-most-ai-compute"],
+    "S12": ["Introducing the AI Chip Users explorer: OpenAI 103k to 386k to 1.7M H100e", "Epoch AI", "2026", "https://epoch.ai/latest/introducing-the-ai-chip-users-explorer"],
+    "S13": ["Epoch AI data: 27.6M H100e sold by Jun 2026, about 46M projected end-2026, about 140M end-2028", "Crypto Briefing", "Sep 2026", "https://cryptobriefing.com/epoch-ai-chips-billion-ai-agents/"],
+    "S14": ["Amazon, Microsoft, Alphabet, Meta plan $725B capex in 2026; $410B in 2025; $1T+ projected for 2027 (FT tally)", "AI Weekly", "2026", "https://aiweekly.co/alerts/amazon-microsoft-alphabet-meta-plan-725b-ai-capex-in-2026"],
+    "S15": ["Hyperscaler AI capex: $443B in 2025, up 73% on 2024 (five companies incl. Oracle)", "Longterm Wiki", "2026", "https://www.longtermwiki.com/wiki/E680"],
+    "S16": ["Nvidia fiscal Q2 2027 results: data center revenue $89.0B, quarter ended 26 Jul 2026", "StorageNewsletter (Nvidia release)", "27 Aug 2026", "https://www.storagenewsletter.com/2026/08/27/nvidia-fiscal-2q27-financial-results/"],
+    "S17": ["Anthropic's revenue run rate reportedly surpasses $65B; OpenAI's at $40B", "Axios", "17 Aug 2026", "https://axios.com/2026/08/17/anthropic-revenue-run-rate-ipo-openai"],
+    "S18": ["Anthropic's $65B run rate: about $1B in Jan 2025, about $30B in Apr 2026, about $47B in May 2026", "Sovereign Magazine", "Aug 2026", "https://www.sovereignmagazine.com/article/anthropic-65-billion-run-rate-ai-bubble-case"],
+    "S19": ["Anthropic run-rate revenue: about $9B end of 2025, $47B on 28 May 2026", "Unite.AI", "Aug 2026", "https://www.unite.ai/?p=453467"],
+    "S20": ["OpenAI annualized revenue tops $25B (end Feb 2026) after $20B+ for 2025; Anthropic about $4B mid-2025, $19B+ early Mar 2026 (citing The Information)", "KuCoin News", "Mar 2026", "https://www.kucoin.com/news/flash/openai-annualized-revenue-surpasses-25-billion-anthropic-closes-gap-with-19-billion"],
+    "S21": ["METR time-horizon table (o1-preview, GPT-5, Gemini 3.1 Pro, Claude Mythos)", "Wikipedia", "accessed Oct 2026", "https://en.wikipedia.org/wiki/METR"],
+    "S22": ["Claude 3.7 Sonnet led with a 59-minute 50% horizon in Feb 2025", "Manifold Markets", "2026", "https://manifold.markets/jim/claude-mythos-metr-50-time-horizon"],
+    "S23": ["Clarifying limitations of time horizon", "METR", "22 Jan 2026", "https://metr.org/notes/2026-01-22-time-horizon-limitations/"],
+    "S24": ["I underestimated AI capabilities (again): Claude Opus 4.6 about 12 h after a Mar 2026 correction", "Ajeya Cotra", "Mar 2026", "https://www.planned-obsolescence.org/p/i-underestimated-ai-capabilities"],
+    "S25": ["Misplaced panic over AI progress (quotes METR: Mythos at least 16 h, 95% CI 8.5 to 55 h)", "Gary Marcus", "2026", "https://garymarcus.substack.com/p/misplaced-panic-over-ai-progress"],
+    "S26": ["METR time horizons: now 10x a year (about 3.5-month doubling since 2024, about 7 months before)", "GreaterWrong", "2026", "https://www.greaterwrong.com/posts/EYb2K9acKfyG2bome/metr-time-horizons-now-10x-year"],
+    "S27": ["Joel Becker on METR's time horizons chart: task suite near saturation", "AI Summer", "Mar 2026", "https://www.aisummer.org/p/joel-becker-on-metrs-famous-time"],
+    "S28": ["Learning to reason with LLMs (OpenAI o1)", "OpenAI", "12 Sep 2024", "https://openai.com/index/learning-to-reason-with-llms/"],
+    "S29": ["Sutskever: pre-training as we know it will end; 'peak data'", "Computing", "Dec 2024", "https://www.computing.co.uk/news/2024/ai/sutskever-warns-ai-will-become-less-predictable"],
+    "S30": ["DeepSeek-R1: reasoning through reinforcement learning (Jan 2025)", "Towards Data Science", "2025", "https://towardsdatascience.com/?p=598643"],
+    "S31": ["United States Data Center Energy Usage Report: 2025 Update (11.8% by 2030; range 9.5-15.3%)", "Lawrence Berkeley National Laboratory", "Jun 2026", "https://eta-publications.lbl.gov/publications/united-states-data-center-energy-2025"],
+    "S32": ["DOE: data centers used 4.4% of US power in 2023", "DatacenterDynamics", "2025", "https://datacenterdynamics.com/en/news/eia-projects-record-us-data-center-power-use-amid-ai-and-crypto-boom"],
+    "S33": ["EPRI: data centers about 4.5% of US electricity now, 9-17% by 2030", "E&E News", "26 Feb 2026", "https://eenews.net/articles/data-centers-share-of-us-electricity-seen-doubling-by-2030"],
+    "S34": ["Executive Order establishes the 'Genesis Mission' (EO 14363, 24 Nov 2025)", "Morrison Foerster", "Dec 2025", "https://www.mofo.com/resources/insights/251211-executive-order-establishes-genesis-mission"],
+    "S35": ["Trump administration launches Genesis Mission; order commits no funding", "AIP FYI", "Nov 2025", "https://www.aip.org/fyi/trump-administration-launches-genesis-mission-to-boost-science-through-ai"],
+    "S36": ["Statement on Claude Fable 5 and Claude Mythos 5 access", "Anthropic", "2026", "https://www.anthropic.com/news/fable-mythos-access"],
+    "S37": ["OpenAI GPT-6 Astra launch: company-reported FrontierMath Tier 4 score of 97.6%", "BetaNews", "Sep 2026", "https://betanews.com/article/openai-gpt-6-astra-agi-era/"],
+    "S38": ["Nvidia Q2 FY2027: outlook assumes no China data-center compute revenue", "Rivkin", "31 Aug 2026", "https://rivkin.com.au/?p=37534"],
+    "S39": ["Stargate Abilene: 1.2 GW by mid-2026 (Bloomberg); xAI Colossus launched Sep 2024 with 100,000 H100s", "ForkLog", "Mar 2025", "https://forklog.com/en/wp-json/wp/v2/posts/22233"],
+    "S40": ["Epoch AI overview: algorithmic efficiency doubling every 6-12 months", "Longterm Wiki", "2026", "https://www.longtermwiki.com/knowledge-base/organizations/safety-orgs/epoch-ai"],
+    "S41": ["AI 2027 Tracker: independent mirror of the Epoch ECI frontier and METR Time Horizon 1.1 tables", "Johannes Haus", "Oct 2026", "https://ai2027-tracker.com/"],
+    "S42": ["Epoch Capabilities Index: methodology, FAQ, and the eci_scores.csv download this site reads", "Epoch AI", "live data", "https://epoch.ai/eci"],
+    "S43": ["Epoch AI May 2026 ECI update: frontier pace about 15.5 points a year versus about 8 before 2024", "TechJack Solutions", "May 2026", "https://techjacksolutions.com/ai-brief/epoch-ai-may-2026-data-frontier-ai-capability-pace-reportedl/"],
+    "S44": ["GPQA Diamond leaderboard, company-reported scores (Claude 3 Opus 50.4%, GPT-4o 53.6%, o3 83.3%, Opus 4.5 87%, Opus 4.6 91.3%, Opus 4.7 94.2%)", "There's An AI For That", "accessed Oct 2026", "https://theresanaiforthat.com/benchmark/gpqa-diamond/"],
+    "S45": ["GPQA figures: PhD experts 65% (74% discounting flawed questions), non-experts 34%, GPT-4 39% at release", "arXiv 2605.08346 (citing Rein et al. 2024)", "May 2026", "https://arxiv.org/pdf/2605.08346"],
+    "S46": ["GPQA Diamond leaderboard (o1-preview 78%, o1 79.2%, Gemini 2.5 Pro 84%, GPT-4 35.7%)", "Longterm Wiki", "2026", "https://www.longtermwiki.com/wiki/gpqa-diamond"],
+    "S47": ["Will an LLM beat human experts on GPQA? (quotes OpenAI: o1 surpassed recruited PhD experts on GPQA Diamond)", "Manifold Markets", "2024", "https://manifold.markets/gabrieldwu/will-a-llm-beat-human-experts-on-gp"],
+    "S48": ["Notable AI Models dataset: training compute estimates (notable_ai_models.csv, read live by this site)", "Epoch AI", "live data", "https://epoch.ai/data/notable-ai-models"],
+    "S49": ["Time Horizon 1.1 results file (benchmark_results_1_1.yaml, read live by this site)", "METR", "live data", "https://metr.org/time-horizons/"]
+  }
+}

@@ -1,0 +1,515 @@
+{
+ "fetched": "2026-10-07T01:49:49Z",
+ "eci": {
+  "source": "https://epoch.ai/data/eci_scores.csv",
+  "updated": "2026-10-07",
+  "ok": true,
+  "error": null,
+  "n_models": 274,
+  "frontier": [
+   {
+    "n": "GPT-4 (Mar 2023)",
+    "date": "2023-03-14",
+    "v": 125.89,
+    "lo": 119.25,
+    "hi": 130.45,
+    "org": "OpenAI"
+   },
+   {
+    "n": "GPT-4 Turbo (Nov 2023)",
+    "date": "2024-01-25",
+    "v": 126.46,
+    "lo": 120.87,
+    "hi": 128.99,
+    "org": "OpenAI"
+   },
+   {
+    "n": "Claude 3 Opus",
+    "date": "2024-02-29",
+    "v": 126.91,
+    "lo": 121.49,
+    "hi": 129.98,
+    "org": "Anthropic"
+   },
+   {
+    "n": "GPT-4 Turbo (Apr 2024)",
+    "date": "2024-04-09",
+    "v": 127.25,
+    "lo": 121.86,
+    "hi": 128.83,
+    "org": "OpenAI"
+   },
+   {
+    "n": "GPT-4o (May 2024)",
+    "date": "2024-05-13",
+    "v": 128.97,
+    "lo": 123.83,
+    "hi": 131.74,
+    "org": "OpenAI"
+   },
+   {
+    "n": "Claude 3.5 Sonnet",
+    "date": "2024-06-20",
+    "v": 130.0,
+    "lo": null,
+    "hi": null,
+    "org": "Anthropic"
+   },
+   {
+    "n": "o1-preview",
+    "date": "2024-09-12",
+    "v": 134.79,
+    "lo": 130.78,
+    "hi": 138.74,
+    "org": "OpenAI"
+   },
+   {
+    "n": "o1-mini",
+    "date": "2024-09-12",
+    "v": 135.82,
+    "lo": 131.65,
+    "hi": 137.26,
+    "org": "OpenAI"
+   },
+   {
+    "n": "o1",
+    "date": "2024-12-17",
+    "v": 141.91,
+    "lo": 139.66,
+    "hi": 143.2,
+    "org": "OpenAI"
+   },
+   {
+    "n": "Gemini 2.5 Pro (Mar 2025)",
+    "date": "2025-03-31",
+    "v": 144.16,
+    "lo": 141.92,
+    "hi": 146.97,
+    "org": "Google DeepMind"
+   },
+   {
+    "n": "o4-mini",
+    "date": "2025-04-16",
+    "v": 145.64,
+    "lo": 143.23,
+    "hi": 147.36,
+    "org": "OpenAI"
+   },
+   {
+    "n": "o3",
+    "date": "2025-04-16",
+    "v": 146.86,
+    "lo": 145.03,
+    "hi": 148.65,
+    "org": "OpenAI"
+   },
+   {
+    "n": "o3-pro",
+    "date": "2025-06-10",
+    "v": 147.42,
+    "lo": 145.69,
+    "hi": 149.92,
+    "org": "OpenAI"
+   },
+   {
+    "n": "GPT-5",
+    "date": "2025-08-07",
+    "v": 150.0,
+    "lo": null,
+    "hi": null,
+    "org": "OpenAI"
+   },
+   {
+    "n": "GPT-5 Pro",
+    "date": "2025-10-07",
+    "v": 150.28,
+    "lo": 148.56,
+    "hi": 152.85,
+    "org": "OpenAI"
+   },
+   {
+    "n": "Gemini 3 Pro",
+    "date": "2025-11-18",
+    "v": 152.92,
+    "lo": 150.92,
+    "hi": 155.09,
+    "org": "Google DeepMind"
+   },
+   {
+    "n": "GPT-5.2",
+    "date": "2025-12-11",
+    "v": 153.45,
+    "lo": 151.55,
+    "hi": 155.37,
+    "org": "OpenAI"
+   },
+   {
+    "n": "GPT-5.2 Pro",
+    "date": "2025-12-11",
+    "v": 155.4,
+    "lo": 153.08,
+    "hi": 158.08,
+    "org": "OpenAI"
+   },
+   {
+    "n": "GPT-5.3 Codex",
+    "date": "2026-02-05",
+    "v": 156.77,
+    "lo": 152.76,
+    "hi": 160.7,
+    "org": "OpenAI"
+   },
+   {
+    "n": "GPT-5.4",
+    "date": "2026-03-05",
+    "v": 156.81,
+    "lo": 155.0,
+    "hi": 158.94,
+    "org": "OpenAI"
+   },
+   {
+    "n": "GPT-5.4 Pro",
+    "date": "2026-03-05",
+    "v": 158.93,
+    "lo": 156.59,
+    "hi": 161.78,
+    "org": "OpenAI"
+   },
+   {
+    "n": "GPT-5.5",
+    "date": "2026-04-23",
+    "v": 159.1,
+    "lo": 156.66,
+    "hi": 162.27,
+    "org": "OpenAI"
+   },
+   {
+    "n": "GPT-5.5 Pro",
+    "date": "2026-04-23",
+    "v": 162.07,
+    "lo": 158.98,
+    "hi": 165.82,
+    "org": "OpenAI"
+   },
+   {
+    "n": "Claude Opus 5",
+    "date": "2026-07-24",
+    "v": 162.78,
+    "lo": 160.12,
+    "hi": 166.47,
+    "org": "Anthropic"
+   },
+   {
+    "n": "Claude Fable 5.1",
+    "date": "2026-09-01",
+    "v": 164.7,
+    "lo": 161.63,
+    "hi": 168.81,
+    "org": "Anthropic"
+   },
+   {
+    "n": "GPT-6 Astra",
+    "date": "2026-09-03",
+    "v": 166.45,
+    "lo": 163.34,
+    "hi": 171.46,
+    "org": "OpenAI"
+   },
+   {
+    "n": "Claude Opus 5.5",
+    "date": "2026-09-22",
+    "v": 167.33,
+    "lo": 164.06,
+    "hi": 171.68,
+    "org": "Anthropic"
+   }
+  ],
+  "ref": {
+   "n": "GPT-3.5 Turbo (Jun 2023)",
+   "date": "2023-06-13",
+   "v": 113.36,
+   "lo": 104.33,
+   "hi": 117.81,
+   "org": "OpenAI"
+  }
+ },
+ "runs": {
+  "source": "https://epoch.ai/data/notable_ai_models.csv",
+  "updated": "2026-10-07",
+  "ok": true,
+  "error": null,
+  "n_models": 23,
+  "frontier": [
+   {
+    "n": "GPT-4 (Mar 2023)",
+    "date": "2023-03-15",
+    "flop": 2.1e+25,
+    "conf": "Likely",
+    "org": "OpenAI"
+   },
+   {
+    "n": "Gemini 1.0 Ultra",
+    "date": "2023-12-06",
+    "flop": 5.0000000001e+25,
+    "conf": "Speculative",
+    "org": "Google DeepMind"
+   },
+   {
+    "n": "Grok 3",
+    "date": "2025-02-17",
+    "flop": 3.5e+26,
+    "conf": "Likely",
+    "org": "xAI"
+   },
+   {
+    "n": "GPT-4.5",
+    "date": "2025-02-27",
+    "flop": 3.8e+26,
+    "conf": "Likely",
+    "org": "OpenAI"
+   },
+   {
+    "n": "Grok 4",
+    "date": "2025-07-09",
+    "flop": 5.0000000000001e+26,
+    "conf": "Speculative",
+    "org": "xAI"
+   },
+   {
+    "n": "GPT-6 Astra",
+    "date": "2026-09-03",
+    "flop": 1.0001e+27,
+    "conf": "Likely",
+    "org": "OpenAI"
+   }
+  ]
+ },
+ "metr": {
+  "source": "https://metr.org/assets/benchmark_results_1_1.yaml",
+  "updated": "2026-10-07",
+  "ok": true,
+  "error": null,
+  "doubling_days": {
+   "all_time_stitched": {
+    "point_estimate": 187.778
+   },
+   "from_2023_on": {
+    "ci_high": 158.012,
+    "ci_low": 104.428,
+    "point_estimate": 128.744
+   }
+  },
+  "models": [
+   {
+    "n": "Claude 3 Opus",
+    "key": "claude_3_opus_inspect",
+    "date": "2024-03-04",
+    "h50": 0.066,
+    "lo": 0.028,
+    "hi": 0.146,
+    "h80": 0.011,
+    "sota": false
+   },
+   {
+    "n": "GPT-4 Turbo",
+    "key": "gpt_4_turbo_inspect",
+    "date": "2024-04-09",
+    "h50": 0.062,
+    "lo": 0.033,
+    "hi": 0.112,
+    "h80": 0.015,
+    "sota": false
+   },
+   {
+    "n": "GPT-4o",
+    "key": "gpt_4o_inspect",
+    "date": "2024-05-13",
+    "h50": 0.117,
+    "lo": 0.067,
+    "hi": 0.215,
+    "h80": 0.021,
+    "sota": true
+   },
+   {
+    "n": "Claude 3.5 Sonnet (Jun 2024)",
+    "key": "claude_3_5_sonnet_20240620_inspect",
+    "date": "2024-06-20",
+    "h50": 0.19,
+    "lo": 0.091,
+    "hi": 0.373,
+    "h80": 0.028,
+    "sota": true
+   },
+   {
+    "n": "o1-preview",
+    "key": "o1_preview",
+    "date": "2024-09-12",
+    "h50": 0.339,
+    "lo": 0.195,
+    "hi": 0.556,
+    "h80": 0.074,
+    "sota": true
+   },
+   {
+    "n": "Claude 3.5 Sonnet (Oct 2024)",
+    "key": "claude_3_5_sonnet_20241022_inspect",
+    "date": "2024-10-22",
+    "h50": 0.342,
+    "lo": 0.169,
+    "hi": 0.68,
+    "h80": 0.043,
+    "sota": true
+   },
+   {
+    "n": "o1",
+    "key": "o1_inspect",
+    "date": "2024-12-05",
+    "h50": 0.647,
+    "lo": 0.353,
+    "hi": 1.083,
+    "h80": 0.118,
+    "sota": true
+   },
+   {
+    "n": "Claude 3.7 Sonnet",
+    "key": "claude_3_7_sonnet_inspect",
+    "date": "2025-02-24",
+    "h50": 1.006,
+    "lo": 0.55,
+    "hi": 1.737,
+    "h80": 0.202,
+    "sota": true
+   },
+   {
+    "n": "o3",
+    "key": "o3_inspect",
+    "date": "2025-04-16",
+    "h50": 1.996,
+    "lo": 1.244,
+    "hi": 3.182,
+    "h80": 0.5,
+    "sota": true
+   },
+   {
+    "n": "Claude 4 Opus",
+    "key": "claude_4_opus_inspect",
+    "date": "2025-05-22",
+    "h50": 1.673,
+    "lo": 1.0,
+    "hi": 2.724,
+    "h80": 0.34,
+    "sota": false
+   },
+   {
+    "n": "Claude 4.1 Opus",
+    "key": "claude_4_1_opus_inspect",
+    "date": "2025-08-05",
+    "h50": 1.675,
+    "lo": 0.988,
+    "hi": 2.658,
+    "h80": 0.391,
+    "sota": false
+   },
+   {
+    "n": "GPT-5 (Aug 2025)",
+    "key": "gpt_5_2025_08_07_inspect",
+    "date": "2025-08-07",
+    "h50": 3.384,
+    "lo": 1.877,
+    "hi": 6.759,
+    "h80": 0.639,
+    "sota": true
+   },
+   {
+    "n": "Gemini 3 Pro",
+    "key": "gemini_3_pro",
+    "date": "2025-11-18",
+    "h50": 3.739,
+    "lo": 2.326,
+    "hi": 6.321,
+    "h80": 0.902,
+    "sota": true
+   },
+   {
+    "n": "GPT-5.1 Codex Max",
+    "key": "gpt_5_1_codex_max_inspect",
+    "date": "2025-11-19",
+    "h50": 3.729,
+    "lo": 2.239,
+    "hi": 6.603,
+    "h80": 0.844,
+    "sota": false
+   },
+   {
+    "n": "Claude Opus 4.5",
+    "key": "claude_opus_4_5_inspect",
+    "date": "2025-11-24",
+    "h50": 4.883,
+    "lo": 2.695,
+    "hi": 10.395,
+    "h80": 0.824,
+    "sota": true
+   },
+   {
+    "n": "GPT-5.2",
+    "key": "gpt_5_2",
+    "date": "2025-12-11",
+    "h50": 5.871,
+    "lo": 3.301,
+    "hi": 13.586,
+    "h80": 1.1,
+    "sota": true
+   },
+   {
+    "n": "GPT-5.3 Codex",
+    "key": "gpt_5_3_codex",
+    "date": "2026-02-05",
+    "h50": 5.826,
+    "lo": 3.249,
+    "hi": 13.606,
+    "h80": 0.912,
+    "sota": false
+   },
+   {
+    "n": "Claude Opus 4.6",
+    "key": "claude_opus_4_6_inspect",
+    "date": "2026-02-05",
+    "h50": 11.98,
+    "lo": 5.278,
+    "hi": 60.563,
+    "h80": 1.165,
+    "sota": true
+   },
+   {
+    "n": "Gemini 3.1 Pro",
+    "key": "gemini_3_1_pro",
+    "date": "2026-02-19",
+    "h50": 6.402,
+    "lo": 3.892,
+    "hi": 11.579,
+    "h80": 1.497,
+    "sota": false
+   },
+   {
+    "n": "GPT-5.4",
+    "key": "gpt_5_4",
+    "date": "2026-03-05",
+    "h50": 5.696,
+    "lo": 3.11,
+    "hi": 12.813,
+    "h80": 0.898,
+    "sota": false
+   },
+   {
+    "n": "Claude Mythos Preview (early)",
+    "key": "claude_mythos_preview_early_inspect",
+    "date": "2026-04-07",
+    "h50": 17.413,
+    "lo": 8.481,
+    "hi": 55.071,
+    "h80": 3.099,
+    "sota": true
+   }
+  ]
+ }
+}

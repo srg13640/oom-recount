@@ -1,0 +1,52 @@
+name: Update data and redeploy
+
+# The "Update the site now" button in the app triggers this. It pulls fresh data from
+# Epoch AI and METR, commits the result, rebuilds, and republishes.
+on:
+  workflow_dispatch:
+  # Uncomment for an automatic refresh on the first of every month:
+  # schedule:
+  #   - cron: "0 12 1 * *"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - name: Fetch the latest Epoch AI and METR data
+        run: python scripts/fetch_data.py
+      - name: Commit refreshed data
+        run: |
+          git config user.name "oom-recount updater"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/auto.json
+          git diff --cached --quiet || git commit -m "Refresh data ($(date -u +%F))"
+          git push
+      - name: Build the site
+        run: python scripts/build.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

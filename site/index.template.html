@@ -1,0 +1,1194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Recounting the OOMs</title>
+<meta name="description" content="Aschenbrenner's June 2024 Situational Awareness projections, checked against observed data through 6 Oct 2026. Works offline.">
+<meta name="theme-color" content="#F3F0E7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OOM Recount">
+<link rel="apple-touch-icon" href="data:image/png;base64,{{ICON180}}">
+<link rel="icon" type="image/png" href="data:image/png;base64,{{ICON192}}">
+<style>
+:root{
+  --paper:#F3F0E7; --panel:#FFFFFF; --band:#ECE9DF; --rule:#D8D4C8; --rule-2:#E6E2D7;
+  --ink:#1C1F24; --ink-2:#4B525C; --ink-3:#7A818B;
+  --his:#2F4FA2; --cone:#8396C4; --obs:#B8891E; --obs-t:#8A6508; --behind:#A8402D; --open:#8A8F99;
+  --serif:"Palatino","Palatino Linotype","Book Antiqua","Iowan Old Style","Charter",Georgia,serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif)}
+body{font-size:17px;line-height:1.55;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+a{color:var(--his)}
+:focus-visible{outline:2px solid var(--his);outline-offset:2px}
+.shield{position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:var(--paper);z-index:7}
+
+.top{background:var(--paper);border-bottom:1px solid var(--rule);padding:calc(env(safe-area-inset-top) + 14px) 18px 10px}
+.top .in{max-width:720px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.top h1{font-weight:400;font-size:28px;line-height:1.05;margin:0;letter-spacing:.005em}
+.top p{margin:4px 0 0;font-size:13px;color:var(--ink-2)}
+.srcbtn{font-size:13px;letter-spacing:.06em;font-variant-caps:small-caps;text-decoration:none;color:var(--ink);border:1px solid var(--rule);
+  padding:7px 11px;border-radius:3px;white-space:nowrap;background:var(--panel)}
+.srcbtn[aria-current=page]{border-color:var(--his);color:var(--his)}
+
+main{max-width:720px;margin:0 auto;padding:16px 18px 28px}
+.view{display:none}
+.view.on{display:block}
+h2{font-weight:400;font-size:32px;line-height:1.08;margin:8px 0 12px}
+h3{font-weight:400;font-size:23px;line-height:1.15;margin:30px 0 8px}
+.lead{font-size:17.5px;line-height:1.5;margin:0 0 14px}
+.lead b{font-weight:700}
+.note{font-size:14.5px;color:var(--ink-2);margin:6px 0;line-height:1.5}
+.ref{font-size:.85em;text-decoration:none;border-bottom:1px dotted currentColor;letter-spacing:.02em}
+
+/* figures, in the essay's plate style */
+.plot{margin:16px 0 6px;padding:12px 8px 8px;background:var(--paper);border:1px solid var(--rule-2)}
+.plot .cap{font-size:16px;text-align:center;margin:0 6px 8px;line-height:1.3}
+.svgwrap{width:100%}
+.svgwrap svg{display:block;width:100%;height:auto;touch-action:manipulation}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--ink-2);padding:8px 6px 0;margin:0;list-style:none}
+.legend li{display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;width:20px;height:0;border-top:2.5px dashed var(--his)}
+.sw.solid{border-top:2.5px solid var(--his)}
+.sw.proj{border-top:2px dotted var(--obs)}
+.sw.ref{border-top:2px dotted var(--ink-3)}
+.sw.hdot2{border-top:2px dotted var(--his)}
+.sw.refsolid{border-top:2px solid var(--ink-3)}
+.sw.cone{width:18px;height:10px;border:0;background:var(--cone);opacity:.4}
+.sw.band{width:18px;height:10px;border:0;background:#CFC1A1;opacity:.7}
+.sw.dot{width:10px;height:10px;border:0;border-radius:50%;background:var(--obs)}
+.sw.sdot{width:7px;height:7px;border:0;border-radius:50%;background:var(--obs);opacity:.6}
+.sw.hol{width:10px;height:10px;border:2px solid var(--obs);border-radius:50%;background:transparent}
+.sw.dia{width:9px;height:9px;border:0;background:var(--obs);transform:rotate(45deg)}
+.sw.sq{width:9px;height:9px;border:0;background:var(--obs)}
+.sw.hdot{width:10px;height:10px;border:0;border-radius:50%;background:var(--his)}
+.sw.hring{width:10px;height:10px;border:2px solid var(--his);border-radius:50%;background:transparent}
+.sw.bar{width:3px;height:14px;border:0;background:var(--his)}
+.foot{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;font-size:10.5px;color:var(--ink-3);padding:8px 6px 0;margin:0}
+.foot span:first-child{white-space:nowrap}
+.foot .sc{text-align:right}
+.foot .sc{font-variant-caps:small-caps;letter-spacing:.08em}
+.readout{min-height:3em;font-size:14px;line-height:1.45;padding:6px 6px 2px;margin:0;color:var(--ink)}
+.readout .hint{color:var(--ink-3);font-style:italic}
+
+/* chart internals */
+.g-band rect{fill:var(--band)}
+.g-grid line{stroke:var(--rule);stroke-width:1}
+.g-axis text{fill:var(--ink-2);font:11.5px var(--serif)}
+.g-axis .yl{fill:var(--ink-2);font:11.5px var(--serif)}
+.frame{fill:none;stroke:var(--rule);stroke-width:1}
+.l-his{stroke:var(--his);stroke-width:2.4;fill:none}
+.l-his-d{stroke:var(--his);stroke-width:2.2;fill:none;stroke-dasharray:7 5}
+.l-cone{fill:var(--cone);opacity:.35;stroke:none}
+.l-proj{stroke:var(--obs);stroke-width:2;fill:none;stroke-dasharray:2 4;stroke-linecap:round}
+.l-ref{stroke:var(--ink-3);stroke-width:1.5;fill:none;stroke-dasharray:1 4;stroke-linecap:round}
+.l-refsolid{stroke:var(--ink-3);stroke-width:1.5;fill:none}
+.l-today{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:2 3}
+.t-today{fill:var(--ink-3);font:11px var(--serif);font-style:italic}
+.hband{fill:#CFC1A1;opacity:.5}
+.m-obs{fill:var(--obs);stroke:var(--panel);stroke-width:1.5}
+.m-obs.small{opacity:.7;stroke-width:1}
+.m-obs.hollow{fill:var(--panel);stroke:var(--obs);stroke-width:2}
+.m-his{fill:var(--his);stroke:var(--panel);stroke-width:1.5}
+.m-his.hollow{fill:var(--panel);stroke:var(--his);stroke-width:2}
+.e-obs{stroke:var(--obs);stroke-width:1.5}
+.e-his{stroke:var(--his);stroke-width:2.5}
+.rung line{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:2 3}
+.rung text{fill:var(--ink-2);font:11.5px var(--serif)}
+.rung.his line{stroke:var(--his);opacity:.9}
+.rung.his text{fill:var(--his)}
+.lbl{fill:var(--ink-2);font:11.5px var(--serif)}
+.lbl.obs{fill:var(--obs-t)}
+.lbl.his{fill:var(--his)}
+.hit{fill:transparent;cursor:pointer}
+.hit:focus{outline:none}
+.hit:focus-visible{stroke:var(--his);stroke-width:2}
+.is-sel{stroke:var(--ink)!important;stroke-width:2.5!important}
+/* counting-the-ooms graphic */
+.oom .rowlab{fill:var(--ink);font:700 11.5px var(--serif)}
+.oom .t{fill:var(--ink);font:11.5px var(--serif)}
+.oom .s{fill:var(--ink-2);font:10.5px var(--serif)}
+.oom .ax{stroke:var(--ink);stroke-width:1.2}
+.oom .axd{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:6 3 1 3}
+.oom .tk{stroke:var(--ink);stroke-width:1}
+.oom .cone{stroke:var(--ink-2);stroke-width:1;fill:none}
+.oom .uncert{fill:#C9C4B6;opacity:.6}
+.oom .now line{stroke:var(--obs);stroke-width:1.5;stroke-dasharray:3 3}
+.oom .now text{fill:var(--obs-t);font:700 11.5px var(--serif)}
+.oom .now circle{fill:var(--obs);stroke:var(--paper);stroke-width:1.5}
+
+/* track-error strip */
+.grp{font-size:19px;margin:20px 0 2px;color:var(--ink-2);font-variant-caps:small-caps;letter-spacing:.06em}
+.srow{padding:10px 0 8px;border-top:1px solid var(--rule-2)}
+.srow .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.srow .nm{font-size:16px}
+.srow .mx{font-size:15px;white-space:nowrap}
+.mx.s-ahead{color:var(--obs-t)} .mx.s-behind{color:var(--behind)} .mx.s-on{color:var(--ink)}
+.track{position:relative;height:24px;margin:6px 2px 0}
+.track .ax{position:absolute;left:0;right:0;top:11px;height:1px;background:var(--ink-3)}
+.track .tk{position:absolute;top:7px;width:1px;height:9px;background:var(--ink-3)}
+.track .zero{position:absolute;left:50%;top:0;width:3px;height:24px;margin-left:-1.5px;background:var(--his)}
+.track .rg{position:absolute;top:8px;height:8px;background:var(--obs);opacity:.35;border-radius:4px}
+.track .rg.behind{background:var(--behind)}
+.track .dt{position:absolute;top:5px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--obs);border:2px solid var(--paper)}
+.track .dt.behind{background:var(--behind)}
+.anim .track .dt,.anim .track .rg{transition:left .9s cubic-bezier(.2,.7,.2,1),width .9s cubic-bezier(.2,.7,.2,1)}
+.srow .dl{font-size:13.5px;color:var(--ink-2);margin:4px 0 0;line-height:1.45}
+.scale{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-3);margin:10px 0 -6px;padding:0 0 6px;border-bottom:1px solid var(--rule)}
+
+/* clocks */
+.clocks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 4px}
+.clock{border:1px solid var(--rule);padding:12px;background:var(--panel)}
+.clock .k{font-size:13.5px;color:var(--ink-2);line-height:1.35;min-height:3.6em}
+.clock .v{font-size:30px;line-height:1;margin:8px 0 4px;color:var(--his)}
+.clock .sub{font-size:12.5px;color:var(--ink-3)}
+.clock .his{font-size:13px;color:var(--his);margin-top:6px;font-style:italic}
+
+/* scorecard */
+details.claim{border-top:1px solid var(--rule-2);padding:11px 0}
+details.claim summary{list-style:none;display:flex;gap:12px;align-items:flex-start;justify-content:space-between;cursor:pointer}
+details.claim summary::-webkit-details-marker{display:none}
+.claim .w{font-size:16px;line-height:1.35}
+.claim .ch{display:block;font-size:12.5px;color:var(--ink-3);margin-top:2px;font-style:italic}
+.claim .ev{margin:8px 0 2px;font-size:15px;color:var(--ink-2);line-height:1.5}
+.chip{display:inline-block;flex:none;font-size:12px;letter-spacing:.06em;font-variant-caps:small-caps;line-height:1;padding:5px 9px;border-radius:2px;border:1px solid currentColor;white-space:nowrap;background:var(--panel)}
+.s-ahead{color:var(--obs-t)} .s-on{color:var(--ink)} .s-mixed{color:var(--ink-2);border-style:dotted}
+.s-behind{color:var(--behind)} .s-open{color:var(--open);border-style:dashed}
+
+/* controls */
+.ctrl{margin:12px 0;padding:12px 12px 10px;border:1px solid var(--rule);background:var(--panel)}
+.ctrl .row{margin:0 0 10px}
+.ctrl label{display:flex;flex-direction:column;gap:1px;font-size:15.5px;font-weight:700}
+.ctrl output{font-weight:400;font-size:15px;color:var(--his)}
+.ctrl .hint{font-size:13.5px;color:var(--ink-3);margin:0;line-height:1.4}
+input[type=range]{width:100%;height:30px;margin:2px 0;accent-color:var(--his)}
+.btn{font:17px var(--serif);color:#fff;background:var(--his);border:0;border-radius:4px;padding:12px 18px;width:100%}
+.btn[disabled]{opacity:.55}
+.tokrow{display:flex;gap:8px;align-items:center}
+.tokrow input{flex:1;min-width:0;font:15px var(--serif);padding:9px 10px;border:1px solid var(--rule);border-radius:3px;background:var(--panel);color:var(--ink)}
+.reset,.tog{font:14px var(--serif);color:var(--ink-2);background:var(--paper);border:1px solid var(--rule);border-radius:3px;padding:6px 10px}
+.tog[aria-pressed=true]{color:var(--his);border-color:var(--his);background:var(--panel)}
+.togs{display:flex;gap:8px;margin:8px 0 0;padding:0 6px}
+.res{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 4px}
+.res .k{display:block;font-size:13.5px;color:var(--ink-2);line-height:1.3;min-height:2.6em}
+.res .v{display:block;font-size:24px;line-height:1.05;margin-top:4px}
+.res .his{display:block;font-size:12.5px;color:var(--his);margin-top:3px;font-style:italic}
+.res .imp{display:block;font-size:12px;color:var(--ink-3)}
+
+/* tables */
+.tw{overflow-x:auto;margin:10px 0}
+table.t{width:100%;border-collapse:collapse;font-size:14.5px}
+.t th,.t td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+.t th{font-weight:400;color:var(--ink-2);font-size:12.5px;font-variant-caps:small-caps;letter-spacing:.05em}
+.t td.n{white-space:nowrap}
+.t .p{color:var(--his)} .t .o{color:var(--obs-t)}
+
+/* sources */
+dl.gl{margin:8px 0}
+.gl dt{font-weight:700;margin-top:10px}
+.gl dd{margin:2px 0 0;color:var(--ink-2);font-size:15.5px}
+ol.src{padding-left:0;list-style:none;margin:8px 0}
+ol.src li{padding:9px 0;border-top:1px solid var(--rule-2);font-size:14.5px;scroll-margin-top:90px;line-height:1.45}
+ol.src .id{color:var(--ink-3);display:inline-block;min-width:2.8em}
+ol.src .pb{display:block;color:var(--ink-3);font-size:13px;padding-left:2.8em}
+ol.src li.flash{background:#EFE4C2}
+.method p{font-size:15.5px;color:var(--ink-2);margin:8px 0}
+
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--paper);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs .in{display:grid;grid-template-columns:repeat(5,1fr);max-width:720px;margin:0 auto}
+nav.tabs a{position:relative;display:flex;align-items:center;justify-content:center;min-height:52px;color:var(--ink-2);font:13px var(--serif);text-decoration:none;letter-spacing:.01em}
+nav.tabs a[aria-current=page]{color:var(--ink)}
+nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left:22%;right:22%;height:3px;background:var(--his)}
+@media (max-width:359px){ nav.tabs a{font-size:11.5px} }
+@media (min-width:600px){ h2{font-size:38px} .lead{font-size:18.5px} }
+@media (prefers-reduced-motion: reduce){ .anim .track .dt,.anim .track .rg{transition:none} }
+</style>
+</head>
+<body>
+<div class="shield" aria-hidden="true"></div>
+<header class="top"><div class="in">
+  <div>
+    <h1>Recounting the OOMs</h1>
+    <p id="asof">His 2024 forecast against the record</p>
+  </div>
+  <a class="srcbtn" href="#sources" id="srcbtn">Sources</a>
+</div></header>
+
+<main>
+
+<!-- ============ BRIEF ============ -->
+<section class="view" id="v-brief" aria-labelledby="h-brief">
+  <h2 id="h-brief">Where his forecast stands</h2>
+  <p class="lead"><b>Bottom line:</b> Compute and money are on his line or ahead of it, and the shift from chatbots to agents he expected by 2027 was well underway by 2025. On paper tests, the frontier passed PhD experts in 2024. Two things lag: single training runs, still far below his 1-gigawatt mark for 2026, and US power, growing far slower than his path needs. &ldquo;AGI by 2027&rdquo; is still open; at observed rates his milestones land between mid-2027 and 2028.</p>
+
+  <h3>How far off his line</h3>
+  <p class="note">Each row divides what has been observed by his projection for the same date. The blue mark is his line. Right of it means reality is ahead; left means behind. Each step on the scale is about 3&times;.</p>
+  <div class="scale" aria-hidden="true"><span>&divide;10</span><span>&divide;3</span><span>his line</span><span>&times;3</span><span>&times;10</span></div>
+  <div id="strip"></div>
+
+  <h3>Two clocks for &ldquo;AGI by 2027&rdquo;</h3>
+  <p class="note">His AGI means an AI that can do the work of an AI researcher. Neither clock proves that; they show when his two leading indicators get there at observed rates. Both follow your settings on the Intelligence and Agents tabs.</p>
+  <div class="clocks">
+    <div class="clock">
+      <div class="k">Compute clock: another GPT-2-to-GPT-4-sized jump past GPT-4</div>
+      <div class="v" id="clk-oom">&ndash;</div>
+      <div class="sub" id="clk-oom-sub"></div>
+      <div class="his">His call: by end of 2027</div>
+    </div>
+    <div class="clock">
+      <div class="k">Agent clock: AI finishes month-long tasks about half the time</div>
+      <div class="v" id="clk-ag">&ndash;</div>
+      <div class="sub" id="clk-ag-sub"></div>
+      <div class="his">His call: drop-in remote worker by 2027</div>
+    </div>
+  </div>
+
+  <h3>His key calls, scored</h3>
+  <p class="note">Tap a call for the evidence and sources.</p>
+  <div id="claims"></div>
+</section>
+
+<!-- ============ INTELLIGENCE ============ -->
+<section class="view" id="v-intel" aria-labelledby="h-intel">
+  <h2 id="h-intel">Counting the OOMs again</h2>
+  <p class="lead"><b>Bottom line:</b> On his own yardstick, effective compute, the frontier is about <span id="bl-oom">3.4</span> OOMs past GPT-4, roughly two-thirds of the way to his &ldquo;automated AI researcher&rdquo; mark. (An OOM, or order of magnitude, is a 10&times; step.) On measured tests, models passed PhD experts in 2024 and the pace of improvement nearly doubled after reasoning models arrived. What has not been shown is the last rung: an AI that does a researcher&rsquo;s job on its own.</p>
+
+  <figure class="plot" id="ch-eff">
+    <figcaption class="cap">Base Scaleup of Effective Compute</figcaption>
+    <div class="svgwrap"></div>
+    <ul class="legend">
+      <li><span class="sw solid"></span>His estimate, 2018&ndash;2023</li>
+      <li><span class="sw"></span>His projection</li>
+      <li><span class="sw cone"></span>His range, +3 to +6 OOMs by end of 2027</li>
+      <li><span class="sw dot"></span>Observed, at your algorithmic setting</li>
+    </ul>
+    <p class="readout" aria-live="polite"><span class="hint">Tap a point for the figure and its source.</span></p>
+    <p class="foot"><span>Based on public estimates</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+  <p class="note">His Figure 1, redrawn. Effective compute is physical training compute times algorithmic efficiency (better methods that get more out of the same chips), normalized so GPT-4 = 1. The observed points use Epoch AI&rsquo;s physical-compute estimates plus assumed algorithmic gains since GPT-4 at the rate you set below; nobody can measure the algorithmic part directly.</p>
+
+  <figure class="plot" id="ch-oomline">
+    <figcaption class="cap">Counting the OOMs</figcaption>
+    <div class="svgwrap"></div>
+    <p class="foot"><span>His Figure 20, with 2026 added</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+  <p class="note">His summary graphic: compute and algorithms move models along the OOM line; &ldquo;unhobbling&rdquo; (chat training, reasoning, tools, computer use) widens what they can do with it. The gold marker is the 2026 frontier at your settings.</p>
+
+  <h3>Measured capability</h3>
+  <figure class="plot" id="ch-eci">
+    <figcaption class="cap">Epoch Capabilities Index, Frontier Models</figcaption>
+    <div class="svgwrap"></div>
+    <ul class="legend">
+      <li><span class="sw dot"></span>Record-setting models, with 90% intervals</li>
+      <li><span class="sw refsolid"></span>Trend since reasoning models</li>
+      <li><span class="sw ref"></span>Trend before</li>
+    </ul>
+    <p class="readout" aria-live="polite"><span class="hint">Tap a point for the figure and its source.</span></p>
+    <p class="foot"><span>Data: Epoch AI, CC BY 4.0</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+  <p class="note">The closest thing to a single intelligence score: Epoch AI combines results from more than 50 benchmarks onto one scale, fixed so Claude 3.5 Sonnet = 130 and GPT-5 = 150. The scale is arbitrary (not IQ, not a percentage); what matters is the slope. Epoch puts the frontier at about 14 points a year since reasoning models, versus about 8 before <a class="ref" href="#sources" data-src="S2">S2</a> <a class="ref" href="#sources" data-src="S41">S41</a>.</p>
+
+  <figure class="plot" id="ch-gpqa">
+    <figcaption class="cap">PhD-Level Science Questions (GPQA Diamond)</figcaption>
+    <div class="svgwrap"></div>
+    <ul class="legend">
+      <li><span class="sw band"></span>PhD experts, 65% to about 81%</li>
+      <li><span class="sw hring"></span>His 2024 reference, Claude 3 Opus</li>
+      <li><span class="sw dot"></span>Frontier models, company-reported</li>
+    </ul>
+    <p class="readout" aria-live="polite"><span class="hint">Tap a point for the figure and its source.</span></p>
+    <p class="foot"><span>Compiled company-reported scores</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+  <p class="note">The test he singled out as the hardest unsolved one in 2024, with Claude 3 Opus near 60% and in-domain PhDs near 80%. He expected it to fall within a generation or two. It fell within three months: o1-preview scored 78% in Sep 2024, and OpenAI said it beat the PhD experts it recruited <a class="ref" href="#sources" data-src="S47">S47</a>. Scores above about 90% sit near the test’s ceiling, since some of its questions are themselves flawed <a class="ref" href="#sources" data-src="S45">S45</a>.</p>
+
+  <h3>Physical compute</h3>
+  <figure class="plot" id="ch-compute">
+    <figcaption class="cap">Largest AI Training Runs</figcaption>
+    <div class="svgwrap"></div>
+    <ul class="legend">
+      <li><span class="sw"></span>His line, 0.5 OOM a year</li>
+      <li><span class="sw bar"></span>His end-2027 range</li>
+      <li><span class="sw dot"></span>Observed (Epoch AI estimates)</li>
+      <li><span class="sw proj"></span>Projection at your setting</li>
+      <li><span class="sw ref"></span>Epoch&rsquo;s 2020&ndash;24 trend, 5&times; a year</li>
+    </ul>
+    <p class="readout" aria-live="polite"><span class="hint">Tap a point for the figure and its source.</span></p>
+    <p class="foot"><span>Based on public estimates</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+  <p class="note">FLOP counts the arithmetic operations used to train a model. Public estimates for closed models are thin after mid-2025 <a class="ref" href="#sources" data-src="S7">S7</a>, so GPT-6 Astra carries a range of 5&times;10&sup2;&#8310; to 2&times;10&sup2;&#8311;.</p>
+
+  <h3>Recount the effective compute</h3>
+  <p class="note">He expected about +5 OOMs, or 100,000&times;, over GPT-4 by the end of 2027: roughly another GPT-2-to-GPT-4 leap. Set the two growth rates and the jump size; the charts above and the clocks on the Brief follow.</p>
+  <div class="ctrl">
+    <div class="row">
+      <label for="r-phys">Physical compute growth <output id="r-phys-out"></output></label>
+      <input type="range" id="r-phys" min="0.3" max="0.9" step="0.05">
+      <p class="hint">Observed GPT-4 to <span id="bl-run">the latest run</span>: about <span id="bl-rate">0.5</span>. Epoch&rsquo;s 2020&ndash;24 trend: 0.7.</p>
+    </div>
+    <div class="row">
+      <label for="r-algo">Algorithmic efficiency gains <output id="r-algo-out"></output></label>
+      <input type="range" id="r-algo" min="0.2" max="0.8" step="0.05">
+      <p class="hint">His estimate: 0.5. Epoch&rsquo;s estimates imply about 0.25&ndash;0.5 <a class="ref" href="#sources" data-src="S40">S40</a>. Labs stopped publishing this, so it is the least certain input.</p>
+    </div>
+    <div class="row">
+      <label for="r-target">Size of the jump that counts <output id="r-target-out"></output></label>
+      <input type="range" id="r-target" min="3" max="6" step="0.5">
+      <p class="hint">His best guess for the GPT-4-to-AGI gap: about +5 OOMs (range 3&ndash;6).</p>
+    </div>
+    <button class="reset" type="button" data-reset="phys,algo,target">Reset to observed rates</button>
+    <div class="res">
+      <div><span class="k">Jump reached</span><span class="v" id="o-t5"></span><span class="his">His call: by end of 2027</span></div>
+      <div><span class="k">Effective compute by end of 2027</span><span class="v" id="o-27"></span><span class="his">His call: +3 to +6, best guess +5</span></div>
+    </div>
+  </div>
+  <p class="note">Not counted here: compute spent after pretraining on reinforcement learning, and compute spent while answering (&ldquo;test-time compute,&rdquo; letting a model think longer). Both grew fast after 2024, which is why the Agents tab moves faster than the physical-compute chart.</p>
+</section>
+
+<!-- ============ BUILD ============ -->
+<section class="view" id="v-build" aria-labelledby="h-build">
+  <h2 id="h-build">Clusters, chips, and power</h2>
+  <p class="lead"><b>Bottom line:</b> Gigawatt-scale sites arrived on his schedule, and chip production is on pace. But labs split those sites across many jobs, so the biggest known training run drew about a quarter of a gigawatt. And the grid outlook for 2030 is a fraction of what his path needs.</p>
+
+  <figure class="plot" id="ch-build">
+    <figcaption class="cap">Largest AI Sites and Training Runs, by Power</figcaption>
+    <div class="svgwrap"></div>
+    <ul class="legend">
+      <li><span class="sw"></span>His largest-cluster line</li>
+      <li><span class="sw dot"></span>Sites operating or ramping</li>
+      <li><span class="sw dia"></span>Biggest known single run</li>
+      <li><span class="sw hol"></span>Announced</li>
+      <li><span class="sw proj"></span>Trend at your setting</li>
+    </ul>
+    <p class="readout" aria-live="polite"><span class="hint">Tap a point for the figure and its source.</span></p>
+    <p class="foot"><span>Based on public estimates</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+  <div class="ctrl">
+    <div class="row">
+      <label for="r-site">Largest-site doubling time <output id="r-site-out"></output></label>
+      <input type="range" id="r-site" min="4" max="24" step="1">
+      <p class="hint">Epoch AI&rsquo;s measured trend: about 7 months <a class="ref" href="#sources" data-src="S8">S8</a>. Longer is likely if power stays the bottleneck.</p>
+    </div>
+    <button class="reset" type="button" data-reset="siteDbl">Reset to observed rate</button>
+    <div class="res">
+      <div><span class="k">Largest site, 2028</span><span class="v" id="o-s28"></span><span class="his">His: ~10 GW</span></div>
+      <div><span class="k">Largest site, 2030</span><span class="v" id="o-s30"></span><span class="his">His: ~100 GW</span></div>
+    </div>
+  </div>
+  <p class="note">A gigawatt (GW) is roughly the output of one large nuclear reactor, his own comparison for a 2026 cluster.</p>
+
+  <h3>His cluster table, with what showed up</h3>
+  <div class="tw"><table class="t">
+    <thead><tr><th>Year</th><th>His largest cluster</th><th>Observed</th></tr></thead>
+    <tbody>
+      <tr><td class="n">2022</td><td class="p">~10k H100e, ~$500M, ~10 MW</td><td>GPT-4&rsquo;s cluster</td></tr>
+      <tr><td class="n">~2024</td><td class="p">~100k H100e, $billions, ~100 MW</td><td class="o">xAI Colossus: 100k H100s, Sep 2024 <a class="ref" href="#sources" data-src="S39">S39</a></td></tr>
+      <tr><td class="n">~2026</td><td class="p">~1M H100e, $10s of billions, ~1 GW</td><td class="o">Sites of 1&ndash;2 GW; biggest known run &asymp;0.23 GW <a class="ref" href="#sources" data-src="S9">S9</a> <a class="ref" href="#sources" data-src="S5">S5</a></td></tr>
+      <tr><td class="n">~2028</td><td class="p">~10M H100e, $100s of billions, ~10 GW</td><td>Not yet</td></tr>
+      <tr><td class="n">~2030</td><td class="p">~100M H100e, $1T+, ~100 GW</td><td>Meta Hyperion: 2 GW by 2030, scaling to 5 GW <a class="ref" href="#sources" data-src="S10">S10</a></td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">H100e (H100-equivalent) measures computing power in units of one Nvidia H100, the standard AI chip of 2023&ndash;24.</p>
+
+  <h3>Chips</h3>
+  <p class="note">He projected annual AI chip shipments; Epoch AI tracks the cumulative installed stock. The 2026 shipment figure below is derived from Epoch&rsquo;s stock estimates.</p>
+  <div class="tw"><table class="t">
+    <thead><tr><th>Year</th><th>His shipments per year</th><th>Observed</th></tr></thead>
+    <tbody>
+      <tr><td class="n">2024&ndash;25</td><td class="p">~5&ndash;10M H100e in 2024</td><td class="o">&asymp;20M sold in total by end of 2025, after the stock tripled during 2025 <a class="ref" href="#sources" data-src="S11">S11</a></td></tr>
+      <tr><td class="n">~2026</td><td class="p">~10s of millions</td><td class="o">&asymp;27.6M sold by Jun 2026; &asymp;46M projected by year end, so &asymp;26M shipped in 2026 <a class="ref" href="#sources" data-src="S13">S13</a></td></tr>
+      <tr><td class="n">~2028</td><td class="p">~100M</td><td>&asymp;140M cumulative projected by end of 2028 <a class="ref" href="#sources" data-src="S13">S13</a></td></tr>
+      <tr><td class="n">~2030</td><td class="p">~100s of millions</td><td>Not yet</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">One lab&rsquo;s view: OpenAI&rsquo;s compute grew from &asymp;103k H100e (2023) to &asymp;386k (2024) to &asymp;1.7M (2025), about 4&times; a year <a class="ref" href="#sources" data-src="S12">S12</a>.</p>
+
+  <h3>Power</h3>
+  <figure class="plot" id="ch-power">
+    <figcaption class="cap">Share of US Electricity</figcaption>
+    <div class="svgwrap"></div>
+    <ul class="legend">
+      <li><span class="sw"></span>His path, AI alone</li>
+      <li><span class="sw dot"></span>All US data centers</li>
+      <li><span class="sw hol"></span>Official 2030 outlooks</li>
+    </ul>
+    <p class="readout" aria-live="polite"><span class="hint">Tap a point for the figure and its source.</span></p>
+    <p class="foot"><span>Based on public estimates</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+  <p class="note">Not a perfect match: his figures cover AI alone and use US electricity as a yardstick (he noted not all of it would be in the US). The observed figures cover every US data center, AI or not, because that is what gets measured. Even so, official 2030 outlooks of about 9&ndash;17% are far below his 100%.</p>
+</section>
+
+<!-- ============ MONEY ============ -->
+<section class="view" id="v-money" aria-labelledby="h-money">
+  <h2 id="h-money">Spending and revenue</h2>
+  <p class="lead"><b>Bottom line:</b> Spending is ahead of his 2026 mark and on course for his $1-trillion-a-year call for 2027. Revenue hit his $100B milestone in mid-2026, but across two AI labs combined rather than at one tech giant.</p>
+
+  <figure class="plot" id="ch-invest">
+    <figcaption class="cap">Annual AI Spending</figcaption>
+    <div class="svgwrap"></div>
+    <ul class="legend">
+      <li><span class="sw"></span>His total AI investment path</li>
+      <li><span class="sw dot"></span>Big-tech capex</li>
+      <li><span class="sw sq"></span>Nvidia data-center sales, annualized</li>
+      <li><span class="sw hol"></span>Derived or projected</li>
+      <li><span class="sw proj"></span>Capex at your growth rate</li>
+    </ul>
+    <p class="readout" aria-live="polite"><span class="hint">Tap a point for the figure and its source.</span></p>
+    <p class="foot"><span>Based on public estimates</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+  <p class="note">Capex is capital spending on things like data centers and chips. Big-tech capex is a subset of his measure (it leaves out other clouds, labs, and governments) but includes some non-AI spending.</p>
+  <div class="ctrl">
+    <div class="row">
+      <label for="r-capex">Big-tech capex growth after 2027 <output id="r-capex-out"></output></label>
+      <input type="range" id="r-capex" min="0" max="1" step="0.05">
+      <p class="hint">2025 to 2026: +77%. 2026 to 2027, analyst view: about +38%. He assumed total AI investment would roughly double each year.</p>
+    </div>
+    <button class="reset" type="button" data-reset="capexG">Reset to default</button>
+    <div class="res">
+      <div><span class="k">Big-tech capex, 2028</span><span class="v" id="o-c28"></span><span class="his">His total: ~$2T</span></div>
+      <div><span class="k">Big-tech capex, 2030</span><span class="v" id="o-c30"></span><span class="his">His total: ~$8T</span></div>
+    </div>
+  </div>
+
+  <h3>Revenue run rates</h3>
+  <figure class="plot" id="ch-rev">
+    <figcaption class="cap">Annualized Revenue, Frontier AI Labs</figcaption>
+    <div class="svgwrap"></div>
+    <ul class="legend">
+      <li><span class="sw"></span>His OpenAI line, doubling every 6 months</li>
+      <li><span class="sw hring"></span>His $100B milestone</li>
+      <li><span class="sw dot"></span>OpenAI</li>
+      <li><span class="sw dia"></span>Anthropic</li>
+    </ul>
+    <p class="readout" aria-live="polite"><span class="hint">Tap a point for the figure and its source.</span></p>
+    <p class="foot"><span>Reported run rates, not audited revenue</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+  <p class="note">A run rate is a recent month&rsquo;s revenue times 12, not audited annual revenue, and the two companies may count differently. His milestone was a tech giant like Google or Microsoft earning $100B a year from AI; no tech giant reports that figure, but OpenAI (&asymp;$40B) and Anthropic (&asymp;$65B) passed it together by August 2026 <a class="ref" href="#sources" data-src="S17">S17</a>.</p>
+</section>
+
+<!-- ============ AGENTS ============ -->
+<section class="view" id="v-agents" aria-labelledby="h-agents">
+  <h2 id="h-agents">From chatbot to agent</h2>
+  <p class="lead"><b>Bottom line:</b> This is where reality ran fastest. He expected a little reinforcement learning (training by trial and error against a score) to let models work on problems far longer. It did, starting with OpenAI&rsquo;s o1 in Sep 2024 <a class="ref" href="#sources" data-src="S28">S28</a>. Within <span id="bl-ag-months">19</span> months, the best measured model finished <span id="bl-ag-hours">17</span>-hour tasks about half the time.</p>
+
+  <figure class="plot" id="ch-agents">
+    <figcaption class="cap">METR Time Horizon, with His Thinking-Time Ladder</figcaption>
+    <div class="svgwrap"></div>
+    <div class="togs" role="group" aria-label="Success rate">
+      <button class="tog" type="button" data-hz="50" aria-pressed="true">50% success</button>
+      <button class="tog" type="button" data-hz="80" aria-pressed="false">80% success</button>
+    </div>
+    <ul class="legend">
+      <li><span class="sw hdot2"></span>His ladder rungs</li>
+      <li id="lg-rec"><span class="sw dot"></span>Record-setting models, with 95% intervals</li>
+      <li><span class="sw sdot"></span>Other measured models</li>
+      <li><span class="sw proj"></span>Projection at your setting</li>
+    </ul>
+    <p class="readout" aria-live="polite"><span class="hint">Tap a point for the figure and its source.</span></p>
+    <p class="foot"><span id="ft-metr">Data: METR Time Horizon 1.1</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+  <div class="ctrl">
+    <div class="row">
+      <label for="r-hz">Time-horizon doubling time <output id="r-hz-out"></output></label>
+      <input type="range" id="r-hz" min="2" max="12" step="0.5">
+      <p class="hint">Since 2024: about 3.5&ndash;4 months. 2019&ndash;2024: about 7 months <a class="ref" href="#sources" data-src="S26">S26</a>.</p>
+    </div>
+    <button class="reset" type="button" data-reset="hzDbl">Reset to observed rate</button>
+    <div class="res">
+      <div><span class="k">A workweek (40 h) at 50% success</span><span class="v" id="o-h40"></span><span class="imp" id="o-h40i"></span></div>
+      <div><span class="k">A work-month (167 h) at 50% success</span><span class="v" id="o-h167"></span><span class="imp" id="o-h167i"></span></div>
+    </div>
+  </div>
+  <p class="note">Time horizon (METR) is the length of task, timed on skilled humans, that a model completes a given share of the time. It is not how long a model can run unattended, and 50% success is far from reliable; the 80% view is the better guide to dependable delegation <a class="ref" href="#sources" data-src="S23">S23</a>.</p>
+  <p class="note">His rungs come from his table converting a model&rsquo;s &ldquo;thinking time&rdquo; into human working time. Laying them over METR&rsquo;s measure is an analogy, not his metric.</p>
+  <p class="note">All points use METR&rsquo;s Time Horizon 1.1 suite. METR said the suite was near saturation by early 2026 <a class="ref" href="#sources" data-src="S27">S27</a>; estimates above 16 hours have limited reliability, and estimates above 16 hours have limited reliability. Points refresh from METR&rsquo;s published results file whenever the site is updated <a class="ref" href="#sources" data-src="S49">S49</a>.</p>
+</section>
+
+<!-- ============ SOURCES ============ -->
+<section class="view" id="v-sources" aria-labelledby="h-sources">
+  <h2 id="h-sources">Sources and method</h2>
+  <p class="note">Install on iPhone: open this page in Safari, tap Share, then Add to Home Screen. The app runs fully offline; the links below need a connection.</p>
+
+  <h3>Plain-language terms</h3>
+  <dl class="gl">
+    <dt>OOM</dt><dd>Order of magnitude: a 10&times; step. +2 OOMs is 100&times;; +5 is 100,000&times;.</dd>
+    <dt>FLOP</dt><dd>One arithmetic operation. Training compute is the total count; GPT-4 used about 2&times;10&sup2;&#8309;.</dd>
+    <dt>H100-equivalent (H100e)</dt><dd>Computing power in units of one Nvidia H100, the standard AI chip of 2023&ndash;24.</dd>
+    <dt>Effective compute</dt><dd>Physical compute multiplied by algorithmic efficiency, meaning better methods that get more out of the same chips.</dd>
+    <dt>Unhobbling</dt><dd>His term for fixes that let a model use what it already knows: chat training, step-by-step reasoning, tools, longer working memory, computer use.</dd>
+    <dt>Reinforcement learning (RL)</dt><dd>Training by trial and error against a score, like graded practice problems.</dd>
+    <dt>Test-time compute</dt><dd>Letting a model think longer before it answers.</dd>
+    <dt>Epoch Capabilities Index (ECI)</dt><dd>Epoch AI&rsquo;s composite score across more than 50 benchmarks, scaled so Claude 3.5 Sonnet = 130 and GPT-5 = 150. Arbitrary units; the slope is what matters.</dd>
+    <dt>GPQA Diamond</dt><dd>198 PhD-level multiple-choice questions in biology, physics, and chemistry, written so non-experts cannot answer them even with web search.</dd>
+    <dt>Run rate</dt><dd>A recent month&rsquo;s revenue times 12.</dd>
+    <dt>Capex</dt><dd>Capital spending on long-lived assets like data centers and chips.</dd>
+    <dt>Time horizon (METR)</dt><dd>The length of task, timed on skilled humans, that a model completes a given share of the time (50% or 80%).</dd>
+    <dt>Gigawatt (GW)</dt><dd>A billion watts, roughly one large nuclear reactor&rsquo;s output. 1,000 megawatts (MW).</dd>
+  </dl>
+
+  <h3>Method</h3>
+  <div class="method">
+    <p>His projections come from the June 2024 essay <a class="ref" href="#sources" data-src="S1">S1</a>. Between rows of his tables (each dated mid-year), values are interpolated on a log scale; elsewhere his stated growth rates are extended. Charts are redrawn in the essay&rsquo;s style: his estimates in blue (solid for the past, dashed for projections, shaded for his stated range), observations in gold.</p>
+    <p>&ldquo;How far off his line&rdquo; divides the observed figure by his projection for the same date. On track means within about 1.4&times; either way; bars show the observed range where sources give one.</p>
+    <p>Effective compute for observed models = Epoch&rsquo;s physical estimate &times; 10 to the power of (algorithmic rate &times; years since GPT-4). The algorithmic rate is your slider; it cannot be measured for closed models.</p>
+    <p>Derived figures are marked as derived: Nvidia&rsquo;s annualized sales (quarter &times; 4), 2024 big-tech capex (backed out from 2025&rsquo;s reported +73%), 2026 chip shipments (from Epoch&rsquo;s stock estimates), and the Nvidia comparison line (his mid-2024 figure grown at his own 2024&ndash;26 investment pace). Trend lines on the capability chart use Epoch\u2019s published rates (about 8 points a year before 2024, about 14 since reasoning models), drawn through the index\u2019s two calibration points.</p>
+    <p>Several sources are secondary summaries of Epoch AI or METR data, or of press reports; benchmark scores are company-reported. Run rates and capex guidance are company figures, not audited results. Treat single-source numbers (marked in each readout) as provisional.</p>
+    <p>The public pages make no network requests. Three series (Epoch&rsquo;s capability index, Epoch&rsquo;s training-compute estimates, METR&rsquo;s time horizons) are pulled from the publishers&rsquo; own data files whenever the owner rebuilds the site; everything else is hand-entered. Last data refresh: <span id="m-fetched"></span>. Your slider settings are saved on this device only.</p>
+    <p class="small"><a href="data.json">Download the data behind this site</a>. <a href="#owner">Owner tools</a>.</p>
+  </div>
+
+  <h3>Sources</h3>
+  <ol class="src" id="srclist"></ol>
+</section>
+
+<!-- ============ OWNER ============ -->
+<section class="view" id="v-owner" aria-labelledby="h-owner">
+  <h2 id="h-owner">Owner tools</h2>
+  <p class="note">For the site owner. Anyone can read this page, but nothing here works without the owner&rsquo;s GitHub access.</p>
+
+  <h3>Data status</h3>
+  <div class="tw"><table class="t" id="own-status"></table></div>
+
+  <h3>Update the site</h3>
+  <p class="note">Pulls the latest Epoch AI and METR data from their published files, rebuilds the pages, and republishes. Takes two to three minutes.</p>
+  <button class="btn" id="own-run" type="button">Update the site now</button>
+  <p class="note" id="own-msg" aria-live="polite"></p>
+
+  <h3>GitHub access</h3>
+  <p class="note">Paste a fine-grained personal access token limited to this repository with Actions read-and-write permission. It is kept only in this browser and sent only to api.github.com when you press Update. Without it, the button opens the workflow page on GitHub instead.</p>
+  <div class="tokrow">
+    <input type="password" id="own-token" autocomplete="off" placeholder="github_pat_..." aria-label="GitHub token">
+    <button class="reset" type="button" id="own-save">Save</button>
+    <button class="reset" type="button" id="own-forget">Forget</button>
+  </div>
+  <p class="small" id="own-tokstate"></p>
+
+  <h3>Hand-entered figures</h3>
+  <p class="note">Capex, revenue, power, site figures, and the scorecard text live in one file. Edit it on GitHub and commit; the site rebuilds itself in a few minutes.</p>
+  <p class="note"><a id="own-edit" href="#" target="_blank" rel="noopener">Edit manual.json on GitHub</a></p>
+  <p class="note"><a id="own-runs" href="#" target="_blank" rel="noopener">Update history and logs</a></p>
+</section>
+</main>
+
+<nav class="tabs" aria-label="Sections"><div class="in">
+  <a href="#brief" data-v="brief">Brief</a>
+  <a href="#intel" data-v="intel">Intelligence</a>
+  <a href="#build" data-v="build">Build</a>
+  <a href="#money" data-v="money">Money</a>
+  <a href="#agents" data-v="agents">Agents</a>
+</div></nav>
+
+<script>
+'use strict';
+/* ---------- data, injected at build time from data/manual.json and data/auto.json ---------- */
+const DATA = /*{{DATA}}*/null;
+const M = DATA.manual, A = DATA.auto, META = DATA.meta;
+/* ---------- helpers ---------- */
+const d = (y, m) => y + (m - 0.5) / 12;                    // mid-month
+const dd = (y, m, day) => y + ((m - 1) * 30.44 + day - 1) / 365.25; // specific day
+const T = x => { if (typeof x === 'number') return x; const p = String(x).slice(0, 10).split('-').map(Number); return p.length >= 3 ? dd(p[0], p[1], p[2]) : d(p[0], p[1]); };
+const TODAY = T(META.built);
+const MONL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const fmtDay = iso => { const p = String(iso).slice(0, 10).split('-').map(Number); return `${p[2]} ${MONL[p[1] - 1].slice(0, 3)} ${p[0]}`; };
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const SUPC = {'0':'\u2070','1':'\u00b9','2':'\u00b2','3':'\u00b3','4':'\u2074','5':'\u2075','6':'\u2076','7':'\u2077','8':'\u2078','9':'\u2079','-':'\u207b'};
+const sup = n => String(n).split('').map(c => SUPC[c] || c).join('');
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const r1 = v => Math.round(v * 10) / 10;
+function fmtDate(t){ const y = Math.floor(t); let m = Math.floor((t - y) * 12 + 1e-6); if (m > 11) m = 11; if (m < 0) m = 0; return MON[m] + ' ' + y; }
+function sci(v){ const e = Math.floor(Math.log10(v) + 1e-9); const mt = v / Math.pow(10, e); const ms = Math.abs(mt - 1) < 0.05 ? '' : r1(mt) + '\u00d7'; return ms + '10' + sup(e); }
+function usd(b){ if (b >= 1000){ const t = b / 1000; return '$' + (t >= 10 ? Math.round(t) : r1(t)) + 'T'; } if (b >= 10) return '$' + Math.round(b) + 'B'; return '$' + r1(b) + 'B'; }
+function gw(v){ if (v < 1) return Math.round(v * 1000) + ' MW'; if (v >= 1000) return r1(v / 1000).toLocaleString() + ' TW'; return (v < 10 ? r1(v) : Math.round(v)).toLocaleString() + ' GW'; }
+function hrs(h){ if (h < 1) return Math.round(h * 60) + ' min'; if (h < 10) return r1(h) + ' h'; return Math.round(h).toLocaleString() + ' h'; }
+function pct(v){ return (v < 10 ? r1(v) : Math.round(v)) + '%'; }
+function times(oom){ const x = Math.pow(10, oom); const p = Math.pow(10, Math.floor(Math.log10(x)) - 1); return (Math.round(x / p) * p).toLocaleString() + '\u00d7'; }
+function logInterp(ser, t){
+  const n = ser.length; let i = 0;
+  if (t >= ser[n-1][0]) i = n - 2; else while (i < n - 2 && t > ser[i+1][0]) i++;
+  const [t0, v0] = ser[i], [t1, v1] = ser[i+1]; const f = (t - t0) / (t1 - t0);
+  return Math.pow(10, Math.log10(v0) + f * (Math.log10(v1) - Math.log10(v0)));
+}
+function linfit(pts){ const n = pts.length; let sx = 0, sy = 0, sxx = 0, sxy = 0; pts.forEach(([x, y]) => { sx += x; sy += y; sxx += x * x; sxy += x * y; }); const a = (n * sxy - sx * sy) / (n * sxx - sx * sx); return {a, b:(sy - a * sx) / n}; }
+const refs = list => (list || []).map(s => `<a class="ref" href="#sources" data-src="${s}">${s}</a>`).join(' ');
+
+/* ---------- sources ---------- */
+const SRC = M.sources;
+
+/* ---------- his 2024 projections (S1) ---------- */
+const G4 = {t: d(2023,3), v: 2e25};
+const PLAN = {
+  effHist: [[2018.0,1e-7],[2019.12,1e-5],[2020.4,1e-3],[G4.t,1]],   // his Figure 1 history, normalized to GPT-4
+  effRate: 5 / (2027.96 - G4.t),                                     // +5 OOMs by end of 2027
+  effLo: 3 / (2027.96 - G4.t), effHi: 6 / (2027.96 - G4.t),
+  sites: [[2022.5,0.01],[2024.5,0.1],[2026.5,1],[2028.5,10],[2030.5,100]],
+  invest: [[2024.5,150],[2026.5,500],[2027.5,1000],[2028.5,2000],[2030.5,8000]],
+  power: [[2024.5,1.5],[2026.5,5],[2028.5,20],[2030.5,100]],
+  rungs: [[0.05,'A few minutes'],[0.5,'Half an hour'],[4,'Half a workday'],[40,'A workweek'],[500,'Multiple months']]
+};
+
+/* ---------- observations ---------- */
+const pt = o => Object.assign({}, o, {t: T(o.t)});
+const OBS = {
+  runs: A.runs.frontier.map((r, i, arr) => {
+    const rg = (M.runRanges || {})[r.n] || {};
+    const p = {t: T(r.date), v: r.flop, n: r.n, s: ['S48'].concat(rg.s || []),
+      note: [rg.note, r.conf ? 'Epoch confidence: ' + r.conf.toLowerCase() : ''].filter(Boolean).join('. ')};
+    if (rg.lo){ p.lo = rg.lo; p.hi = rg.hi; }
+    if (i === arr.length - 1){ p.lab = r.n; p.la = 'br'; }
+    return p;
+  }),
+  sites: M.sites.map(pt), run: pt(M.run), announced: pt(M.announced),
+  capex: M.capex.map(pt), nvda: M.nvda.map(pt), openai: M.openai.map(pt), anthropic: M.anthropic.map(pt),
+  power: M.power.map(pt), gpqa: M.gpqa.map(pt), gpqaRef: Object.assign(pt(M.gpqaRef), {hollow: true}), gpqaHuman: M.gpqaHuman,
+  metr: A.metr.models.map(r => ({n: r.n, t: T(r.date), h50: r.h50, h80: r.h80, lo: r.lo, hi: r.hi, s: ['S49']})),
+  eci: A.eci.frontier.map((r, i, arr) => Object.assign({n: r.n, t: T(r.date), v: r.v, lo: r.lo, hi: r.hi, s: ['S42'],
+      note: r.lo == null ? 'Calibration anchor for the index' : ''},
+      i === 0 ? {lab: 'GPT-4', la: 'tr'} : i === arr.length - 1 ? {lab: r.n.replace(/^Claude /, ''), la: 'r'} : {})),
+  eciRef: A.eci.ref ? {n: A.eci.ref.n, t: T(A.eci.ref.date), v: A.eci.ref.v, lo: A.eci.ref.lo, hi: A.eci.ref.hi, hollow: true, s: ['S42'], lab: 'GPT-3.5', la: 'r'} : null
+};
+const MYTHOS = OBS.metr.reduce((a, b) => b.h50 > a.h50 ? b : a);   // current record holder at 50% success
+const ASTRA = OBS.runs[OBS.runs.length - 1];                      // largest known training run
+
+/* ---------- settings (saved on device) ---------- */
+const DEF = {phys:0.5, algo:0.5, target:5, siteDbl:7, capexG:0.4, hzDbl:4, hz:50};
+const KEY = 'oom-recount-v2';
+let ST = Object.assign({}, DEF);
+try { Object.assign(ST, JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(ST)); } catch (e) {} }
+
+/* ---------- derived outputs ---------- */
+const tJump = () => G4.t + ST.target / (ST.phys + ST.algo);
+const hzBase = () => ST.hz === 80 ? MYTHOS.h80 : MYTHOS.h50;
+const tHorizon = h => MYTHOS.t + Math.log2(h / hzBase()) * ST.hzDbl / 12;
+const tHorizon50 = h => MYTHOS.t + Math.log2(h / MYTHOS.h50) * ST.hzDbl / 12;
+const site = t => 1.5 * Math.pow(2, (t - 2026.5) * 12 / ST.siteDbl);
+const capex = t => 1000 * Math.pow(1 + ST.capexG, t - 2027.5);
+const effObs = () => OBS.runs.slice(1).map(p => {
+  const alg = ST.algo * (p.t - G4.t), f = Math.pow(10, alg);
+  return Object.assign({}, p, {v:p.v / G4.v * f, lo:p.lo ? p.lo / G4.v * f : undefined, hi:p.hi ? p.hi / G4.v * f : undefined,
+    note:(p.note ? p.note + '. ' : '') + `Physical compute \u00d7 10^(${ST.algo.toFixed(2)} \u00d7 ${r1(p.t - G4.t)} years) of assumed algorithmic gains`});
+});
+
+/* ---------- chart engine: essay-style plates ---------- */
+const CHARTS = {};
+function chart(id, cfg){
+  const fig = $(id), wrap = fig.querySelector('.svgwrap');
+  const W = Math.round(Math.max(290, wrap.clientWidth || 340));
+  const H = cfg.h || Math.round(Math.min(340, Math.max(250, W * 0.76)));
+  const m = {l: cfg.ml || 50, r: cfg.mr || 14, t: 10, b: 30};
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const xs = cfg.x, ys = cfg.y, log = ys.log !== false, L = Math.log10;
+  const X = t => m.l + (t - xs.min) / (xs.max - xs.min) * iw;
+  const Y = v => {
+    if (log){ v = Math.min(Math.max(v, ys.min / 1e9), ys.max * 1e9); return m.t + ih - (L(v) - L(ys.min)) / (L(ys.max) - L(ys.min)) * ih; }
+    v = Math.min(Math.max(v, ys.min - (ys.max - ys.min) * 5), ys.max + (ys.max - ys.min) * 5);
+    return m.t + ih - (v - ys.min) / (ys.max - ys.min) * ih;
+  };
+  const f2 = n => Math.round(n * 10) / 10;
+  const pts = [];
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(cfg.aria)}">`;
+  s += `<defs><clipPath id="${id}-c"><rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}"/></clipPath></defs>`;
+  s += `<rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="#FFFFFF"/>`;
+  // alternating bands between consecutive y ticks (his decade shading)
+  s += '<g class="g-band">';
+  const tk = ys.ticks;
+  for (let i = 0; i < tk.length - 1; i += 2){ const y1 = Y(tk[i]), y0 = Y(tk[i+1]); s += `<rect x="${m.l}" y="${f2(Math.max(y0, m.t))}" width="${iw}" height="${f2(Math.min(y1, m.t + ih) - Math.max(y0, m.t))}"/>`; }
+  s += '</g><g class="g-grid">';
+  tk.forEach(v => { s += `<line x1="${m.l}" x2="${m.l + iw}" y1="${f2(Y(v))}" y2="${f2(Y(v))}"/>`; });
+  xs.ticks.forEach(t => { s += `<line y1="${m.t}" y2="${m.t + ih}" x1="${f2(X(t))}" x2="${f2(X(t))}"/>`; });
+  s += '</g><g class="g-axis">';
+  tk.forEach((v, i) => { if (ys.every && i % ys.every) return; s += `<text x="${m.l - 6}" y="${f2(Y(v) + 4)}" text-anchor="end">${ys.fmt(v)}</text>`; });
+  xs.ticks.forEach(t => { s += `<text x="${f2(X(t))}" y="${H - 8}" text-anchor="middle">${t}</text>`; });
+  if (cfg.ylab) s += `<text class="yl" transform="translate(11 ${f2(m.t + ih / 2)}) rotate(-90)" text-anchor="middle">${esc(cfg.ylab)}</text>`;
+  s += '</g>';
+  s += `<g clip-path="url(#${id}-c)">`;
+  let labels = '';
+  const marker = (p, cls) => {
+    const x = X(p.t), y = Y(p.v), hol = p.hollow ? ' hollow' : '', sm = p.small ? ' small' : '';
+    const ecls = cls === 'm-his' ? 'e-his' : 'e-obs';
+    let el = '';
+    if (p.lo != null && p.hi != null && !p.small) el += `<line class="${ecls}" x1="${f2(x)}" x2="${f2(x)}" y1="${f2(Y(p.lo))}" y2="${f2(Y(p.hi))}"/>` +
+      `<line class="${ecls}" x1="${f2(x - 4)}" x2="${f2(x + 4)}" y1="${f2(Y(p.lo))}" y2="${f2(Y(p.lo))}"/>` +
+      `<line class="${ecls}" x1="${f2(x - 4)}" x2="${f2(x + 4)}" y1="${f2(Y(p.hi))}" y2="${f2(Y(p.hi))}"/>`;
+    const i = pts.length, attr = `class="${cls}${hol}${sm}" data-i="${i}"`, r = p.small ? 3.2 : 5.5;
+    if (p.shape === 'dia') el += `<path ${attr} d="M${f2(x)} ${f2(y - 6.5)}L${f2(x + 6.5)} ${f2(y)}L${f2(x)} ${f2(y + 6.5)}L${f2(x - 6.5)} ${f2(y)}Z"/>`;
+    else if (p.shape === 'sq') el += `<rect ${attr} x="${f2(x - 5)}" y="${f2(y - 5)}" width="10" height="10"/>`;
+    else el += `<circle ${attr} cx="${f2(x)}" cy="${f2(y)}" r="${r}"/>`;
+    if (p.lab){
+      const POS = {l:[-10,4,'end'], r:[10,4,'start'], b:[0,18,'middle'], t:[0,-11,'middle'], br:[8,17,'start'], bl:[-8,17,'end'], tr:[8,-9,'start'], tl:[-8,-9,'end']};
+      const [dx, dy, anc] = POS[p.la] || POS.r;
+      labels += `<text class="lbl ${cls === 'm-his' ? 'his' : 'obs'}" x="${f2(x + dx)}" y="${f2(y + dy)}" text-anchor="${anc}">${esc(p.lab)}</text>`;
+    }
+    pts.push(Object.assign({x, y, vf: cfg.vf}, p));
+    return el;
+  };
+  for (const ly of cfg.layers){
+    if (ly.k === 'fn'){
+      const N = 60; let dp = '';
+      for (let j = 0; j <= N; j++){ const t = ly.a + (ly.b - ly.a) * j / N; dp += (j ? 'L' : 'M') + f2(X(t)) + ' ' + f2(Y(ly.f(t))); }
+      s += `<path class="${ly.cls}" d="${dp}"/>`;
+    } else if (ly.k === 'cone'){
+      const N = 40; let up = '', dn = '';
+      for (let j = 0; j <= N; j++){ const t = ly.a + (ly.b - ly.a) * j / N; up += (j ? 'L' : 'M') + f2(X(t)) + ' ' + f2(Y(ly.fhi(t))); }
+      for (let j = N; j >= 0; j--){ const t = ly.a + (ly.b - ly.a) * j / N; dn += 'L' + f2(X(t)) + ' ' + f2(Y(ly.flo(t))); }
+      s += `<path class="l-cone" d="${up}${dn}Z"/>`;
+    } else if (ly.k === 'poly'){
+      s += `<path class="${ly.cls}" d="${ly.pts.map((p, j) => (j ? 'L' : 'M') + f2(X(p[0])) + ' ' + f2(Y(p[1]))).join('')}"/>`;
+    } else if (ly.k === 'hband'){
+      s += `<rect class="hband" x="${m.l}" y="${f2(Y(ly.hi))}" width="${iw}" height="${f2(Y(ly.lo) - Y(ly.hi))}"/>`;
+      if (ly.lab) s += `<text class="lbl" x="${m.l + iw - 6}" y="${f2(Y(ly.hi) - 5)}" text-anchor="end">${esc(ly.lab)}</text>`;
+    } else if (ly.k === 'dots'){
+      ly.pts.forEach(p => { s += marker(p, ly.cls); });
+    } else if (ly.k === 'rungs'){
+      ly.list.forEach(([v, name]) => {
+        s += `<g class="rung${ly.his ? ' his' : ''}"><line x1="${m.l}" x2="${m.l + iw}" y1="${f2(Y(v))}" y2="${f2(Y(v))}"/><text x="${m.l + iw - 6}" y="${f2(Y(v) - 4)}" text-anchor="end">${esc(name)}</text></g>`;
+      });
+    } else if (ly.k === 'today'){
+      const x = f2(X(TODAY)), flip = x > m.l + iw - 44, ty = ly.pos === 'b' ? m.t + ih - 6 : m.t + 12;
+      s += `<line class="l-today" x1="${x}" x2="${x}" y1="${m.t}" y2="${m.t + ih}"/><text class="t-today" x="${flip ? x - 4 : x + 4}" y="${ty}" text-anchor="${flip ? 'end' : 'start'}">Today</text>`;
+    }
+  }
+  s += labels + '</g>';
+  s += `<rect class="frame" x="${m.l}" y="${m.t}" width="${iw}" height="${ih}"/>`;
+  pts.forEach((p, i) => { s += `<circle class="hit" data-i="${i}" cx="${f2(p.x)}" cy="${f2(p.y)}" r="${p.small ? 10 : 15}" tabindex="0" role="button" aria-label="${esc(readoutText(p))}"/>`; });
+  s += '</svg>';
+  wrap.innerHTML = s;
+  CHARTS[id] = pts;
+  const sel = CHARTS[id + ':sel'];
+  if (sel != null && pts[sel]) select(id, sel, false);
+}
+function readoutText(p){
+  let t = `${p.n}, ${fmtDate(p.t)}: ${p.vf(p.v)}`;
+  if (p.lo != null && p.hi != null) t += ` (range ${p.vf(p.lo)} to ${p.vf(p.hi)})`;
+  t += '.';
+  if (p.note) t += ` ${p.note}.`;
+  return t;
+}
+function select(id, i){
+  const fig = $(id), p = CHARTS[id][i]; if (!p) return;
+  CHARTS[id + ':sel'] = i;
+  fig.querySelectorAll('.is-sel').forEach(e => e.classList.remove('is-sel'));
+  const mk = fig.querySelector(`[data-i="${i}"]:not(.hit)`); if (mk) mk.classList.add('is-sel');
+  let h = `<b>${esc(p.n)}</b>, ${fmtDate(p.t)}: ${esc(p.vf(p.v))}`;
+  if (p.lo != null && p.hi != null) h += ` (range ${esc(p.vf(p.lo))} to ${esc(p.vf(p.hi))})`;
+  h += '.';
+  if (p.note) h += ` ${esc(p.note)}.`;
+  h += ' ' + refs(p.s);
+  fig.querySelector('.readout').innerHTML = h;
+}
+document.addEventListener('click', e => {
+  const hit = e.target.closest('.hit'); if (!hit) return;
+  select(hit.closest('figure').id, +hit.dataset.i);
+});
+document.addEventListener('keydown', e => {
+  const hit = e.target.closest && e.target.closest('.hit');
+  if (hit && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); select(hit.closest('figure').id, +hit.dataset.i); }
+});
+document.addEventListener('focusin', e => {
+  const hit = e.target.closest && e.target.closest('.hit');
+  if (hit) select(hit.closest('figure').id, +hit.dataset.i);
+});
+
+/* ---------- his Figure 20: counting the OOMs ---------- */
+function oomLine(){
+  const fig = $('ch-oomline'), wrap = fig.querySelector('.svgwrap');
+  const W = Math.round(Math.max(290, wrap.clientWidth || 340)), H = 262;
+  const l = 86, r = 14, iw = W - l - r, X = o => l + o / 11 * iw;
+  const f2 = n => Math.round(n * 10) / 10;
+  const now = 5 + Math.log10(ASTRA.v / G4.v) + ST.algo * (ASTRA.t - G4.t);
+  const yAx = 78, yInt = 146, yUn0 = 196, yUn1 = 240;
+  let s = `<svg class="oom" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="His counting-the-OOMs summary: GPT-2 at 0, GPT-3 near 2, GPT-4 at 5, his 2027 mark near 10; the 2026 frontier sits near ${r1(now)} at your settings">`;
+  // row labels
+  s += `<text class="rowlab" x="4" y="${yAx - 10}">Model</text><text class="rowlab" x="4" y="${yAx + 4}">OOMs</text>` +
+       `<text class="rowlab" x="4" y="${yInt + 4}">Intelligence</text><text class="rowlab" x="4" y="${(yUn0 + yUn1) / 2 + 4}">Unhobbling</text>`;
+  // uncertainty bands (his 2027 range, and his GPT-3 placement)
+  s += `<rect class="uncert" x="${f2(X(8))}" y="${yAx - 30}" width="${f2(X(11) - X(8))}" height="8"/>`;
+  s += `<rect class="uncert" x="${f2(X(1.5))}" y="${yAx - 30}" width="${f2(X(2.5) - X(1.5))}" height="8"/>`;
+  // axis: solid to 5, dash-dot after
+  s += `<line class="ax" x1="${f2(X(0))}" x2="${f2(X(5))}" y1="${yAx}" y2="${yAx}"/><line class="axd" x1="${f2(X(5))}" x2="${f2(X(11))}" y1="${yAx}" y2="${yAx}"/>`;
+  for (let o = 0; o <= 11; o++) s += `<line class="tk" x1="${f2(X(o))}" x2="${f2(X(o))}" y1="${yAx - 6}" y2="${yAx + 6}"/><text class="s" x="${f2(X(o))}" y="${yAx - 10}" text-anchor="middle">${o}</text>`;
+  const models = [[0,'GPT-2','(2019)'],[2,'GPT-3','(2020)'],[5,'GPT-4','(2023)'],[10,'2027','his call']];
+  models.forEach(([o, a, b]) => { s += `<text class="t" x="${f2(X(o))}" y="${yAx - 46}" text-anchor="middle">${a}</text><text class="s" x="${f2(X(o))}" y="${yAx - 34}" text-anchor="middle">${b}</text>`; });
+  // intelligence gradient bar and labels
+  s += `<defs><linearGradient id="oomg" x1="0" x2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#8C8F96" stop-opacity=".55"/></linearGradient></defs>`;
+  s += `<rect x="${f2(X(0))}" y="${yInt - 18}" width="${f2(X(11) - X(0))}" height="6" fill="url(#oomg)"/>`;
+  const intel = [[0,'Preschooler','start',0],[5.4,'Smart high schooler','middle',0],[2,'Elementary','start',14],[11,'Automated AI researcher?','end',14]];
+  intel.forEach(([o, a, anc, dy]) => { s += `<text class="t" x="${f2(X(o))}" y="${yInt + 2 + dy}" text-anchor="${anc}">${a}</text>`; });
+  // unhobbling cone
+  const yc = (yUn0 + yUn1) / 2;
+  s += `<path class="cone" d="M${f2(X(0))} ${yc} L${f2(X(10))} ${yUn0} M${f2(X(0))} ${yc} L${f2(X(10))} ${yUn1} M${f2(X(0))} ${yc} L${f2(X(10))} ${yc - 11} M${f2(X(0))} ${yc} L${f2(X(10))} ${yc + 11} M${f2(X(0))} ${yc} L${f2(X(10))} ${yc}"/>`;
+  s += `<line class="cone" x1="${f2(X(10))}" x2="${f2(X(10))}" y1="${yUn0}" y2="${yUn1}"/><line class="cone" x1="${f2(X(5))}" x2="${f2(X(5))}" y1="${f2(yc - 10.5)}" y2="${f2(yc + 10.5)}"/>`;
+  s += `<text class="s" x="${f2(X(0))}" y="${yUn1 + 8}" text-anchor="start">Base</text><text class="s" x="${f2(X(5))}" y="${yUn1 + 8}" text-anchor="middle">Chatbot</text><text class="s" x="${f2(X(10))}" y="${yUn1 + 8}" text-anchor="middle">Agent</text>`;
+  // the 2026 frontier at your settings
+  const xn = f2(X(Math.min(now, 11)));
+  s += `<g class="now"><line x1="${xn}" x2="${xn}" y1="${yAx - 52}" y2="${yUn1 + 10}"/><circle cx="${xn}" cy="${yAx}" r="5.5"/><text x="${f2(Math.min(+xn, X(9.6)))}" y="${yAx + 24}" text-anchor="middle">Sep 2026 (est.)</text><text class="s" x="${f2(Math.min(+xn, X(9.6)))}" y="${yAx + 37}" text-anchor="middle" style="fill:var(--obs-t)">+${r1(now - 5)} OOMs past GPT-4</text></g>`;
+  s += '</svg>';
+  wrap.innerHTML = s;
+}
+
+/* ---------- views ---------- */
+function renderIntel(){
+  const a = ASTRA, P = PLAN;
+  chart('ch-eff', {
+    aria:'Base scaleup of effective compute, normalized to GPT-4, 2018 to 2030: his history and projection with observed estimates',
+    x:{min:2018, max:2031, ticks:[2018,2020,2022,2024,2026,2028,2030]},
+    y:{min:1e-8, max:1e9, ticks:[1e-8,1e-7,1e-6,1e-5,1e-4,1e-3,1e-2,1e-1,1,1e1,1e2,1e3,1e4,1e5,1e6,1e7,1e8,1e9], every:2, fmt:v => '10' + sup(Math.round(Math.log10(v)))},
+    vf:v => sci(v) + '\u00d7 GPT-4', ml:50, h:330,
+    ylab:'Effective compute (normalized to GPT-4)',
+    layers:[
+      {k:'cone', a:G4.t, b:2031, flo:t => Math.pow(10, P.effLo * (t - G4.t)), fhi:t => Math.pow(10, P.effHi * (t - G4.t))},
+      {k:'rungs', his:true, list:[[1e-5,'GPT-2: Preschooler'],[1e-3,'GPT-3: Elementary schooler'],[1,'GPT-4: Smart high schooler'],[1e5,'Automated AI researcher?']]},
+      {k:'today'},
+      {k:'poly', cls:'l-his', pts:P.effHist},
+      {k:'fn', cls:'l-his-d', a:G4.t, b:2031, f:t => Math.pow(10, P.effRate * (t - G4.t))},
+      {k:'dots', cls:'m-obs', pts:effObs()}
+    ]
+  });
+  oomLine();
+  // Epoch Capabilities Index
+  const fp = {a:8, b:130 - 8 * dd(2024,6,20)}, fq = {a:14, b:150 - 14 * dd(2025,8,7)};
+  chart('ch-eci', {
+    aria:'Epoch Capabilities Index of record-setting models, 2023 to 2026, with trend lines before and after reasoning models',
+    x:{min:2023, max:2027.6, ticks:[2023,2024,2025,2026,2027]},
+    y:{log:false, min:100, max:190, ticks:[100,110,120,130,140,150,160,170,180,190], every:2, fmt:v => String(v)},
+    vf:v => r1(v) + ' ECI', ml:48,
+    ylab:'Epoch Capabilities Index',
+    layers:[
+      {k:'today'},
+      {k:'fn', cls:'l-ref', a:2023, b:2025.6, f:t => fp.a * t + fp.b},
+      {k:'fn', cls:'l-refsolid', a:2024.7, b:2027.6, f:t => fq.a * t + fq.b},
+      {k:'rungs', list:[[130,'Claude 3.5 Sonnet = 130'],[150,'GPT-5 = 150']]},
+      {k:'dots', cls:'m-obs', pts:(OBS.eciRef ? [OBS.eciRef] : []).concat(OBS.eci)}
+    ]
+  });
+  $('ch-eci').querySelector('.legend').children[1].lastChild.textContent = ' Epoch\u2019s trend since reasoning models, about 14 points a year';
+  $('ch-eci').querySelector('.legend').children[2].lastChild.textContent = ' Epoch\u2019s trend before, about 8 points a year';
+  // GPQA Diamond
+  chart('ch-gpqa', {
+    aria:'GPQA Diamond scores of frontier models from 2023 to 2026 against the PhD expert range of 65 to 81 percent',
+    x:{min:2023.6, max:2027, ticks:[2024,2025,2026,2027]},
+    y:{log:false, min:20, max:100, ticks:[20,30,40,50,60,70,80,90,100], every:2, fmt:v => v + '%'},
+    vf:pct, ml:56,
+    ylab:'Share of questions answered correctly',
+    layers:[
+      {k:'hband', lo:OBS.gpqaHuman.lo, hi:OBS.gpqaHuman.hi, lab:'PhD experts'},
+      {k:'today'},
+      {k:'dots', cls:'m-his', pts:[OBS.gpqaRef]},
+      {k:'dots', cls:'m-obs', pts:OBS.gpqa}
+    ]
+  });
+  // physical compute
+  chart('ch-compute', {
+    aria:'Largest AI training runs in FLOP from 2023 to 2030, observed against his 0.5 OOM per year line',
+    x:{min:2022.8, max:2030.2, ticks:[2023,2025,2027,2029]},
+    y:{min:1e24, max:1e30, ticks:[1e24,1e25,1e26,1e27,1e28,1e29,1e30], fmt:v => '10' + sup(Math.round(Math.log10(v)))},
+    vf:v => sci(v) + ' FLOP', ml:52,
+    ylab:'Training compute (FLOP)',
+    layers:[
+      {k:'today'},
+      {k:'fn', cls:'l-ref', a:G4.t, b:2030.2, f:t => G4.v * Math.pow(10, 0.7 * (t - G4.t))},
+      {k:'fn', cls:'l-his-d', a:G4.t, b:2030.2, f:t => G4.v * Math.pow(10, 0.5 * (t - G4.t))},
+      {k:'dots', cls:'m-his', pts:[{t:2027.96, v:Math.sqrt(2e27 * 2e28), lo:2e27, hi:2e28, n:'His end-2027 range', s:['S1'], note:'+2 OOMs over GPT-4 he called very likely; +3 plausible', hollow:true}]},
+      {k:'fn', cls:'l-proj', a:a.t, b:2030.2, f:t => a.v * Math.pow(10, ST.phys * (t - a.t))},
+      {k:'dots', cls:'m-obs', pts:OBS.runs}
+    ]
+  });
+  const rate = ST.phys + ST.algo, t5 = tJump(), by27 = rate * (2027.96 - G4.t);
+  $('o-t5').textContent = fmtDate(t5);
+  $('o-27').textContent = '+' + r1(by27) + ' OOMs';
+  $('bl-oom').textContent = r1(Math.log10(ASTRA.v / G4.v) + ST.algo * (ASTRA.t - G4.t));
+  $('bl-run').textContent = ASTRA.n; $('bl-rate').textContent = (Math.log10(ASTRA.v / G4.v) / (ASTRA.t - G4.t)).toFixed(2);
+}
+function renderBuild(){
+  chart('ch-build', {
+    aria:'Power draw of the largest AI sites and training runs, against his largest-cluster line from 10 megawatts in 2022 to 100 gigawatts in 2030',
+    x:{min:2022, max:2031, ticks:[2022,2024,2026,2028,2030]},
+    y:{min:0.001, max:1000, ticks:[0.001,0.01,0.1,1,10,100,1000], fmt:v => v < 1 ? Math.round(v * 1000) + ' MW' : v >= 1000 ? '1 TW' : v + ' GW'},
+    vf:gw, ml:68, ylab:'Power',
+    layers:[
+      {k:'today'},
+      {k:'poly', cls:'l-his-d', pts:PLAN.sites},
+      {k:'dots', cls:'m-his', pts:PLAN.sites.map(([t, v]) => ({t, v, n:'His largest training cluster, ~' + Math.floor(t), s:['S1']}))},
+      {k:'fn', cls:'l-proj', a:2026.5, b:2031, f:site},
+      {k:'dots', cls:'m-obs', pts:OBS.sites.concat([OBS.run, OBS.announced])}
+    ]
+  });
+  $('o-s28').textContent = gw(site(2028.5));
+  $('o-s30').textContent = gw(site(2030.5));
+  chart('ch-power', {
+    aria:'Share of US electricity: his AI-only path against measured and projected use by all US data centers',
+    x:{min:2022.5, max:2031.2, ticks:[2023,2025,2027,2029,2031]},
+    y:{min:0.5, max:200, ticks:[0.5,1,3,10,30,100,200], fmt:v => (v === 0.5 || v === 200) ? '' : v + '%'},
+    vf:pct, ml:52, ylab:'Share of US electricity',
+    layers:[
+      {k:'today'},
+      {k:'poly', cls:'l-his-d', pts:PLAN.power},
+      {k:'dots', cls:'m-his', pts:PLAN.power.map(([t, v], j) => Object.assign({t, v, n:'His path for AI, ~' + Math.floor(t), s:['S1']}, j === 0 ? {lo:1, hi:2} : {}))},
+      {k:'dots', cls:'m-obs', pts:OBS.power}
+    ]
+  });
+}
+function renderMoney(){
+  chart('ch-invest', {
+    aria:'Annual AI spending: his total AI investment path against big-tech capital spending and Nvidia data-center sales',
+    x:{min:2023.6, max:2031, ticks:[2024,2026,2028,2030]},
+    y:{min:30, max:30000, ticks:[30,100,300,1000,3000,10000,30000], fmt:v => (v === 30 || v === 30000) ? '' : usd(v)},
+    vf:usd, ml:62, ylab:'Billions of dollars a year',
+    layers:[
+      {k:'today'},
+      {k:'poly', cls:'l-his-d', pts:PLAN.invest},
+      {k:'dots', cls:'m-his', pts:PLAN.invest.map(([t, v], j) => Object.assign({t, v, n:j === 2 ? 'His $1T-a-year mark, 2027' : 'His total AI investment, ~' + Math.floor(t), s:['S1']}, j === 0 ? {lo:100, hi:200} : {}))},
+      {k:'fn', cls:'l-proj', a:2027.5, b:2031, f:capex},
+      {k:'dots', cls:'m-obs', pts:OBS.capex.concat(OBS.nvda)}
+    ]
+  });
+  $('o-c28').textContent = usd(capex(2028.5));
+  $('o-c30').textContent = usd(capex(2030.5));
+  const t0 = d(2024,2);
+  chart('ch-rev', {
+    aria:'Annualized revenue of OpenAI and Anthropic against his OpenAI line doubling every six months',
+    x:{min:2023.4, max:2027.1, ticks:[2024,2025,2026,2027]},
+    y:{min:0.3, max:1000, ticks:[0.3,1,3,10,30,100,300,1000], fmt:v => (v === 0.3 || v === 1000) ? '' : '$' + v + 'B'},
+    vf:usd, ml:62, ylab:'Annualized revenue',
+    layers:[
+      {k:'today'},
+      {k:'fn', cls:'l-his-d', a:d(2023,8), b:2027.1, f:t => 2 * Math.pow(2, (t - t0) / 0.5)},
+      {k:'dots', cls:'m-his', pts:[{t:2026.5, v:100, hollow:true, n:'His milestone: a tech giant at a $100B AI run rate, ~mid-2026', s:['S1']}]},
+      {k:'dots', cls:'m-obs', pts:OBS.openai.concat(OBS.anthropic)}
+    ]
+  });
+}
+function renderAgents(){
+  const key = ST.hz === 80 ? 'h80' : 'h50';
+  let best = 0; const pts = OBS.metr.map(p => {
+    const v = p[key], rec = v > best; if (rec) best = v;
+    const q = {t:p.t, v, n:p.n, s:p.s, small:!rec, note:`METR Time Horizon 1.1, ${ST.hz}% success`};
+    if (rec && ST.hz === 50){ q.lo = p.lo; q.hi = p.hi; }
+    return q;
+  });
+  const rec = pts.filter(p => !p.small); const last = rec[rec.length - 1]; last.lab = last.n.replace(/^Claude /, '').replace(/ \(early\)$/, ''); last.la = 'r';
+  if (ST.hz === 50 && last.v > 16) last.note += '. METR treats estimates above 16 h as the upper end of what its suite can measure';
+  chart('ch-agents', {
+    aria:`METR ${ST.hz} percent time horizons of models from 2024 to 2026, against his ladder from a few minutes to multiple months`,
+    x:{min:2024, max:2028.6, ticks:[2024,2025,2026,2027,2028]},
+    y:{min:0.005, max:1000, ticks:[0.01,0.1,1,10,100,1000], fmt:v => v < 1 ? Math.round(v * 60) + ' min' : v.toLocaleString() + ' h'},
+    vf:hrs, ml:70, ylab:'Task length a model completes, in human time',
+    layers:[
+      {k:'rungs', his:true, list:PLAN.rungs},
+      {k:'today', pos:'b'},
+      {k:'fn', cls:'l-proj', a:MYTHOS.t, b:2028.6, f:t => hzBase() * Math.pow(2, (t - MYTHOS.t) * 12 / ST.hzDbl)},
+      {k:'dots', cls:'m-obs', pts}
+    ]
+  });
+  document.querySelectorAll('.tog[data-hz]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.hz === ST.hz)));
+  $('lg-rec').lastChild.textContent = ST.hz === 50 ? ' Record-setting models, with 95% intervals' : ' Record-setting models (no intervals published for 80%)';
+  const put = (h, id) => { const t = tHorizon50(h); $(id).textContent = fmtDate(t); $(id + 'i').textContent = t < TODAY ? 'Implied by the trend; not yet measured' : ''; };
+  put(40, 'o-h40'); put(167, 'o-h167');
+  $('ft-metr').textContent = 'Data: METR Time Horizon 1.1, fetched ' + fmtDay(A.metr.updated);
+  const first = OBS.metr.find(p => p.t >= dd(2024, 9, 1)) || OBS.metr[0];
+  $('bl-ag-months').textContent = Math.round((MYTHOS.t - first.t) * 12);
+  $('bl-ag-hours').textContent = Math.round(MYTHOS.h50);
+}
+document.querySelectorAll('.tog[data-hz]').forEach(b => b.addEventListener('click', () => { ST.hz = +b.dataset.hz; save(); renderAgents(); }));
+
+/* ---------- brief: track-error strip, clocks, scorecard ---------- */
+const S_ = M.strip;
+const srow = (n, r, f, plan) => ({n, plan, o:r.o, lo:r.lo, hi:r.hi, f, when:r.when, s:r.s});
+const STRIP_ROWS = [
+  {n:'Largest training run, compute', plan:() => G4.v * Math.pow(10, 0.5 * (ASTRA.t - G4.t)), o:ASTRA.v, lo:ASTRA.lo, hi:ASTRA.hi, f:v => sci(v) + ' FLOP', when:fmtDate(ASTRA.t) + ', ' + ASTRA.n, s:ASTRA.s.concat(['S1'])},
+  srow('AI spending, 2026', S_.invest, usd, () => S_.invest.plan),
+  srow('Nvidia data-center sales', S_.nvda, usd, () => 90 * 500 / 150),
+  srow('AI revenue, the $100B milestone', S_.revenue, usd, () => S_.revenue.plan),
+  srow('Largest AI sites, power', S_.sites, gw, () => S_.sites.plan),
+  srow('US electricity used, now', S_.powerNow, pct, () => S_.powerNow.plan),
+  srow('Biggest single training run, power', S_.runPower, gw, () => logInterp(PLAN.sites, OBS.run.t)),
+  srow('US electricity used, 2030 outlook', S_.power2030, pct, () => S_.power2030.plan)
+];
+const pos = dv => Math.min(Math.max((dv + 1) / 2, 0), 1) * 100;
+function status(dv){ return dv > 0.15 ? 'ahead' : dv < -0.15 ? 'behind' : 'on'; }
+function ratioText(r){ return r >= 0.995 ? r1(r) + '\u00d7 his line' : Math.round(r * 100) + '% of his line'; }
+let stripDone = false;
+function renderStrip(){
+  const box = $('strip'); let h = '';
+  const groups = [{g:'On his line or ahead', rows:[]}, {g:'Lagging', rows:[]}];
+  STRIP_ROWS.forEach(r => { groups[status(Math.log10(r.o / r.plan())) === 'behind' ? 1 : 0].rows.push(r); });
+  groups.filter(g => g.rows.length).forEach(grp => {
+    h += `<div class="grp">${grp.g}</div>`;
+    grp.rows.forEach(r => {
+      const p = r.plan(), dv = Math.log10(r.o / p), st = status(dv);
+      const lo = r.lo ? Math.log10(r.lo / p) : dv, hi = r.hi ? Math.log10(r.hi / p) : dv;
+      const cls = st === 'behind' ? ' behind' : '';
+      const aria = `${r.n}: observed ${r.f(r.o)} against his ${r.f(p)}, ${ratioText(r.o / p)}.`;
+      h += `<div class="srow" role="group" aria-label="${esc(aria)}"><div class="hd"><span class="nm">${r.n}</span><span class="mx s-${st}">${ratioText(r.o / p)}</span></div>` +
+        `<div class="track" aria-hidden="true"><div class="ax"></div>` +
+        [0, 25, 75, 100].map(x => `<div class="tk" style="left:${x}%"></div>`).join('') +
+        `<div class="zero"></div><div class="rg${cls}" data-l="${pos(lo)}" data-w="${pos(hi) - pos(lo)}" style="left:50%;width:0"></div>` +
+        `<div class="dt${cls}" data-l="${pos(dv)}" style="left:50%"></div></div>` +
+        `<p class="dl">Observed ${esc(r.f(r.o))} vs his ${esc(r.f(p))} (${esc(r.when)}). ${refs(r.s)}</p></div>`;
+    });
+  });
+  box.innerHTML = h;
+  const place = () => box.querySelectorAll('[data-l]').forEach(el => {
+    el.style.left = el.dataset.l + '%';
+    if (el.dataset.w != null) el.style.width = Math.max(+el.dataset.w, 0) + '%';
+  });
+  if (!stripDone){ box.classList.add('anim'); requestAnimationFrame(() => requestAnimationFrame(place)); stripDone = true; }
+  else place();
+}
+function renderClocks(){
+  const rate = ST.phys + ST.algo;
+  $('clk-oom').textContent = fmtDate(tJump());
+  $('clk-oom-sub').textContent = `+${ST.target} OOMs at ${Math.round(rate * 100) / 100} OOM a year`;
+  $('clk-ag').textContent = fmtDate(tHorizon50(167));
+  $('clk-ag-sub').textContent = `50% horizon doubling every ${ST.hzDbl} months`;
+}
+const CLAIMS = M.claims;
+const CHIP = {ahead:'Ahead', on:'On track', mixed:'Mixed', behind:'Behind', open:'Open'};
+function renderClaims(){
+  $('claims').innerHTML = CLAIMS.map(c =>
+    `<details class="claim"><summary><span class="w">${c.w}<span class="ch">Chapter ${c.c}</span></span><span class="chip s-${c.st}">${CHIP[c.st]}</span></summary>` +
+    `<p class="ev">${c.ev} ${refs(c.s)}</p></details>`).join('');
+}
+function renderSources(){
+  $('srclist').innerHTML = Object.keys(SRC).map(k => {
+    const [t, p, dt, u] = SRC[k];
+    return `<li id="src-${k}"><span class="id">${k}</span><a href="${u}" target="_blank" rel="noopener">${esc(t)}</a><span class="pb">${esc(p)}, ${esc(dt)}</span></li>`;
+  }).join('');
+}
+
+/* ---------- controls ---------- */
+const FMT = {
+  phys:v => `${v.toFixed(2)} OOM a year (${r1(Math.pow(10, v))}\u00d7)`,
+  algo:v => `${v.toFixed(2)} OOM a year (${r1(Math.pow(10, v))}\u00d7)`,
+  target:v => `+${v} OOMs (${times(v)})`,
+  siteDbl:v => `${v} months`,
+  capexG:v => `${Math.round(v * 100)}% a year`,
+  hzDbl:v => `${v} months`
+};
+const CTRL = [['r-phys','phys','intel'],['r-algo','algo','intel'],['r-target','target','intel'],['r-site','siteDbl','build'],['r-capex','capexG','money'],['r-hz','hzDbl','agents']];
+function syncControls(){ CTRL.forEach(([id, key]) => { $(id).value = ST[key]; $(id + '-out').textContent = FMT[key](ST[key]); }); }
+CTRL.forEach(([id, key, view]) => {
+  $(id).addEventListener('input', () => { ST[key] = parseFloat($(id).value); $(id + '-out').textContent = FMT[key](ST[key]); save(); render(view); });
+});
+document.querySelectorAll('[data-reset]').forEach(b => b.addEventListener('click', () => {
+  b.dataset.reset.split(',').forEach(k => { ST[k] = DEF[k]; });
+  save(); syncControls(); render(current);
+}));
+
+/* ---------- routing ---------- */
+const VIEWS = ['brief','intel','build','money','agents','sources','owner'];
+let current = 'brief', pendingSrc = null;
+function render(v){
+  if (v === 'brief'){ renderStrip(); renderClocks(); }
+  else if (v === 'intel') renderIntel();
+  else if (v === 'build') renderBuild();
+  else if (v === 'money') renderMoney();
+  else if (v === 'agents') renderAgents();
+  else if (v === 'owner') renderOwner();
+}
+function jumpSrc(){
+  if (!pendingSrc) return false;
+  const el = $('src-' + pendingSrc); pendingSrc = null; if (!el) return false;
+  el.scrollIntoView({block:'center'}); el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 1600);
+  return true;
+}
+function show(v, keepScroll){
+  if (v === 'compute') v = 'intel';
+  if (!VIEWS.includes(v)) v = 'brief';
+  current = v;
+  document.querySelectorAll('.view').forEach(s => s.classList.toggle('on', s.id === 'v-' + v));
+  document.querySelectorAll('nav.tabs a').forEach(a => { if (a.dataset.v === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  if (v === 'sources') $('srcbtn').setAttribute('aria-current', 'page'); else $('srcbtn').removeAttribute('aria-current');
+  render(v);
+  if (!(v === 'sources' && jumpSrc()) && !keepScroll) window.scrollTo(0, 0);
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-src]'); if (!a) return;
+  pendingSrc = a.dataset.src;
+  if (location.hash === '#sources'){ e.preventDefault(); jumpSrc(); }
+});
+window.addEventListener('hashchange', () => show(location.hash.slice(1)));
+let rz;
+window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => render(current), 150); });
+
+/* ---------- boot ---------- */
+renderClaims(); renderSources(); syncControls();
+$('asof').textContent = 'His 2024 forecast against the record, ' + fmtDay(META.built);
+$('m-fetched').textContent = fmtDay(A.fetched);
+show(location.hash.slice(1) || 'brief', true);
+
+/* ---------- owner tools: trigger the GitHub Actions update workflow ---------- */
+const REPO = META.repo, WF = META.workflow, API = 'https://api.github.com/repos/' + REPO;
+const TKEY = 'oom-recount-token';
+const tok = () => { try { return localStorage.getItem(TKEY) || ''; } catch (e) { return ''; } };
+const ghHeaders = t => ({Authorization:'Bearer ' + t, Accept:'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28'});
+let polling = false;
+function renderOwner(){
+  const rows = [['Epoch Capabilities Index', A.eci], ['Epoch training-compute estimates', A.runs], ['METR time horizons', A.metr]];
+  $('own-status').innerHTML = '<thead><tr><th>Series</th><th>Last refreshed</th><th>Status</th></tr></thead><tbody>' +
+    rows.map(([n, s]) => `<tr><td>${n}</td><td class="n">${s && s.updated ? fmtDay(s.updated) : '\u2013'}</td><td>${s && s.ok ? 'OK' : '<span style="color:var(--behind)">Failed: ' + esc((s && s.error) || 'unknown') + '</span>'}</td></tr>`).join('') +
+    `<tr><td>Site built</td><td class="n">${fmtDay(META.built)}</td><td>${esc(META.repo)}</td></tr></tbody>`;
+  $('own-edit').href = `https://github.com/${REPO}/edit/main/data/manual.json`;
+  $('own-runs').href = `https://github.com/${REPO}/actions/workflows/${WF}`;
+  $('own-tokstate').textContent = tok() ? 'A token is saved on this device.' : 'No token saved on this device.';
+  $('own-run').textContent = tok() ? 'Update the site now' : 'Open the update workflow on GitHub';
+}
+$('own-save').addEventListener('click', () => { const v = $('own-token').value.trim(); if (!v) return; try { localStorage.setItem(TKEY, v); } catch (e) {} $('own-token').value = ''; renderOwner(); });
+$('own-forget').addEventListener('click', () => { try { localStorage.removeItem(TKEY); } catch (e) {} renderOwner(); });
+$('own-run').addEventListener('click', async () => {
+  const t = tok(), msg = $('own-msg'), btn = $('own-run');
+  if (!t){ window.open(`https://github.com/${REPO}/actions/workflows/${WF}`, '_blank', 'noopener'); msg.textContent = 'On the GitHub page, tap “Run workflow”, then “Run workflow” again. Come back and reload in about three minutes.'; return; }
+  btn.disabled = true; msg.textContent = 'Starting the update\u2026';
+  try {
+    const r = await fetch(`${API}/actions/workflows/${WF}/dispatches`, {method:'POST', headers:ghHeaders(t), body:JSON.stringify({ref:'main'})});
+    if (r.status !== 204){
+      msg.textContent = r.status === 401 ? 'GitHub rejected the token. Check it or make a new one.' : r.status === 403 || r.status === 404 ? 'The token cannot run workflows on this repository. It needs Actions read-and-write on ' + REPO + '.' : 'GitHub returned ' + r.status + '.';
+      btn.disabled = false; return;
+    }
+    msg.textContent = 'Update started. Fetching data and rebuilding\u2026';
+    const started = Date.now(); polling = true;
+    while (polling && Date.now() - started < 12 * 60 * 1000){
+      await new Promise(res => setTimeout(res, 10000));
+      const q = await fetch(`${API}/actions/workflows/${WF}/runs?per_page=1`, {headers:ghHeaders(t)});
+      if (!q.ok) continue;
+      const run = ((await q.json()).workflow_runs || [])[0]; if (!run) continue;
+      if (run.status === 'completed'){
+        polling = false;
+        if (run.conclusion === 'success'){ msg.innerHTML = 'Updated. <button class="reset" type="button" onclick="location.reload()">Reload to see the new data</button>'; }
+        else { msg.innerHTML = `The update finished with status “${esc(run.conclusion)}”. <a href="${esc(run.html_url)}" target="_blank" rel="noopener">See the log</a>.`; }
+        btn.disabled = false; return;
+      }
+      msg.textContent = 'Update running (' + run.status.replace('_', ' ') + ')\u2026 ' + Math.round((Date.now() - started) / 1000) + ' s';
+    }
+    if (polling){ msg.textContent = 'Still running. Reload in a few minutes to see the new data.'; btn.disabled = false; }
+  } catch (e) { msg.textContent = 'Could not reach GitHub: ' + e.message; btn.disabled = false; }
+});
+
+/* ---------- install and offline ---------- */
+(function(){
+  try {
+    const base = location.href.split('#')[0];
+    if (!/^https?:/.test(base)) return;
+    const icon192 = document.querySelector('link[rel="icon"]').href;
+    const mf = {
+      name:'Recounting the OOMs', short_name:'OOM Recount',
+      description:'Aschenbrenner\u2019s 2024 forecast against observed data, as of 6 Oct 2026.',
+      start_url:base, scope:base.replace(/[^/]*$/, ''), display:'standalone',
+      background_color:'#F3F0E7', theme_color:'#F3F0E7',
+      icons:[{src:icon192, sizes:'192x192', type:'image/png', purpose:'any maskable'},
+             {src:'data:image/png;base64,{{ICON512}}', sizes:'512x512', type:'image/png', purpose:'any maskable'}]
+    };
+    const link = document.createElement('link'); link.rel = 'manifest';
+    link.href = URL.createObjectURL(new Blob([JSON.stringify(mf)], {type:'application/manifest+json'}));
+    document.head.appendChild(link);
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
