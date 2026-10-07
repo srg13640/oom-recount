@@ -45,6 +45,19 @@ h3{font-weight:400;font-size:23px;line-height:1.15;margin:30px 0 8px}
 .lead b{font-weight:700}
 .note{font-size:14.5px;color:var(--ink-2);margin:6px 0;line-height:1.5}
 .note.about{border-left:3px solid var(--his);padding-left:12px;margin:0 0 16px}
+.term{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;border-bottom:1px dotted var(--his);cursor:pointer;text-align:left}
+.term[aria-expanded=true]{background:#EFE4C2}
+.defbox{display:block;font-size:14px;line-height:1.45;color:var(--ink-2);background:var(--panel);border-left:3px solid var(--his);padding:7px 10px;margin:8px 0 2px;font-weight:400}
+.start{margin:18px 0 6px;padding:12px 14px;border:1px solid var(--rule);background:var(--panel)}
+.start h3{margin:0 0 6px;font-size:21px}
+.start p,.start li{font-size:15px;line-height:1.5;color:var(--ink-2);margin:6px 0}
+.start ul{margin:6px 0;padding-left:20px}
+.start .chip{margin-right:2px;vertical-align:middle}
+.takeaway{margin:22px 0 8px;padding:12px 14px;border:1px solid var(--rule);background:var(--panel);font-size:15.5px;line-height:1.5}
+.takeaway b{display:block;font-size:19px;font-weight:400;margin-bottom:4px}
+.plot .how{font-size:13px;color:var(--ink-2);margin:-2px 8px 8px;line-height:1.45}
+.srow .st{display:block;font-size:12.5px;color:var(--ink-3);text-align:right}
+.srow .mx{text-align:right}
 .top a{color:var(--his);text-decoration:none;border-bottom:1px solid var(--cone)}
 .ref{font-size:.85em;text-decoration:none;border-bottom:1px dotted currentColor;letter-spacing:.02em}
 
@@ -218,7 +231,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
     <h1>Recounting the OOMs</h1>
     <p id="asof">Leopold Aschenbrenner&rsquo;s <a href="https://situational-awareness.ai/" target="_blank" rel="noopener">Situational Awareness</a> (June 2024), checked against the record</p>
   </div>
-  <a class="srcbtn" href="#sources" id="srcbtn">Sources</a>
+  <a class="srcbtn" href="#sources" id="srcbtn">Glossary</a>
 </div></header>
 
 <main>
@@ -227,24 +240,36 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
 <section class="view" id="v-brief" aria-labelledby="h-brief">
   <h2 id="h-brief">Where Aschenbrenner&rsquo;s forecast stands</h2>
   <p class="note about">In June 2024, Leopold Aschenbrenner, a former OpenAI researcher, published <a href="https://situational-awareness.ai/" target="_blank" rel="noopener"><em>Situational Awareness: The Decade Ahead</em></a>, a 165-page argument that straight-line trends in computing power, algorithms, and spending would produce AI able to do an AI researcher&rsquo;s job by 2027, and superintelligence by the end of the decade. Every &ldquo;his&rdquo; on this site refers to him. The projections are his; the observations are sourced. The essay is cited as <a class="ref" href="#sources" data-src="S1">S1</a>.</p>
-  <p class="lead"><b>Bottom line:</b> Compute and money are on Aschenbrenner&rsquo;s line or ahead of it, and the shift from chatbots to agents he expected by 2027 was well underway by 2025. On paper tests, the frontier passed PhD experts in 2024. Two things lag: single training runs, still far below his 1-gigawatt mark for 2026, and US power, growing far slower than his path needs. &ldquo;AGI by 2027&rdquo; is still open; at observed rates his milestones land between mid-2027 and 2028.</p>
+  <p class="lead"><b>Bottom line:</b> The money and the <button class="term" type="button" data-g="compute" aria-expanded="false">computing power</button> are arriving as fast as Aschenbrenner said they would, or faster. AI that can work on its own for hours (<button class="term" type="button" data-g="agent" aria-expanded="false">agents</button>) showed up a year or two earlier than he expected, and on written tests the best AI passed PhD-level experts in 2024. Two things are slower than his plan: no single <button class="term" type="button" data-g="run" aria-expanded="false">training run</button> is yet close to the size he expected for 2026, and the US power grid is growing far more slowly than his path needs. His big claim, an AI that can do an AI researcher&rsquo;s job (<button class="term" type="button" data-g="agi" aria-expanded="false">AGI</button>) by 2027, is still open; at today&rsquo;s rates it lands between mid-2027 and 2028.</p>
+  <div class="start">
+    <h3>How to read this site</h3>
+    <p>One question runs through every page: <b>two years on, were his numbers right?</b> Each chart puts what he projected in 2024 next to what has actually been measured since.</p>
+    <ul>
+      <li><b>Blue</b> is his forecast: solid where it was already history, dashed where it was a guess, shaded where he gave a range.</li>
+      <li><b>Gold</b> is what actually happened. Tap any gold point for the figure and its source; the S-numbers link to the source list.</li>
+      <li>Most charts use a <button class="term" type="button" data-g="log" aria-expanded="false">log scale</button>: each gridline up is 10 times the one below, so a straight line means steady multiplying, not steady adding.</li>
+      <li>Words with a dotted underline open a plain-English definition when tapped. Try this one: <button class="term" type="button" data-g="oom" aria-expanded="false">OOM</button>.</li>
+      <li>Sliders are set to the observed rates. You can leave them alone; they exist so you can test how sensitive his timeline is.</li>
+    </ul>
+    <p>Status words on this page: <span class="chip s-ahead">Ahead</span> reality moved faster than he projected. <span class="chip s-on">On track</span> within about 40% of his number. <span class="chip s-behind">Behind</span> reality is slower. <span class="chip s-mixed">Mixed</span> right in one sense, wrong in another. <span class="chip s-open">Open</span> too early to score.</p>
+  </div>
 
-  <h3>How far off Aschenbrenner&rsquo;s line</h3>
-  <p class="note">Each row divides what has been observed by his projection for the same date. The blue mark is his line. Right of it means reality is ahead; left means behind. Each step on the scale is about 3&times;.</p>
-  <div class="scale" aria-hidden="true"><span>&divide;10</span><span>&divide;3</span><span>his line</span><span>&times;3</span><span>&times;10</span></div>
+  <h3>How far reality is from his projections</h3>
+  <p class="note">Each row takes one measured number and divides it by what he projected for the same date. The blue tick in the middle is his projection. A gold dot to the right means reality came in higher; to the left, lower. The gold bar shows the range when sources disagree. Each step on the scale is about 3 times, so a dot at the far edge would be 10 times his number, or a tenth of it.</p>
+  <div class="scale" aria-hidden="true"><span>&divide;10</span><span>&divide;3</span><span>his number</span><span>&times;3</span><span>&times;10</span></div>
   <div id="strip"></div>
 
   <h3>Two clocks for &ldquo;AGI by 2027&rdquo;</h3>
-  <p class="note">His AGI means an AI that can do the work of an AI researcher. Neither clock proves that; they show when his two leading indicators get there at observed rates. Both follow your settings on the Intelligence and Agents tabs.</p>
+  <p class="note">&ldquo;<button class="term" type="button" data-g="agi" aria-expanded="false">AGI</button>&rdquo; in the essay means an AI that could do the work of an AI researcher. Neither clock proves that has happened. Each shows when one of his two leading indicators would reach his own mark if the current pace continues. They use the slider settings on the Intelligence and Agents tabs, which start at the observed rates.</p>
   <div class="clocks">
     <div class="clock">
-      <div class="k">Compute clock: another GPT-2-to-GPT-4-sized jump past GPT-4</div>
+      <div class="k">Compute clock: when computing power makes another jump as big as GPT-2 to GPT-4</div>
       <div class="v" id="clk-oom">&ndash;</div>
       <div class="sub" id="clk-oom-sub"></div>
       <div class="his">His call: by end of 2027</div>
     </div>
     <div class="clock">
-      <div class="k">Agent clock: AI finishes month-long tasks about half the time</div>
+      <div class="k">Agent clock: when AI completes month-long tasks about half the time</div>
       <div class="v" id="clk-ag">&ndash;</div>
       <div class="sub" id="clk-ag-sub"></div>
       <div class="his">His call: drop-in remote worker by 2027</div>
@@ -252,17 +277,19 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   </div>
 
   <h3>Aschenbrenner&rsquo;s key calls, scored</h3>
-  <p class="note">Tap a call for the evidence and sources.</p>
+  <p class="note">Each line is a prediction from the essay and where it stands today. Tap one for the evidence and sources.</p>
   <div id="claims"></div>
+  <div class="takeaway"><b>What this means</b>The physical side of his forecast, chips, data centers, and dollars, is happening on schedule or faster. The capability side moved faster than he expected on tests and on short tasks. The part his whole argument turns on, AI running AI research on its own, has not been shown. The two things to watch are the Agent clock above and whether the US power supply keeps up.</div>
 </section>
 
 <!-- ============ INTELLIGENCE ============ -->
 <section class="view" id="v-intel" aria-labelledby="h-intel">
   <h2 id="h-intel">Counting the OOMs again</h2>
-  <p class="lead"><b>Bottom line:</b> On Aschenbrenner&rsquo;s own yardstick, effective compute, the frontier is about <span id="bl-oom">3.4</span> OOMs past GPT-4, roughly two-thirds of the way to his &ldquo;automated AI researcher&rdquo; mark. (An OOM, or order of magnitude, is a 10&times; step.) On measured tests, models passed PhD experts in 2024 and the pace of improvement nearly doubled after reasoning models arrived. What has not been shown is the last rung: an AI that does a researcher&rsquo;s job on its own.</p>
+  <p class="lead"><b>Bottom line:</b> Aschenbrenner measures AI progress in <button class="term" type="button" data-g="effective" aria-expanded="false">effective compute</button>: how much useful computing power went into the best model, counting both more chips and smarter methods, in steps of 10&times; (each step is an <button class="term" type="button" data-g="oom" aria-expanded="false">OOM</button>). By that yardstick the best models are about <span id="bl-oom">3.4</span> steps past GPT-4, roughly two-thirds of the way to the point where he expected an AI that could do an AI researcher&rsquo;s job. On actual tests, AI passed PhD-level experts in 2024, and the pace of improvement nearly doubled once <button class="term" type="button" data-g="reasoning" aria-expanded="false">reasoning models</button> arrived. What has not been shown is the last rung: an AI doing a researcher&rsquo;s job on its own.</p>
 
   <figure class="plot" id="ch-eff">
     <figcaption class="cap">Base Scaleup of Effective Compute</figcaption>
+    <p class="how">How to read it: the vertical axis is effective compute as a multiple of GPT-4 (1 = GPT-4; 10&sup3; = a thousand times GPT-4), each gridline 10&times;. Blue is his estimate of the past and his forecast; the shaded cone is his stated range. Gold dots are where the biggest real models land. The labels on the right are his rough analogies for what each level can do.</p>
     <div class="svgwrap"></div>
     <ul class="legend">
       <li><span class="sw solid"></span>His estimate, 2018&ndash;2023</li>
@@ -277,6 +304,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
 
   <figure class="plot" id="ch-oomline">
     <figcaption class="cap">Counting the OOMs</figcaption>
+    <p class="how">His one-line summary of the whole argument. Each notch is a 10&times; step in effective compute; the gray bands are his uncertainty. The gold marker is where the best model of 2026 sits at your settings.</p>
     <div class="svgwrap"></div>
     <p class="foot"><span>His Figure 20, with 2026 added</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
   </figure>
@@ -285,6 +313,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   <h3>Measured capability</h3>
   <figure class="plot" id="ch-eci">
     <figcaption class="cap">Epoch Capabilities Index, Frontier Models</figcaption>
+    <p class="how">A single score for how capable a model is, from 50+ tests, published by the independent group <button class="term" type="button" data-g="epoch" aria-expanded="false">Epoch AI</button>. Read it like a credit score: the number alone means little, the change over time is what matters. Higher is better; about 14 points a year is the recent pace.</p>
     <div class="svgwrap"></div>
     <ul class="legend">
       <li><span class="sw dot"></span>Record-setting models, with 90% intervals</li>
@@ -298,6 +327,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
 
   <figure class="plot" id="ch-gpqa">
     <figcaption class="cap">PhD-Level Science Questions (GPQA Diamond)</figcaption>
+    <p class="how">Share of <button class="term" type="button" data-g="gpqa" aria-expanded="false">PhD-level science questions</button> answered correctly. The tan band is what human PhD experts score. A gold dot above the band means the model beat the experts.</p>
     <div class="svgwrap"></div>
     <ul class="legend">
       <li><span class="sw band"></span>PhD experts, 65% to about 81%</li>
@@ -312,6 +342,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   <h3>Physical compute</h3>
   <figure class="plot" id="ch-compute">
     <figcaption class="cap">Largest AI Training Runs</figcaption>
+    <p class="how">The raw ingredient. Vertical axis: arithmetic operations (<button class="term" type="button" data-g="flop" aria-expanded="false">FLOP</button>) used to train the biggest model of the moment, each gridline 10&times;. Blue dashed is his 0.5-OOM-a-year line; gold dots are Epoch AI&rsquo;s estimates for real models.</p>
     <div class="svgwrap"></div>
     <ul class="legend">
       <li><span class="sw"></span>His line, 0.5 OOM a year</li>
@@ -326,7 +357,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   <p class="note">FLOP counts the arithmetic operations used to train a model. Public estimates for closed models are thin after mid-2025 <a class="ref" href="#sources" data-src="S7">S7</a>, so GPT-6 Astra carries a range of 5&times;10&sup2;&#8310; to 2&times;10&sup2;&#8311;.</p>
 
   <h3>Recount the effective compute</h3>
-  <p class="note">He expected about +5 OOMs, or 100,000&times;, over GPT-4 by the end of 2027: roughly another GPT-2-to-GPT-4 leap. Set the two growth rates and the jump size; the charts above and the clocks on the Brief follow.</p>
+  <p class="note">He expected about +5 OOMs, or 100,000&times;, over GPT-4 by the end of 2027: roughly another GPT-2-to-GPT-4 leap. The sliders start at the observed rates, so you can leave them alone. Move them to see how sensitive his timeline is; the charts above and the clocks on the Brief follow.</p>
   <div class="ctrl">
     <div class="row">
       <label for="r-phys">Physical compute growth <output id="r-phys-out"></output></label>
@@ -349,16 +380,18 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
       <div><span class="k">Effective compute by end of 2027</span><span class="v" id="o-27"></span><span class="his">His call: +3 to +6, best guess +5</span></div>
     </div>
   </div>
-  <p class="note">Not counted here: compute spent after pretraining on reinforcement learning, and compute spent while answering (&ldquo;test-time compute,&rdquo; letting a model think longer). Both grew fast after 2024, which is why the Agents tab moves faster than the physical-compute chart.</p>
+  <p class="note">Not counted here: compute spent after pretraining on <button class="term" type="button" data-g="rl" aria-expanded="false">reinforcement learning</button>, and compute spent while answering (<button class="term" type="button" data-g="testtime" aria-expanded="false">test-time compute</button>). Both grew fast after 2024, which is why the Agents tab moves faster than the physical-compute chart.</p>
+  <div class="takeaway"><b>What this means</b>The raw ingredients, computing power and better methods, are growing at about the rate he assumed, no faster. The surprise is how much capability each step bought once models learned to reason step by step: the test that was hardest in 2024 was passed within months. But a <button class="term" type="button" data-g="benchmark" aria-expanded="false">benchmark</button> is a floor, not a ceiling. Scoring like a PhD on a quiz is not the same as doing a PhD&rsquo;s job, which is why the Agents tab matters more for his 2027 claim.</div>
 </section>
 
 <!-- ============ BUILD ============ -->
 <section class="view" id="v-build" aria-labelledby="h-build">
   <h2 id="h-build">Clusters, chips, and power</h2>
-  <p class="lead"><b>Bottom line:</b> Gigawatt-scale sites arrived on Aschenbrenner&rsquo;s schedule, and chip production is on pace. But labs split those sites across many jobs, so the biggest known training run drew about a quarter of a gigawatt. And the grid outlook for 2030 is a fraction of what his path needs.</p>
+  <p class="lead"><b>Bottom line:</b> The giant <button class="term" type="button" data-g="datacenter" aria-expanded="false">AI data centers</button> he predicted for 2026, about one <button class="term" type="button" data-g="gw" aria-expanded="false">gigawatt</button> each (the output of a large power plant), are being built on schedule, and chip production is keeping pace. But those sites are shared across many jobs, so the biggest single <button class="term" type="button" data-g="run" aria-expanded="false">training run</button> on record used only about a quarter of one. And the official outlook for the US power grid in 2030 is a small fraction of what his path would require.</p>
 
   <figure class="plot" id="ch-build">
     <figcaption class="cap">Largest AI Sites and Training Runs, by Power</figcaption>
+    <p class="how">Vertical axis: electricity draw, each gridline 10&times;; 1 GW is roughly one large nuclear reactor. Blue is his forecast for the biggest training cluster. Gold dots are real sites now running; the diamond is the biggest single training run on record; the hollow dot is only announced.</p>
     <div class="svgwrap"></div>
     <ul class="legend">
       <li><span class="sw"></span>His largest-cluster line</li>
@@ -413,6 +446,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   <h3>Power</h3>
   <figure class="plot" id="ch-power">
     <figcaption class="cap">Share of US Electricity</figcaption>
+    <p class="how">What fraction of all US electricity goes to this. Blue is his forecast for AI alone; gold dots are measured use by all US data centers, AI or not; hollow dots are official projections for 2030.</p>
     <div class="svgwrap"></div>
     <ul class="legend">
       <li><span class="sw"></span>His path, AI alone</li>
@@ -423,15 +457,17 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
     <p class="foot"><span>Based on public estimates</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
   </figure>
   <p class="note">Not a perfect match: his figures cover AI alone and use US electricity as a yardstick (he noted not all of it would be in the US). The observed figures cover every US data center, AI or not, because that is what gets measured. Even so, official 2030 outlooks of about 9&ndash;17% are far below his 100%.</p>
+  <div class="takeaway"><b>What this means</b>Buildings, chips, and money are not the bottleneck he worried about most; electricity is. Companies can announce 5-gigawatt campuses, but connecting them to the grid takes years, and the official forecasts have data centers at roughly a tenth of US electricity in 2030, not the whole of it. If his timeline slips, this is the most likely reason.</div>
 </section>
 
 <!-- ============ MONEY ============ -->
 <section class="view" id="v-money" aria-labelledby="h-money">
   <h2 id="h-money">Spending and revenue</h2>
-  <p class="lead"><b>Bottom line:</b> Spending is ahead of Aschenbrenner&rsquo;s 2026 mark and on course for his $1-trillion-a-year call for 2027. Revenue hit his $100B milestone in mid-2026, but across two AI labs combined rather than at one tech giant.</p>
+  <p class="lead"><b>Bottom line:</b> Spending on AI is running ahead of Aschenbrenner&rsquo;s 2026 estimate and on course for his $1-trillion-a-year call for 2027. Revenue, the money actually coming in, reached his $100-billion milestone in mid-2026, though spread across two AI labs rather than at one tech giant as he expected.</p>
 
   <figure class="plot" id="ch-invest">
     <figcaption class="cap">Annual AI Spending</figcaption>
+    <p class="how">Billions of dollars a year, each gridline about 3&times;. Blue is his estimate of total AI investment. Gold dots are what the four biggest tech companies actually budgeted (<button class="term" type="button" data-g="capex" aria-expanded="false">capex</button>); squares are Nvidia&rsquo;s chip sales, a second gauge of the same spending.</p>
     <div class="svgwrap"></div>
     <ul class="legend">
       <li><span class="sw"></span>His total AI investment path</li>
@@ -460,6 +496,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   <h3>Revenue run rates</h3>
   <figure class="plot" id="ch-rev">
     <figcaption class="cap">Annualized Revenue, Frontier AI Labs</figcaption>
+    <p class="how">Money coming in, as a <button class="term" type="button" data-g="runrate" aria-expanded="false">run rate</button>. Blue dashed is his projection that OpenAI&rsquo;s revenue would double every six months; the blue ring is his $100B milestone. Gold are reported figures: circles for OpenAI, diamonds for Anthropic.</p>
     <div class="svgwrap"></div>
     <ul class="legend">
       <li><span class="sw"></span>His OpenAI line, doubling every 6 months</li>
@@ -471,15 +508,18 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
     <p class="foot"><span>Reported run rates, not audited revenue</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
   </figure>
   <p class="note">A run rate is a recent month&rsquo;s revenue times 12, not audited annual revenue, and the two companies may count differently. His milestone was a tech giant like Google or Microsoft earning $100B a year from AI; no tech giant reports that figure, but OpenAI (&asymp;$40B) and Anthropic (&asymp;$65B) passed it together by August 2026 <a class="ref" href="#sources" data-src="S17">S17</a>.</p>
+  <div class="takeaway"><b>What this means</b>The spending is real and so is the revenue, which is the strongest sign this is not only speculation: the two leading labs now take in more than $100 billion a year between them. Two cautions. Capex guidance is a plan, not money spent, and run rates are not audited revenue. And the spending only continues if the revenue keeps growing.</div>
 </section>
 
 <!-- ============ AGENTS ============ -->
 <section class="view" id="v-agents" aria-labelledby="h-agents">
   <h2 id="h-agents">From chatbot to agent</h2>
-  <p class="lead"><b>Bottom line:</b> This is where reality ran fastest. Aschenbrenner expected a little reinforcement learning (training by trial and error against a score) to let models work on problems far longer. It did, starting with OpenAI&rsquo;s o1 in Sep 2024 <a class="ref" href="#sources" data-src="S28">S28</a>. Within <span id="bl-ag-months">19</span> months, the best measured model finished <span id="bl-ag-hours">17</span>-hour tasks about half the time.</p>
+  <p class="lead"><b>Bottom line:</b> This is where reality ran fastest. Aschenbrenner expected that a little <button class="term" type="button" data-g="rl" aria-expanded="false">reinforcement learning</button> would let models keep working on a problem far longer without a person steering. It did, starting with OpenAI&rsquo;s o1 in Sep 2024 <a class="ref" href="#sources" data-src="S28">S28</a>. Within <span id="bl-ag-months">19</span> months, the best model could finish tasks that take a skilled person <span id="bl-ag-hours">17</span> hours, about half the time.</p>
+  <p class="note">What is measured: <button class="term" type="button" data-g="metr" aria-expanded="false">METR</button>, an independent research group, gives AI models tasks (mostly software work), times how long skilled humans need for the same tasks, and reports the longest task a model completes half the time (the 50% <button class="term" type="button" data-g="horizon" aria-expanded="false">time horizon</button>) or four times in five (80%).</p>
 
   <figure class="plot" id="ch-agents">
     <figcaption class="cap">METR Time Horizon, with His Thinking-Time Ladder</figcaption>
+    <p class="how">Vertical axis: length of task, in human working time, that a model completes at the chosen success rate; each gridline 10&times;. Blue dotted lines are his ladder of what each stage of AI should handle. Gold are METR&rsquo;s measurements; the large dots set new records.</p>
     <div class="svgwrap"></div>
     <div class="togs" role="group" aria-label="Success rate">
       <button class="tog" type="button" data-hz="50" aria-pressed="true">50% success</button>
@@ -508,31 +548,19 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   </div>
   <p class="note">Time horizon (METR) is the length of task, timed on skilled humans, that a model completes a given share of the time. It is not how long a model can run unattended, and 50% success is far from reliable; the 80% view is the better guide to dependable delegation <a class="ref" href="#sources" data-src="S23">S23</a>.</p>
   <p class="note">His rungs come from his table converting a model&rsquo;s &ldquo;thinking time&rdquo; into human working time. Laying them over METR&rsquo;s measure is an analogy, not his metric.</p>
+  <div class="takeaway"><b>What this means</b>Two years ago the best AI could handle a few minutes of work before losing the thread; now it handles a couple of workdays, about half the time. &ldquo;Half the time&rdquo; is the catch: at 80% reliability the horizon is far shorter, which is why today&rsquo;s agents are useful for drafts and code but are not yet trusted with week-long jobs. His 2027 claim needs the 50% line to reach weeks and the 80% line to catch up.</div>
   <p class="note">All points use METR&rsquo;s Time Horizon 1.1 suite. METR said the suite was near saturation by early 2026 <a class="ref" href="#sources" data-src="S27">S27</a>; estimates above 16 hours have limited reliability, and estimates above 16 hours have limited reliability. Points refresh from METR&rsquo;s published results file whenever the site is updated <a class="ref" href="#sources" data-src="S49">S49</a>.</p>
 </section>
 
 <!-- ============ SOURCES ============ -->
 <section class="view" id="v-sources" aria-labelledby="h-sources">
-  <h2 id="h-sources">Sources and method</h2>
+  <h2 id="h-sources">Glossary, sources, and method</h2>
   <p class="note about">The projections throughout are Leopold Aschenbrenner&rsquo;s, from <a href="https://situational-awareness.ai/" target="_blank" rel="noopener"><em>Situational Awareness: The Decade Ahead</em></a> (June 2024), free to read at situational-awareness.ai. The charts here are redrawn after the essay&rsquo;s figures; its text is not reproduced.</p>
   <p class="note">Install on iPhone: open this page in Safari, tap Share, then Add to Home Screen. The app runs fully offline; the links below need a connection.</p>
 
-  <h3>Plain-language terms</h3>
-  <dl class="gl">
-    <dt>OOM</dt><dd>Order of magnitude: a 10&times; step. +2 OOMs is 100&times;; +5 is 100,000&times;.</dd>
-    <dt>FLOP</dt><dd>One arithmetic operation. Training compute is the total count; GPT-4 used about 2&times;10&sup2;&#8309;.</dd>
-    <dt>H100-equivalent (H100e)</dt><dd>Computing power in units of one Nvidia H100, the standard AI chip of 2023&ndash;24.</dd>
-    <dt>Effective compute</dt><dd>Physical compute multiplied by algorithmic efficiency, meaning better methods that get more out of the same chips.</dd>
-    <dt>Unhobbling</dt><dd>His term for fixes that let a model use what it already knows: chat training, step-by-step reasoning, tools, longer working memory, computer use.</dd>
-    <dt>Reinforcement learning (RL)</dt><dd>Training by trial and error against a score, like graded practice problems.</dd>
-    <dt>Test-time compute</dt><dd>Letting a model think longer before it answers.</dd>
-    <dt>Epoch Capabilities Index (ECI)</dt><dd>Epoch AI&rsquo;s composite score across more than 50 benchmarks, scaled so Claude 3.5 Sonnet = 130 and GPT-5 = 150. Arbitrary units; the slope is what matters.</dd>
-    <dt>GPQA Diamond</dt><dd>198 PhD-level multiple-choice questions in biology, physics, and chemistry, written so non-experts cannot answer them even with web search.</dd>
-    <dt>Run rate</dt><dd>A recent month&rsquo;s revenue times 12.</dd>
-    <dt>Capex</dt><dd>Capital spending on long-lived assets like data centers and chips.</dd>
-    <dt>Time horizon (METR)</dt><dd>The length of task, timed on skilled humans, that a model completes a given share of the time (50% or 80%).</dd>
-    <dt>Gigawatt (GW)</dt><dd>A billion watts, roughly one large nuclear reactor&rsquo;s output. 1,000 megawatts (MW).</dd>
-  </dl>
+  <h3>Glossary</h3>
+  <p class="note">The same definitions open anywhere on the site when you tap a dotted term.</p>
+  <dl class="gl" id="glossary"></dl>
 
   <h3>Method</h3>
   <div class="method">
@@ -1015,7 +1043,8 @@ const STRIP_ROWS = [
 ];
 const pos = dv => Math.min(Math.max((dv + 1) / 2, 0), 1) * 100;
 function status(dv){ return dv > 0.15 ? 'ahead' : dv < -0.15 ? 'behind' : 'on'; }
-function ratioText(r){ return r >= 0.995 ? r1(r) + '\u00d7 his line' : Math.round(r * 100) + '% of his line'; }
+function ratioText(r){ return r >= 0.995 ? r1(r) + '\u00d7 his number' : Math.round(r * 100) + '% of his number'; }
+const STATUS_WORDS = {ahead:'ahead of his forecast', on:'about on his forecast', behind:'behind his forecast'};
 let stripDone = false;
 function renderStrip(){
   const box = $('strip'); let h = '';
@@ -1028,7 +1057,7 @@ function renderStrip(){
       const lo = r.lo ? Math.log10(r.lo / p) : dv, hi = r.hi ? Math.log10(r.hi / p) : dv;
       const cls = st === 'behind' ? ' behind' : '';
       const aria = `${r.n}: observed ${r.f(r.o)} against his ${r.f(p)}, ${ratioText(r.o / p)}.`;
-      h += `<div class="srow" role="group" aria-label="${esc(aria)}"><div class="hd"><span class="nm">${r.n}</span><span class="mx s-${st}">${ratioText(r.o / p)}</span></div>` +
+      h += `<div class="srow" role="group" aria-label="${esc(aria)}"><div class="hd"><span class="nm">${r.n}</span><span class="mx s-${st}">${ratioText(r.o / p)}<span class="st">${STATUS_WORDS[st]}</span></span></div>` +
         `<div class="track" aria-hidden="true"><div class="ax"></div>` +
         [0, 25, 75, 100].map(x => `<div class="tk" style="left:${x}%"></div>`).join('') +
         `<div class="zero"></div><div class="rg${cls}" data-l="${pos(lo)}" data-w="${pos(hi) - pos(lo)}" style="left:50%;width:0"></div>` +
@@ -1064,6 +1093,50 @@ function renderSources(){
     return `<li id="src-${k}"><span class="id">${k}</span><a href="${u}" target="_blank" rel="noopener">${esc(t)}</a><span class="pb">${esc(p)}, ${esc(dt)}</span></li>`;
   }).join('');
 }
+
+
+/* ---------- plain-English definitions (tap a dotted term; also the glossary) ---------- */
+const G = {
+  oom:['OOM (order of magnitude)', 'A 10\u00d7 step. +2 OOMs is 100\u00d7; +5 OOMs is 100,000\u00d7. Aschenbrenner counts AI progress in these steps.'],
+  compute:['Compute', 'Computing power: how much arithmetic the chips do. Training a bigger model takes more of it.'],
+  flop:['FLOP', 'One arithmetic operation. Training compute is the total number used to make a model; GPT-4 used about 2\u00d710\u00b2\u2075, a 2 followed by 25 zeros.'],
+  effective:['Effective compute', 'Physical computing power multiplied by how much better the methods have become. Aschenbrenner\u2019s yardstick for how capable the best model should be.'],
+  frontier:['Frontier model', 'One of the most capable AI models at a given moment.'],
+  run:['Training run', 'The weeks-long computation that creates a model. Its size is counted in FLOP; the cluster that does it is counted in chips or in the power it draws.'],
+  rl:['Reinforcement learning', 'Training a model by trial and error against a score, like graded practice problems, rather than by copying examples.'],
+  reasoning:['Reasoning models', 'Models trained, from Sep 2024 on, to work through a problem step by step before answering. They made AI far better at long, hard tasks.'],
+  agent:['AI agent', 'An AI that works through a task over many steps on its own, using tools, instead of answering one question.'],
+  agi:['AGI', 'In this essay, an AI that can do the work of an AI researcher or engineer. Definitions vary; this site uses Aschenbrenner\u2019s.'],
+  horizon:['Time horizon', 'METR\u2019s measure: the longest task, timed by how long skilled humans need, that a model completes a given share of the time. 50% means half the time; 80% means four times in five.'],
+  runrate:['Run rate', 'A recent month\u2019s revenue multiplied by 12. A quick gauge, not audited annual revenue.'],
+  capex:['Capex', 'Capital spending: money put into long-lived things like data centers and chips.'],
+  gw:['Gigawatt (GW)', 'A billion watts of electricity, roughly the output of one large nuclear reactor. 1 GW is 1,000 megawatts (MW).'],
+  h100e:['H100-equivalent (H100e)', 'Computing power counted in units of one Nvidia H100, the standard AI chip of 2023\u201324.'],
+  datacenter:['AI data center', 'A building full of AI chips. The biggest are described by the electricity they draw.'],
+  eci:['Epoch Capabilities Index (ECI)', 'A single score for how capable a model is, combining 50+ tests, published by Epoch AI. The scale is arbitrary (Claude 3.5 Sonnet = 130, GPT-5 = 150); the change over time is what matters.'],
+  gpqa:['GPQA Diamond', '198 PhD-level multiple-choice science questions written so that non-experts cannot answer them even with web search. Human PhD experts score roughly 65\u201381%.'],
+  benchmark:['Benchmark', 'A standard test used to score AI models. Benchmarks get used up: once models score near 100%, the test stops showing differences.'],
+  log:['Log scale', 'A chart axis where each gridline is 10\u00d7 the one below, so steady multiplying shows as a straight line. Used because these numbers grow by multiples, not by fixed amounts.'],
+  metr:['METR', 'An independent research group that measures how long a task AI systems can complete on their own.'],
+  epoch:['Epoch AI', 'An independent research group that tracks AI computing power, hardware, and capabilities. Several series on this site come from its public data files.'],
+  unhobbling:['Unhobbling', 'Aschenbrenner\u2019s word for fixes that let a model use what it already knows: chat training, step-by-step reasoning, tools, longer memory, computer use.'],
+  testtime:['Test-time compute', 'Letting a model think longer before it answers.']
+};
+function renderGlossary(){
+  $('glossary').innerHTML = Object.keys(G).map(k => `<dt id="g-${k}">${esc(G[k][0])}</dt><dd>${esc(G[k][1])}</dd>`).join('');
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('.term'); if (!b || !G[b.dataset.g]) return;
+  const host = b.closest('p, li, figcaption, div.k, div.takeaway, div.start') || b.parentElement;
+  const open = host.querySelector(`.defbox[data-g="${b.dataset.g}"]`);
+  host.querySelectorAll('.defbox').forEach(x => x.remove());
+  host.querySelectorAll('.term[aria-expanded="true"]').forEach(x => x.setAttribute('aria-expanded', 'false'));
+  if (open) return;
+  const d = G[b.dataset.g], box = document.createElement('span');
+  box.className = 'defbox'; box.dataset.g = b.dataset.g;
+  box.innerHTML = `<b>${esc(d[0])}:</b> ${esc(d[1])} <a class="ref" href="#sources">All terms</a>`;
+  host.appendChild(box); b.setAttribute('aria-expanded', 'true');
+});
 
 /* ---------- controls ---------- */
 const FMT = {
@@ -1121,7 +1194,7 @@ let rz;
 window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => render(current), 150); });
 
 /* ---------- boot ---------- */
-renderClaims(); renderSources(); syncControls();
+renderClaims(); renderSources(); renderGlossary(); syncControls();
 $('asof').insertAdjacentText('beforeend', ' as of ' + fmtDay(META.built));
 $('m-fetched').textContent = fmtDay(A.fetched);
 show(location.hash.slice(1) || 'brief', true);
