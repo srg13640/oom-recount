@@ -217,11 +217,15 @@ ol.src li.flash{background:#EFE4C2}
 .method p{font-size:15.5px;color:var(--ink-2);margin:8px 0}
 
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--paper);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom)}
-nav.tabs .in{display:grid;grid-template-columns:repeat(5,1fr);max-width:720px;margin:0 auto}
-nav.tabs a{position:relative;display:flex;align-items:center;justify-content:center;min-height:52px;color:var(--ink-2);font:13px var(--serif);text-decoration:none;letter-spacing:.01em}
+nav.tabs .in{display:flex;justify-content:space-between;max-width:720px;margin:0 auto;padding:0 8px}
+nav.tabs a{position:relative;display:flex;align-items:center;justify-content:center;min-height:52px;color:var(--ink-2);font:12px var(--serif);text-decoration:none;letter-spacing:0;padding:0 4px;white-space:nowrap}
+.schem text{font:11.5px var(--serif);fill:var(--ink-2)}
+.schem .t{fill:var(--ink)}
+.schem .his{fill:var(--his)}
+.schem .obs{fill:var(--obs-t)}
 nav.tabs a[aria-current=page]{color:var(--ink)}
 nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left:22%;right:22%;height:3px;background:var(--his)}
-@media (max-width:359px){ nav.tabs a{font-size:11.5px} }
+@media (max-width:374px){ nav.tabs a{font-size:10.5px;padding:0 2px} }
 @media (min-width:600px){ h2{font-size:38px} .lead{font-size:18.5px} }
 @media (prefers-reduced-motion: reduce){ .anim .track .dt,.anim .track .rg{transition:none} }
 </style>
@@ -281,7 +285,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   <h3>Aschenbrenner&rsquo;s key calls, scored</h3>
   <p class="note">Each line is a prediction from the essay and where it stands today. Tap one for the evidence and sources.</p>
   <div id="claims"></div>
-  <div class="takeaway"><b>What this means</b>The physical side of his forecast, chips, data centers, and dollars, is happening on schedule or faster. The capability side moved faster than he expected on tests and on short tasks. The part his whole argument turns on, AI running AI research on its own, has not been shown. The two things to watch are the Agent clock above and whether the US power supply keeps up.</div>
+  <div class="takeaway"><b>What this means</b>The physical side of his forecast, chips, data centers, and dollars, is happening on schedule or faster. The capability side moved faster than he expected on tests and on short tasks. The part his whole argument turns on, AI running AI research on its own, has not been shown. The two things to watch are the Agent clock above and whether the US power supply keeps up. His safety argument has its own page: the Alignment tab.</div>
 </section>
 
 <!-- ============ INTELLIGENCE ============ -->
@@ -554,6 +558,36 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   <p class="note">All points use METR&rsquo;s Time Horizon 1.1 suite. METR said the suite was near saturation by early 2026 <a class="ref" href="#sources" data-src="S27">S27</a>; estimates above 16 hours have limited reliability, and estimates above 16 hours have limited reliability. Points refresh from METR&rsquo;s published results file whenever the site is updated <a class="ref" href="#sources" data-src="S49">S49</a>.</p>
 </section>
 
+<!-- ============ ALIGNMENT ============ -->
+<section class="view" id="v-align" aria-labelledby="h-align">
+  <h2 id="h-align">Superalignment: keeping control</h2>
+  <p class="lead"><b>Bottom line:</b> Aschenbrenner&rsquo;s safety argument was that today&rsquo;s main way of steering AI, people grading its answers (<button class="term" type="button" data-g="rlhf" aria-expanded="false">RLHF</button>), stops working once the AI knows more than its graders, and that a replacement has to be found during the one-to-two-year jump he expected around 2027. Two years on, the first half is the field&rsquo;s working assumption, several of the fixes he listed are being built, and the failures he predicted have been found in lab tests, though not in real use. Whether the fixes arrive before the jump is still open.</p>
+
+  <figure class="plot" id="ch-superalign">
+    <figcaption class="cap">The Superalignment Problem</figcaption>
+    <p class="how">His argument as a diagram. Left to right is how capable the AI is. The blue line is how well people can check its work by grading answers. Past the point where the AI knows more than its graders, grading stops catching mistakes and deception, so something else has to take over before then.</p>
+    <div class="svgwrap"></div>
+    <p class="foot"><span>Schematic, after his superalignment figure</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+  <p class="note">Why this is hard: the AI could write code with a hidden back door that no reviewer catches, or tell graders what they want to hear. His worry was timing. If the jump from roughly human-level to far-beyond-human AI takes a year or less, there is little time to notice failures and fix them, and the first serious failure might be a high-stakes one.</p>
+
+  <h3>His plan for muddling through</h3>
+  <p class="note">He did not claim a solution. He listed bets to make and check, then a hand-off: once early superhuman systems can be trusted, use them to do the rest of the alignment research. The bets were <button class="term" type="button" data-g="oversight" aria-expanded="false">scalable oversight</button> (AI helps humans grade AI), <button class="term" type="button" data-g="w2s" aria-expanded="false">weak-to-strong generalization</button> (learn how training by a weaker supervisor carries over), <button class="term" type="button" data-g="interp" aria-expanded="false">interpretability</button> (read the model&rsquo;s internals), keeping the model&rsquo;s <button class="term" type="button" data-g="cot" aria-expanded="false">chain of thought</button> readable and honest, and adversarial testing (find every failure in the lab first, including planted <button class="term" type="button" data-g="sleeper" aria-expanded="false">sleeper agents</button>).</p>
+
+  <figure class="plot" id="ch-aligntl">
+    <figcaption class="cap">What Happened, 2024 to 2026</figcaption>
+    <p class="how">Each dot is a documented event, sorted into four lanes: new methods, failures found in testing, <button class="term" type="button" data-g="tiers" aria-expanded="false">safety tiers</button> triggered, and teams and money. Tap a dot for the detail and its source.</p>
+    <div class="svgwrap"></div>
+    <p class="readout" aria-live="polite"><span class="hint">Tap a point for the detail and its source.</span></p>
+    <p class="foot"><span>Hand-entered; press reports and lab publications</span><span class="sc">Recounting the OOMs | after Aschenbrenner (2024)</span></p>
+  </figure>
+
+  <h3>His safety calls, scored</h3>
+  <p class="note">Each line is a claim from the essay&rsquo;s superalignment chapter and where it stands. Tap one for the evidence and sources.</p>
+  <div id="aclaims"></div>
+  <div class="takeaway"><b>What this means</b>The problem he described is no longer a fringe worry; the labs that compete hardest on capability published a joint paper about one of his fixes, and their own safety ladders have started to trigger. The failures he predicted show up reliably in stress tests and have not shown up in real deployments, which is the order he hoped for. What is missing is proof that any of the fixes holds for a model clearly smarter than its checkers. Nobody has such a model yet, so nobody has run that test.</div>
+</section>
+
 <!-- ============ SOURCES ============ -->
 <section class="view" id="v-sources" aria-labelledby="h-sources">
   <h2 id="h-sources">Glossary, sources, and method</h2>
@@ -614,6 +648,7 @@ nav.tabs a[aria-current=page]::before{content:"";position:absolute;top:-1px;left
   <a href="#build" data-v="build">Build</a>
   <a href="#money" data-v="money">Money</a>
   <a href="#agents" data-v="agents">Agents</a>
+  <a href="#align" data-v="align">Alignment</a>
 </div></nav>
 
 <script>
@@ -782,6 +817,8 @@ function chart(id, cfg){
       ly.list.forEach(([v, name]) => {
         s += `<g class="rung${ly.his ? ' his' : ''}"><line x1="${m.l}" x2="${m.l + iw}" y1="${f2(Y(v))}" y2="${f2(Y(v))}"/><text x="${m.l + iw - 6}" y="${f2(Y(v) - 4)}" text-anchor="end">${esc(name)}</text></g>`;
       });
+    } else if (ly.k === 'lanes'){
+      ly.list.forEach(([v, name]) => { s += `<text class="lbl" x="${m.l + 6}" y="${f2(Y(v) + 13)}">${esc(name)}</text>`; });
     } else if (ly.k === 'today'){
       const x = f2(X(TODAY)), flip = x > m.l + iw - 44, ty = ly.pos === 'b' ? m.t + ih - 6 : m.t + 12;
       s += `<line class="l-today" x1="${x}" x2="${x}" y1="${m.t}" y2="${m.t + ih}"/><text class="t-today" x="${flip ? x - 4 : x + 4}" y="${ty}" text-anchor="${flip ? 'end' : 'start'}">Today</text>`;
@@ -1030,6 +1067,52 @@ function renderAgents(){
 }
 document.querySelectorAll('.tog[data-hz]').forEach(b => b.addEventListener('click', () => { ST.hz = +b.dataset.hz; save(); renderAgents(); }));
 
+/* ---------- alignment: schematic, timeline, scored calls ---------- */
+const ALIGN = M.alignment;
+function schematic(){
+  const fig = $('ch-superalign'), wrap = fig.querySelector('.svgwrap');
+  const W = Math.round(Math.max(290, wrap.clientWidth || 340)), H = 232;
+  const l = 14, r = 14, top = 30, base = 178, iw = W - l - r, X = f => l + f * iw, f2 = n => Math.round(n * 10) / 10;
+  const human = 0.62;
+  const curve = f => { const k = 1 / (1 + Math.exp((f - human) * 16)); return base - (18 + 118 * (0.2 + 0.8 * k)); };
+  let dp = ''; for (let i = 0; i <= 60; i++){ const f = i / 60; dp += (i ? 'L' : 'M') + f2(X(f)) + ' ' + f2(curve(f)); }
+  let s = `<svg class="schem" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Schematic: how well people can check an AI's work stays high up to human level, then falls off as the AI becomes more capable than its graders">`;
+  s += `<rect x="${f2(X(human))}" y="${top}" width="${f2(X(1) - X(human))}" height="${base - top}" fill="#C9C4B6" opacity=".35"/>`;
+  s += `<line x1="${l}" x2="${l + iw}" y1="${base}" y2="${base}" stroke="var(--ink)" stroke-width="1.2"/>`;
+  s += `<path d="M${l + iw - 8} ${base - 4}L${l + iw} ${base}L${l + iw - 8} ${base + 4}" fill="none" stroke="var(--ink)" stroke-width="1.2"/>`;
+  s += `<text class="t" x="${l}" y="${base + 16}">Less capable</text><text class="t" x="${l + iw}" y="${base + 16}" text-anchor="end">More capable</text>`;
+  s += `<text x="${f2(X(0.5))}" y="${base + 30}" text-anchor="middle">Model capability</text>`;
+  s += `<path d="${dp}" fill="none" stroke="var(--his)" stroke-width="2.4"/>`;
+  s += `<line x1="${f2(X(human))}" x2="${f2(X(human))}" y1="${top - 4}" y2="${base}" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="2 3"/>`;
+  s += `<text class="t" x="${f2(X(human) + 6)}" y="${top + 6}">Human experts</text>`;
+  s += `<text class="his" x="${f2(X(0.04))}" y="${f2(curve(0.04) + 18)}">How well people can</text><text class="his" x="${f2(X(0.04))}" y="${f2(curve(0.04) + 32)}">check its work</text>`;
+  s += `<text x="${f2(X(0.1))}" y="${base - 14}">RLHF works here</text>`;
+  s += `<text x="${f2(X(0.98))}" y="${top + 24}" text-anchor="end">Grading stops catching errors</text>`;
+  s += `<text x="${f2(X(0.98))}" y="${top + 38}" text-anchor="end">and deception</text>`;
+  const now = 0.47;
+  s += `<circle cx="${f2(X(now))}" cy="${f2(curve(now))}" r="5.5" fill="var(--obs)" stroke="var(--paper)" stroke-width="1.5"/>`;
+  s += `<text class="obs" x="${f2(X(now))}" y="${f2(curve(now) + 22)}" text-anchor="middle">2026 frontier,</text><text class="obs" x="${f2(X(now))}" y="${f2(curve(now) + 36)}" text-anchor="middle">roughly</text>`;
+  s += '</svg>';
+  wrap.innerHTML = s;
+}
+function renderAlign(){
+  schematic();
+  const lanes = ALIGN.lanes;
+  const count = {};
+  const pts = ALIGN.events.map(e => {
+    const k = e.lane, i = (count[k] = (count[k] || 0) + 1);
+    return {t: T(e.t), v: k + (i % 2 ? -0.17 : 0.17), n: e.n, lab: e.lab, la: e.la, s: e.s, note: lanes[k - 1]};
+  });
+  chart('ch-aligntl', {
+    aria: 'Timeline of alignment events from 2024 to 2026 in four lanes: new methods, failures found in testing, safety tiers triggered, teams and money',
+    x: {min: 2024.2, max: 2027.05, ticks: [2025, 2026, 2027]},
+    y: {log: false, min: 0.5, max: 4.5, ticks: [0.5, 1.5, 2.5, 3.5, 4.5], fmt: () => ''},
+    vf: v => lanes[Math.round(v) - 1], ml: 22, h: 340,
+    layers: [{k: 'lanes', list: (ALIGN.laneShort || lanes).map((n, i) => [i + 1.5, n])}, {k: 'today'}, {k: 'dots', cls: 'm-obs', pts}]
+  });
+  $('aclaims').innerHTML = claimsHTML(ALIGN.claims);
+}
+
 /* ---------- brief: track-error strip, clocks, scorecard ---------- */
 const S_ = M.strip;
 const srow = (n, r, f, plan, go) => ({n, plan, o:r.o, lo:r.lo, hi:r.hi, f, when:r.when, s:r.s, go});
@@ -1085,11 +1168,12 @@ function renderClocks(){
 }
 const CLAIMS = M.claims;
 const CHIP = {ahead:'Ahead', on:'On track', mixed:'Mixed', behind:'Behind', open:'Open'};
-function renderClaims(){
-  $('claims').innerHTML = CLAIMS.map(c =>
+function claimsHTML(list){
+  return list.map(c =>
     `<details class="claim"><summary><span class="w">${c.w}<span class="ch">Chapter ${c.c}</span></span><span class="chip s-${c.st}">${CHIP[c.st]}</span></summary>` +
     `<p class="ev">${c.ev} ${refs(c.s)}</p></details>`).join('');
 }
+function renderClaims(){ $('claims').innerHTML = claimsHTML(CLAIMS); }
 function renderSources(){
   $('srclist').innerHTML = Object.keys(SRC).map(k => {
     const [t, p, dt, u] = SRC[k];
@@ -1123,7 +1207,15 @@ const G = {
   metr:['METR', 'An independent research group that measures how long a task AI systems can complete on their own.'],
   epoch:['Epoch AI', 'An independent research group that tracks AI computing power, hardware, and capabilities. Several series on this site come from its public data files.'],
   unhobbling:['Unhobbling', 'Aschenbrenner\u2019s word for fixes that let a model use what it already knows: chat training, step-by-step reasoning, tools, longer memory, computer use.'],
-  testtime:['Test-time compute', 'Letting a model think longer before it answers.']
+  testtime:['Test-time compute', 'Letting a model think longer before it answers.'],
+  rlhf:['RLHF', 'Reinforcement learning from human feedback: people grade the model\u2019s answers and it is trained toward the ones they like. It is how chatbots were made helpful and polite, and it only works while the graders can tell good answers from bad.'],
+  alignment:['Alignment', 'Getting an AI to actually pursue the goals its builders intend, and to be honest about what it is doing. \u201cSuperalignment\u201d is the same problem for AI smarter than the people checking it.'],
+  oversight:['Scalable oversight', 'Ways to check an AI\u2019s work when no human can judge it directly: having AIs critique each other, debate, or help a human grader.'],
+  w2s:['Weak-to-strong', 'An experiment where a weaker model supervises the training of a stronger one, standing in for humans supervising a smarter-than-human AI. The score is how much of the strong model\u2019s potential survives weak supervision.'],
+  interp:['Interpretability', 'Reading what is going on inside a model, like an MRI for AI, instead of judging it only by its answers.'],
+  cot:['Chain of thought', 'The written-out reasoning a model produces before its answer. If it stays readable and honest, it can be monitored for bad intent.'],
+  sleeper:['Sleeper agent', 'A model trained to behave well in testing and badly later. Research in 2024 found such behavior can survive safety training.'],
+  tiers:['Safety tiers', 'Each leading lab has a ladder of capability levels (Anthropic\u2019s ASL, OpenAI\u2019s High and Critical) that trigger extra safeguards when a model crosses one.']
 };
 function renderGlossary(){
   $('glossary').innerHTML = Object.keys(G).map(k => `<dt id="g-${k}">${esc(G[k][0])}</dt><dd>${esc(G[k][1])}</dd>`).join('');
@@ -1161,7 +1253,7 @@ document.querySelectorAll('[data-reset]').forEach(b => b.addEventListener('click
 }));
 
 /* ---------- routing ---------- */
-const VIEWS = ['brief','intel','build','money','agents','sources','owner'];
+const VIEWS = ['brief','intel','build','money','agents','align','sources','owner'];
 let current = 'brief', pendingSrc = null, pendingChart = null;
 function render(v){
   if (v === 'brief'){ renderStrip(); renderClocks(); }
@@ -1169,6 +1261,7 @@ function render(v){
   else if (v === 'build') renderBuild();
   else if (v === 'money') renderMoney();
   else if (v === 'agents') renderAgents();
+  else if (v === 'align') renderAlign();
   else if (v === 'owner') renderOwner();
 }
 function jumpSrc(){
